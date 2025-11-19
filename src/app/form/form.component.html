@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center align-items-center mt-5" >
+  <form
+  #taskForm="ngForm"
+  class="task-form  shadow-lg p-4 rounded animate__fadeIn w-100 h-75"
+  (ngSubmit)="submitTask(taskForm.value)"
+>
+  <h4 class="text-center mb-3 fw-bold">Add a New Task</h4>
+
+  <div class="form-floating mb-3">
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      name="title"
+      placeholder="Enter Task"
+      ngModel
+      required
+    />
+    <label for="title">Task Title</label>
+  </div>
+
+  <div class="form-check mb-3 animate__fadeIn">
+    <input
+      type="checkbox"
+      name="urgent"
+      id="urgent"
+      class="form-check-input"
+      ngModel
+    />
+    <label for="urgent" class="form-check-label">Urgent</label>
+  </div>
+
+  <button
+    [disabled]="taskForm.invalid"
+    type="submit"
+    class="btn btn-primary w-100 submit-btn"
+  >
+    Add Task
+  </button>
+</form>
+
+</div>

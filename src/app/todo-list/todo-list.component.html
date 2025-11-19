@@ -1,0 +1,12 @@
+<div *ngIf="todos$ | async as todos; else noTask">
+  <app-todo-item
+    *ngFor="let todo of todos"
+    [todo]="todo"
+    (toggleCompleted)="toggleCompleted(todo.id)"
+    (deletedTask)="deleteTask(todo.id)"
+  ></app-todo-item>
+</div>
+
+<ng-template #noTask>
+  <p class="text-center text-muted">No tasks yet</p>
+</ng-template>

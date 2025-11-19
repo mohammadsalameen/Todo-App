@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark"
+     style="background: linear-gradient(90deg, #0367a6 0%, #008997 74%);">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <i class="bi bi-check2-square me-2"></i> My Todo App
+    </a>
+
+    <!-- Hamburger button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-2 text-white"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item mx-2">
+          <a class="nav-link text-white" routerLink="/" routerLinkActive="border-bottom" [routerLinkActiveOptions]="{ exact: true }">
+            Home
+          </a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link text-white" routerLink="/dashboard" routerLinkActive="border-bottom">Dashboard</a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link text-white" routerLink="/add-task" routerLinkActive="border-bottom">Add Task</a>
+        </li>
+        <li class="nav-item mx-2">
+          <button class="btn btn-light btn-sm rounded-pill px-3">
+            <i class="bi bi-person-circle me-1"></i> Profile
+          </button>
+        </li>
+        <li class="nav-item mx-2">
+          <button class="btn btn-danger btn-sm rounded-pill px-3">
+            <i class="bi bi-box-arrow-right me-1"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

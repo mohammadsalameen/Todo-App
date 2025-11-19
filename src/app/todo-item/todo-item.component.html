@@ -1,0 +1,26 @@
+<div
+  class="d-flex justify-content-between align-items-center p-2 mb-2 border rounded"
+  [class.bg-light]="!todo.completed"
+  [class.bg-success-subtle]="todo.completed"
+>
+  <div class="d-flex align-items-center gap-2">
+    <input
+      type="checkbox"
+      [checked]="todo.completed"
+      (change)="toggleCompleted.emit(todo.id)"
+      [disabled]="todo.completed"
+    />
+    <span [class.text-decoration-line-through]="todo.completed">
+      {{ todo.title }}
+    </span>
+    <span *ngIf="todo.urgent" class="badge bg-danger">Urgent</span>
+  </div>
+  <div>
+    <button
+      class="btn btn-sm btn-danger"
+      (click)="deletedTask.emit(todo.id)"
+    >
+      <i class="bi bi-trash"></i>
+    </button>
+  </div>
+</div>

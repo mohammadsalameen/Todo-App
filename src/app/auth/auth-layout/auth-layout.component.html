@@ -1,0 +1,20 @@
+<div class="container mt-lg-5" [class.right-panel-active]="isSignUpActive">
+  <div class="container__form container--signup">
+    <app-signup></app-signup>
+  </div>
+
+  <div class="container__form container--signin">
+    <app-login></app-login>
+  </div>
+
+  <div class="container__overlay">
+    <div class="overlay">
+      <div class="overlay__panel overlay--left">
+        <button class="btn" (click)="toggle(false)">Sign In</button>
+      </div>
+      <div class="overlay__panel overlay--right">
+        <button class="btn" (click)="toggle(true)">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>

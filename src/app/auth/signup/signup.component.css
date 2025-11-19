@@ -1,0 +1,13 @@
+.card {
+  border-radius: 1rem;
+  background-color: #ffffffdd;
+}
+
+.btn {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form-label {
+  font-weight: 500;
+}
