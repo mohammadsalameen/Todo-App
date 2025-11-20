@@ -1,9 +1,11 @@
 import { Routes } from "@angular/router";
-import { FormComponent } from "./form/form.component";
+import { FormComponent } from "./pages/form/form.component";
+import { AuthGuard } from "./services/auth-guard.service";
 
 export const formRoutes: Routes = [
   {
     path: '',
-    component: FormComponent
+    component: FormComponent,
+    // canActivate: [AuthGuard]
   }
 ]

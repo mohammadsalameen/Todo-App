@@ -1,6 +1,6 @@
   <div class="card shadow-sm p-4">
     <h2 class="card-title text-center mb-4">Sign In</h2>
-    <form #userForm onsubmit="submitForm(userForm.value)" >
+    <form #userForm = 'ngForm' (ngSubmit)="handleSubmit(userForm.value)" >
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input

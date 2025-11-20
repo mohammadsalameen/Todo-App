@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { TodoService } from '../services/todo.service';
-import { ITodo } from '../models/todo.model';
+import { TodoService } from '../../services/todo.service';
+import { ITodo } from '../../models/todo.model';
 import { CommonModule } from '@angular/common';
-import { TodoListComponent } from '../todo-list/todo-list.component';
+import { TodoListComponent } from '../../todo-list/todo-list.component';
 
 @Component({
   selector: 'app-home',

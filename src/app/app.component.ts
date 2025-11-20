@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from "./navbar/navbar.component";
-import { FooterComponent } from "./footer/footer.component";
+import { NavbarComponent } from "./pages/navbar/navbar.component";
+import { FooterComponent } from "./pages/footer/footer.component";
+import { AuthService } from './services/auth-service.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import { FooterComponent } from "./footer/footer.component";
 })
 export class AppComponent {
   title = 'Todo_App';
+  authService = inject(AuthService);
 }

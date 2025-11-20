@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TodoService } from '../services/todo.service';
+import { TodoService } from '../../services/todo.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,6 +21,6 @@ export class FormComponent {
       this.todoService.addTask(value);
       this.title = '';
       this.urgent = false;
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
   }
 }

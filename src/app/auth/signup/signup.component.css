@@ -2,7 +2,9 @@
   border-radius: 1rem;
   background-color: #ffffffdd;
 }
-
+h2{
+  color: #008997;
+}
 .btn {
   font-weight: bold;
   text-transform: uppercase;

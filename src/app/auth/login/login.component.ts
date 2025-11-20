@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,16 @@ import { RouterLink } from "@angular/router";
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username = '';
-  password = '';
+  authService = inject(AuthService);
+  router = inject(Router);
+
+  handleSubmit(form: any) {
+    const {email, password} = form;
+    const loggedIn = this.authService.login(email, password);
+    if(loggedIn){
+      this.router.navigate(['/home']);
+    } else{
+      alert('Wrong Credentials');
+    }
+  }
 }

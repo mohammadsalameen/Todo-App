@@ -3,6 +3,10 @@ import { Routes } from "@angular/router";
 export const viewRoutes: Routes = [
   {
     path: '',
+    loadChildren: () => import('./auth.route').then(m => m.authRoutes)
+  },
+  {
+    path: 'home',
     loadChildren: () => import('./home.routing').then(m => m.homeRoutes)
   },
   {
