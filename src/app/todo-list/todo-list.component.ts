@@ -1,18 +1,97 @@
 import { Component, inject } from '@angular/core';
-import { TodoItemComponent } from '../todo-item/todo-item.component';
-import { NgFor, NgIf, AsyncPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { TodoService } from '../services/todo.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
+import { CREATE_PAGING_MANAGER } from '../shared/functions';
+import { of } from 'rxjs';
+
+export const ITEMS_PER_PAGE_OPTIONS = [
+  { label: '10', value: 10 },
+  { label: '25', value: 25 },
+  { label: '50', value: 50 },
+];
+
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [TodoItemComponent, NgIf, NgFor, AsyncPipe],
+  imports: [CommonModule, NgSelectModule, NgxPaginationModule, FormsModule],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent {
-  todoService = inject(TodoService);
-  todos$ = this.todoService.todos$;
+
+  todoService: TodoService = inject(TodoService);
+  todos: any[] = [];
+
+  selectedOption: number = 10;
+  itemsPerPageOptions = ITEMS_PER_PAGE_OPTIONS;
+  pagingManager: any = CREATE_PAGING_MANAGER(this.selectedOption);
+  searchText: string = '';
+
+  ngOnInit() {
+    this.todoService.todos$.subscribe((res: any[]) => {
+      this.todos = res ?? [];
+      this.pagingManager.totalItems = this.todos.length;
+
+      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
+      if (this.pagingManager.currentPage > maxPage) {
+        this.pagingManager.currentPage = maxPage;
+      }
+    });
+  }
+
+  search() {
+    const params = {
+      Page: this.pagingManager.currentPage,
+      PageSize: this.pagingManager.itemsPerPage,
+      StrSearch: this.searchText?.trim() || ''
+    };
+
+    this.getFilteredTodos(params).subscribe(res => {
+      // res = { data: [...], total: number }
+
+      this.todos = res.data;
+      this.pagingManager.totalItems = res.total;
+
+      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
+      if (this.pagingManager.currentPage > maxPage) {
+        this.pagingManager.currentPage = maxPage;
+      }
+    });
+  }
+
+
+  pageChanged($e: any): void {
+    this.pagingManager.currentPage = $e;
+  }
+
+  onItemsPerPageChange(): void {
+    this.pagingManager.itemsPerPage = this.selectedOption;
+    this.pagingManager.currentPage = 1;
+  }
+
+  getFilteredTodos(params: any){
+    const{Page, PageSize, StrSearch} = params;
+
+    let filtered = this.todos.filter(t => t.title.toLowerCase().include(StrSearch.toLowerCase()));
+    const total = filtered.length;
+    const start = (Page - 1) * PageSize;
+    const end = start + PageSize;
+    const Paginated = filtered.slice(start, end);
+
+    return of({
+      data:Paginated,
+      total: total
+    })
+
+  }
+
+  trackById(index: number, item: any): any {
+    return item.id;
+  }
 
   toggleCompleted(id: number) {
     this.todoService.toggleCompleted(id);
@@ -20,5 +99,6 @@ export class TodoListComponent {
 
   deleteTask(id: number) {
     this.todoService.deleteTask(id);
+    this.pagingManager.totalItems = this.todos.length - 1;
   }
 }

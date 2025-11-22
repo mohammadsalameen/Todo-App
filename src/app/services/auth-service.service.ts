@@ -18,7 +18,7 @@ export class AuthService {
   logout(){
     localStorage.removeItem(this.STORAGE_KEY);
   }
-  isLoggedIn(): boolean {
+  isLoggedIn() {
     return localStorage.getItem(this.STORAGE_KEY) !== null;
   }
 }

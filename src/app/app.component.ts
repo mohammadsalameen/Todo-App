@@ -14,4 +14,5 @@ import { AuthService } from './services/auth-service.service';
 export class AppComponent {
   title = 'Todo_App';
   authService = inject(AuthService);
+
 }

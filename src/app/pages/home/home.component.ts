@@ -11,24 +11,6 @@ import { TodoListComponent } from '../../todo-list/todo-list.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-  todos: ITodo[] = [];
-  todoService = inject(TodoService);
+export class HomeComponent {
 
-  ngOnInit(): void {
-    this.todoService.todos$.subscribe(todos => {
-      this.todos = todos;
-    });
-    this.todos = this.todoService.getTodos();
-  }
-
-  toggleCompleted(id: number) {
-    this.todoService.toggleCompleted(id);
-    this.todos = this.todoService.getTodos();
-  }
-
-  deleteTask(id: number) {
-    this.todoService.deleteTask(id);
-    this.todos = this.todoService.getTodos();
-  }
 }

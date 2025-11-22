@@ -50,4 +50,5 @@ export class TodoService {
     const todos = this.getTodos().filter(todo => todo.id !== id);
     this.saveTodos(todos);
   }
+
 }
