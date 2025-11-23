@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TodoService } from '../services/todo.service';
+import { TodoService } from '../../services/todo.service';
 import { Router } from '@angular/router';
-import { ITodo } from '../models/todo.model';
+import { ITodo } from '../../models/todo.model';
 
 @Component({
   selector: 'app-form',

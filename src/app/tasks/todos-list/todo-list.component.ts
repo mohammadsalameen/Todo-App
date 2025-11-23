@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TodoService } from '../services/todo.service';
+import { TodoService } from '../../services/todo.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
-import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../shared/pagination';
+import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagination';
 import { of } from 'rxjs';
 
 

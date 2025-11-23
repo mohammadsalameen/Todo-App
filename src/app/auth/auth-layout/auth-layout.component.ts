@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
-import { SignupComponent } from '../signup/signup.component';
+import { SignupComponent } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'app-auth-layout',

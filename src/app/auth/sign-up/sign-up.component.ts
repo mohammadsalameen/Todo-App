@@ -3,9 +3,9 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
+  templateUrl: './sign-up.component.html',
   imports: [FormsModule],
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./sign-up.component.css']
 })
 export class SignupComponent {
   username = '';
