@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
-import { ITodo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
+
 
 @Component({
   selector: 'app-edit-task',
   imports: [TaskFormComponent, FormsModule],
   templateUrl: './edit-task.component.html',
-  styleUrl: './edit-task.component.css'
+  encapsulation: ViewEncapsulation.None
 })
 export class EditTaskComponent {
   title: string = '';

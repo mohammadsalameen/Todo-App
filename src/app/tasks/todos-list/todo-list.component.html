@@ -18,6 +18,7 @@
           <th>Description</th>
           <th>Urgent?</th>
           <th>Completed</th>
+          <th>Add</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -56,6 +57,9 @@
               [checked]="todo.completed"
               (change)="toggleCompleted(todo.id)"
             />
+          </td>
+          <td>
+            <button class="btn btn-primary btn-sm"(click)="addTask()">Add</button>
           </td>
           <td>
             <button class="btn btn-warning btn-sm"(click)="updateTask()">Edit</button>

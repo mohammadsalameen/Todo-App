@@ -6,7 +6,7 @@ export const viewRoutes: Routes = [
     loadChildren: () => import('./auth.route').then(m => m.authRoutes)
   },
   {
-    path: 'dashboard',
+    path: 'admin-dashboard',
     loadChildren: () => import('./dashboard.routing').then(m => m.dashboardRoutes)
   },
   {

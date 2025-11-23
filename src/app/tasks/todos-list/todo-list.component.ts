@@ -91,11 +91,14 @@ export class TodoListComponent {
     this.todoService.toggleCompleted(id);
   }
 
+  addTask(){
+    this.router.navigate(['/add-task'])
+  }
+  updateTask(){
+    this.router.navigate(['/admin-dashboard/edit-task']);
+  }
   deleteTask(id: number) {
     this.todoService.deleteTask(id);
     this.pagingManager.totalItems = this.todos.length - 1;
-  }
-  updateTask(){
-    this.router.navigate(['/dashboard/edit-task']);
   }
 }

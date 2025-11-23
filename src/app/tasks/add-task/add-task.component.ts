@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { TaskFormComponent } from '../task-form/task-form.component';
   imports: [FormsModule, TaskFormComponent],
   standalone: true,
   templateUrl: './add-task.component.html',
-  styleUrl: './add-task.component.css'
+  encapsulation: ViewEncapsulation.None
 })
 export class AddTaskComponent {
   constructor(private todoService: TodoService, private router: Router){}
@@ -23,7 +23,7 @@ export class AddTaskComponent {
       this.title = '';
       this.description = '';
       this.urgent = false;
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/admin-dashboard']);
   }
 
 }
