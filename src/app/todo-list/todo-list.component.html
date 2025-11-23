@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 mb-5">
   <div class="d-flex gap-2 h-auto">
     <input type="text"
        class="form-control w-25 mb-3"
@@ -15,6 +15,7 @@
         <tr>
           <th>#</th>
           <th>Task Name</th>
+          <th>Description</th>
           <th>Urgent?</th>
           <th>Completed</th>
           <th>Edit</th>
@@ -45,6 +46,7 @@
             }}
           </td>
           <td>{{ todo.title }}</td>
+          <td>{{todo.description}}</td>
           <td [class]="todo.urgent ? 'text-success' : 'text-danger'">
             {{ todo.urgent ? "Yes" : "No" }}
           </td>
@@ -71,7 +73,7 @@
   <div
     class="w-100 d-flex flex-row align-items-center justify-content-between mt-2 px-2 flex-wrap"
   >
-    <div class="d-flex align-items-center gap-2">
+    <div class="d-flex align-items-center gap-2 ">
       <label class="mb-0">Show</label>
 
       <ng-select
@@ -82,10 +84,9 @@
         [clearable]="false"
         [(ngModel)]="selectedOption"
         (change)="onItemsPerPageChange()"
-        style="width: 80px"
+        style="width: 40px"
       >
       </ng-select>
-
       <label class="mb-0">entries</label>
     </div>
 
@@ -103,10 +104,6 @@
         >
         </pagination-controls>
       </div>
-    </div>
-
-    <div class="info-box me-2 mt-2">
-      {{ pagingManager.totalItems }}
     </div>
   </div>
 </div>

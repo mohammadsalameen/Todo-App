@@ -4,14 +4,8 @@ import { TodoService } from '../services/todo.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
-import { CREATE_PAGING_MANAGER } from '../shared/functions';
+import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../shared/pagination';
 import { of } from 'rxjs';
-
-export const ITEMS_PER_PAGE_OPTIONS = [
-  { label: '10', value: 10 },
-  { label: '25', value: 25 },
-  { label: '50', value: 50 },
-];
 
 
 @Component({

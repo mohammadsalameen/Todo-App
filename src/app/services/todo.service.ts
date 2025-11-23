@@ -26,11 +26,12 @@ export class TodoService {
     return this.todosSubject.getValue();
   }
 
-  addTask(task: { title: string; urgent: boolean }) {
+  addTask(task: { title: string; description: string; urgent: boolean }) {
     const todos = this.getTodos();
     const newTask: ITodo = {
       id: todos.length + 1,
       title: task.title,
+      description: task.description,
       urgent: task.urgent,
       completed: false,
       createdAt: new Date()
