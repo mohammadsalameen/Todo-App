@@ -39,7 +39,11 @@ export class TodoService {
     const updatedTodos = [...todos, newTask];
     this.saveTodos(updatedTodos);
   }
-
+  updateTask(updatedTask: ITodo){
+    const todos = this.getTodos();
+    const updatedTodos = todos.map(todo => todo.id === updatedTask.id ? {...updatedTask} : todo);
+    this.saveTodos(updatedTodos);
+  }
   toggleCompleted(id: number) {
     const todos = this.getTodos().map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo

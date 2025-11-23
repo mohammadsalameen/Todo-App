@@ -10,8 +10,8 @@ import { AuthService } from '../../services/auth-service.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  authService = inject(AuthService);
-  router = inject(Router);
+  constructor(private authService: AuthService, private router: Router){}
+
 
   handleSubmit(form: any) {
     const {email, password} = form;

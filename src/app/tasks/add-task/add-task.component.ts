@@ -1,20 +1,19 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
 import { Router } from '@angular/router';
 import { ITodo } from '../../models/todo.model';
+import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-form',
-  imports: [FormsModule],
+  imports: [FormsModule, TaskFormComponent],
   standalone: true,
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css'
 })
 export class AddTaskComponent {
-addTask: string = 'add-task'
-  todoService = inject(TodoService);
-  router = inject(Router);
+  constructor(private todoService: TodoService, private router: Router){}
   title: string = '';
   description: string = '';
   urgent: boolean = false;
@@ -24,7 +23,7 @@ addTask: string = 'add-task'
       this.title = '';
       this.description = '';
       this.urgent = false;
-      // this.router.navigate(['/home']);
+      this.router.navigate(['/dashboard']);
   }
 
 }

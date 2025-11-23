@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoService } from '../../services/todo.service';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagination';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,8 +17,7 @@ import { of } from 'rxjs';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent {
-
-  todoService: TodoService = inject(TodoService);
+  constructor(private todoService: TodoService, private router: Router){}
   todos: any[] = [];
 
   selectedOption: number = 10;
@@ -94,5 +94,8 @@ export class TodoListComponent {
   deleteTask(id: number) {
     this.todoService.deleteTask(id);
     this.pagingManager.totalItems = this.todos.length - 1;
+  }
+  updateTask(){
+    this.router.navigate(['/dashboard/edit-task']);
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ITodo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 
@@ -11,9 +11,8 @@ import { TodoService } from '../../services/todo.service';
   styleUrl: './tasks-summary.component.css'
 })
 export class TasksSummaryComponent {
-
+  constructor(private todoService: TodoService){}
   todos: ITodo[] = [];
-  todoService = inject(TodoService);
 
   ngOnInit(): void {
     this.todoService.todos$.subscribe(todos => {
