@@ -2,8 +2,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
 import { Router } from '@angular/router';
-import { ITodo } from '../../models/todo.model';
-import { TaskFormComponent } from '../task-form/task-form.component';
+import { ITodo } from '../../shared/models/todo.model';
+import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 
 @Component({
   selector: 'app-form',

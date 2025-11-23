@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ITodo } from '../../models/todo.model';
+import { ITodo } from '../../shared/models/todo.model';
 import { TodoService } from '../../services/todo.service';
 
 @Component({

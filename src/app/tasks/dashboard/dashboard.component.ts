@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { ITodo } from '../../models/todo.model';
+import { ITodo } from '../../shared/models/todo.model';
 import { CommonModule } from '@angular/common';
 import { TodoListComponent } from '../todos-list/todo-list.component';
 

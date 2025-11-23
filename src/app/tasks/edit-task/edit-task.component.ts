@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { TaskFormComponent } from '../task-form/task-form.component';
+import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
 
