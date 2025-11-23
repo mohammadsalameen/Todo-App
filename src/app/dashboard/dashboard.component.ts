@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { ITodo } from '../../models/todo.model';
-import { TodoService } from '../../services/todo.service';
+import { ITodo } from '../models/todo.model';
+import { TodoService } from '../services/todo.service';
 
 @Component({
   selector: 'app-dashboard',

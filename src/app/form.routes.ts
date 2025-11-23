@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { FormComponent } from "./pages/form/form.component";
+import { FormComponent } from "./add-task/add-task.component";
 import { AuthGuard } from "./services/auth-guard.service";
 
 export const formRoutes: Routes = [
