@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { ITodo } from '../models/todo.model';
-import { TodoService } from '../services/todo.service';
+import { ITodo } from '../../models/todo.model';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-tasks-summary',
   imports: [CommonModule],
   standalone: true,
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  templateUrl: './tasks-summary.component.html',
+  styleUrl: './tasks-summary.component.css'
 })
-export class DashboardComponent {
+export class TasksSummaryComponent {
 
   todos: ITodo[] = [];
   todoService = inject(TodoService);

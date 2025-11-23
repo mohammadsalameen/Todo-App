@@ -6,16 +6,16 @@ export const viewRoutes: Routes = [
     loadChildren: () => import('./auth.route').then(m => m.authRoutes)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home.routing').then(m => m.homeRoutes)
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard.routing').then(m => m.dashboardRoutes)
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard.routes').then(m => m.dashboardRoutes)
+    path: 'tasks-summary',
+    loadChildren: () => import('./tasks-summary.routes').then(m => m.tasksSummaryRoutes)
   },
   {
     path: 'add-task',
-    loadChildren: () => import('./form.routes').then(m => m.formRoutes)
+    loadChildren: () => import('./add-task.routes').then(m => m.addTasksRoutes)
   },
   {
     path: 'auth',

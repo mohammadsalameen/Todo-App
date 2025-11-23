@@ -11,7 +11,7 @@ import { ITodo } from '../../models/todo.model';
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css'
 })
-export class FormComponent {
+export class AddTaskComponent {
 addTask: string = 'add-task'
   todoService = inject(TodoService);
   router = inject(Router);
