@@ -18,9 +18,9 @@
           <th>Description</th>
           <th>Urgent?</th>
           <th>Completed</th>
-          <th>Add</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th *ngIf="role" >Add</th>
+          <th *ngIf="role" >Edit</th>
+          <th *ngIf="role" >Delete</th>
         </tr>
       </thead>
 
@@ -59,13 +59,13 @@
             />
           </td>
           <td>
-            <button class="btn btn-primary btn-sm"(click)="addTask()">Add</button>
+            <button class="btn btn-primary btn-sm" *ngIf="role"  (click)="addTask()">Add</button>
           </td>
           <td>
-            <button class="btn btn-warning btn-sm"(click)="updateTask()">Edit</button>
+            <button class="btn btn-warning btn-sm" *ngIf="role" (click)="updateTask()">Edit</button>
           </td>
           <td>
-            <button class="btn btn-danger btn-sm" (click)="deleteTask(todo.id)">
+            <button class="btn btn-danger btn-sm" *ngIf="role" (click)="deleteTask(todo.id)">
               Delete
             </button>
           </td>

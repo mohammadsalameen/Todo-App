@@ -1,1 +1,113 @@
-<p>task-table works!</p>
+<div class="container mt-4 mb-5">
+  <div class="d-flex gap-2 h-auto">
+    <input type="text"
+       class="form-control w-25 mb-3"
+       placeholder="Enter text to search..."
+       [(ngModel)]="searchText"
+       (ngModelChange)="search()" />
+       <div><button class="btn btn-primary" >Find</button></div>
+  </div>
+  <div class="table-responsive mt-3">
+    <table
+      class="table table-hover align-middle shadow-sm rounded"
+    >
+      <thead class="table-light text-center">
+        <tr>
+          <th>#</th>
+          <th>Task Name</th>
+          <th>Description</th>
+          <th>Urgent?</th>
+          <th>Completed</th>
+          <th *ngIf="role === 'admin' " >Add</th>
+          <th *ngIf="role === 'admin' " >Edit</th>
+          <th *ngIf="role === 'admin' " >Delete</th>
+        </tr>
+      </thead>
+
+      <tbody class="text-center">
+        <tr
+          *ngFor="
+            let todo of todos
+              | paginate
+                : {
+                    id: pagingManager.id,
+                    itemsPerPage: pagingManager.itemsPerPage,
+                    currentPage: pagingManager.currentPage,
+                    totalItems: pagingManager.totalItems
+                  };
+            trackBy: trackById;
+            let i = index
+          "
+          [class.completed]="todo.completed"
+        >
+          <td>
+            {{
+              (pagingManager.currentPage - 1) * pagingManager.itemsPerPage +
+                (i + 1)
+            }}
+          </td>
+          <td>{{ todo.title }}</td>
+          <td>{{todo.description}}</td>
+          <td [class]="todo.urgent ? 'text-success' : 'text-danger'">
+            {{ todo.urgent ? "Yes" : "No" }}
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              [checked]="todo.completed"
+              (change)="toggleCompleted(todo.id)"
+            />
+          </td>
+          <td>
+            <button class="btn btn-primary btn-sm" *ngIf="role === 'admin' "  (click)="addTask()">Add</button>
+          </td>
+          <td>
+            <button class="btn btn-warning btn-sm" *ngIf="role === 'admin' " (click)="updateTask()">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" *ngIf="role === 'admin' " (click)="deleteTask(todo.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="w-100 d-flex flex-row align-items-center justify-content-between mt-2 px-2 flex-wrap"
+  >
+    <div class="d-flex align-items-center gap-2 ">
+      <label class="mb-0">Show</label>
+
+      <ng-select
+        class="form-select-sm"
+        [items]="itemsPerPageOptions"
+        bindLabel="label"
+        bindValue="value"
+        [clearable]="false"
+        [(ngModel)]="selectedOption"
+        (change)="onItemsPerPageChange()"
+        style="width: 40px"
+      >
+      </ng-select>
+      <label class="mb-0">entries</label>
+    </div>
+
+    <div class="pagination-scroll-container">
+      <div class="pagination-wrapper">
+        <pagination-controls
+          id="PagId"
+          (pageChange)="pageChanged($event)"
+          (pageBoundsCorrection)="pageChanged($event)"
+          [maxSize]="5"
+          [directionLinks]="true"
+          [responsive]="true"
+          screenReaderPaginationLabel="Pagination"
+          class="my-pagination"
+        >
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

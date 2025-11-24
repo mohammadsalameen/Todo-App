@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 export class TodoListComponent {
   constructor(private todoService: TodoService, private router: Router){}
   todos: any[] = [];
+  role: boolean = true;
 
   selectedOption: number = 10;
   itemsPerPageOptions = ITEMS_PER_PAGE_OPTIONS;

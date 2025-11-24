@@ -7,15 +7,15 @@ export const viewRoutes: Routes = [
   },
   {
     path: 'admin-dashboard',
-    loadChildren: () => import('./dashboard.routing').then(m => m.dashboardRoutes)
+    loadChildren: () => import('./admin-dashboard.routing').then(m => m.adminRoutes)
+  },
+  {
+    path: 'user-dashboard',
+    loadChildren: () => import('./user-dashboard.routes').then(m => m.userRoutes)
   },
   {
     path: 'tasks-summary',
     loadChildren: () => import('./tasks-summary.routes').then(m => m.tasksSummaryRoutes)
-  },
-  {
-    path: 'add-task',
-    loadChildren: () => import('./add-task.routes').then(m => m.addTasksRoutes)
   },
   {
     path: 'auth',
