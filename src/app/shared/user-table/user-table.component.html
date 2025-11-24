@@ -1,21 +1,64 @@
-<table class="table text-center">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>User</th>
-      <th *ngIf="show" >Tasks</th>
-    </tr>
-  </thead>
+<div class="container mt-4 mb-5">
+  <div class="d-flex gap-2 h-auto">
+    <input type="text"
+       class="form-control w-25 mb-3"
+       placeholder="Enter text to search..."
+       [(ngModel)]="searchText"
+       (ngModelChange)="search()" />
+  </div>
+  <div class="table-responsive mt-3">
+    <table class="table table-hover align-middle shadow-sm rounded">
+      <thead class="table-light text-center">
+        <tr>
+          <th>#</th>
+          <th>User</th>
+          <th *ngIf="show">Tasks</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <tr *ngFor="let user of users; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ user.name }}</td>
-      <td>
-        <button *ngIf="show" class="btn btn-outline-primary" (click)="viewTasks(user.id)">
-          View Tasks
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      <tbody class="text-center">
+        <tr *ngFor="let user of users | paginate: { id: pagingManager.id, itemsPerPage: pagingManager.itemsPerPage, currentPage: pagingManager.currentPage, totalItems: pagingManager.totalItems }; trackBy: trackById; let i = index">
+          <td>{{ (pagingManager.currentPage - 1) * pagingManager.itemsPerPage + (i + 1) }}</td>
+          <td>{{ user.name }}</td>
+          <td>
+            <button *ngIf="show" class="btn btn-outline-primary" (click)="viewTasks(user.id)">
+              View Tasks
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="w-100 d-flex flex-row align-items-center justify-content-between mt-2 px-2 flex-wrap">
+    <div class="d-flex align-items-center gap-2">
+      <label class="mb-0">Show</label>
+      <ng-select
+        class="form-select-sm"
+        [items]="itemsPerPageOptions"
+        bindLabel="label"
+        bindValue="value"
+        [clearable]="false"
+        [(ngModel)]="selectedOption"
+        (change)="onItemsPerPageChange()"
+        style="width: 40px">
+      </ng-select>
+      <label class="mb-0">entries</label>
+    </div>
+
+    <div class="pagination-scroll-container">
+      <div class="pagination-wrapper">
+        <pagination-controls
+          id="PagId"
+          (pageChange)="pageChanged($event)"
+          (pageBoundsCorrection)="pageChanged($event)"
+          [maxSize]="5"
+          [directionLinks]="true"
+          [responsive]="true"
+          screenReaderPaginationLabel="Pagination"
+          class="my-pagination">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

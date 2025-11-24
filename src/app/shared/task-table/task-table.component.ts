@@ -46,7 +46,6 @@ export class TaskTableComponent {
     };
 
     this.getFilteredTodos(params).subscribe(res => {
-      // res = { data: [...], total: number }
 
       this.todos = res.data;
       this.pagingManager.totalItems = res.total;
