@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { TodoListComponent } from "../../tasks/todos-list/todo-list.component";
 import { TaskTableComponent } from "../../shared/task-table/task-table.component";
 
 @Component({

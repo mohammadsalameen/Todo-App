@@ -1,5 +1,4 @@
 import { Routes } from "@angular/router";
-import { DashboardComponent } from "./tasks/dashboard/dashboard.component";
 import { AuthGuard } from "./services/auth-guard.service";
 import { EditTaskComponent } from "./tasks/edit-task/edit-task.component";
 import { AdminDashboardComponent } from "./admin/admin-dashboard/admin-dashboard.component";
