@@ -5,7 +5,17 @@
        placeholder="Enter text to search..."
        [(ngModel)]="searchText"
        (ngModelChange)="search()" />
-       <div><button class="btn btn-primary" >Find</button></div>
+    <ng-select
+      class="form-select mb-3"
+      [items]="filterOptions"
+      bindLabel="label"
+      bindValue="value"
+      [clearable]="false"
+      [(ngModel)]="selectedFilter"
+      (change)="onFilterChange()"
+      style="width: 150px"
+    >
+    </ng-select>
   </div>
   <div class="table-responsive mt-3">
     <table

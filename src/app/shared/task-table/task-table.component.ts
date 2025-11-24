@@ -19,16 +19,24 @@ import { Router } from '@angular/router';
 export class TaskTableComponent {
   constructor(private todoService: TodoService, private router: Router){}
   todos: any[] = [];
+  allTodos: any[] = [];
   @Input() role! : string;
 
   selectedOption: number = 10;
   itemsPerPageOptions = ITEMS_PER_PAGE_OPTIONS;
   pagingManager: any = CREATE_PAGING_MANAGER(this.selectedOption);
   searchText: string = '';
+  filterOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'Completed', value: 'completed' },
+    { label: 'Urgent', value: 'urgent' }
+  ];
+  selectedFilter: string = 'all';
 
   ngOnInit() {
     this.todoService.todos$.subscribe((res: any[]) => {
-      this.todos = res ?? [];
+      this.allTodos = res ?? [];
+      this.todos = [...this.allTodos];
       this.pagingManager.totalItems = this.todos.length;
 
       const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
@@ -67,10 +75,24 @@ export class TaskTableComponent {
     this.pagingManager.currentPage = 1;
   }
 
+  onFilterChange(): void {
+    this.pagingManager.currentPage = 1;
+    this.search();
+  }
+
   getFilteredTodos(params: any){
     const{Page, PageSize, StrSearch} = params;
 
-    let filtered = this.todos.filter(t => t.title.toLowerCase().include(StrSearch.toLowerCase()));
+    let filtered = this.todos.filter(t => {
+      const matchesSearch = t.title.toLowerCase().includes(StrSearch.toLowerCase());
+      let matchesFilter = true;
+      if (this.selectedFilter === 'completed') {
+        matchesFilter = t.completed;
+      } else if (this.selectedFilter === 'urgent') {
+        matchesFilter = t.urgent;
+      }
+      return matchesSearch && matchesFilter;
+    });
     const total = filtered.length;
     const start = (Page - 1) * PageSize;
     const end = start + PageSize;
