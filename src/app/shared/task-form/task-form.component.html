@@ -15,20 +15,39 @@
         ngModel
         [ngModel]="defaultValues?.title"
         required
+        minlength="3"
+        #title = "ngModel"
       />
       <label for="title">Task Title</label>
+      <div class="text-danger mt-1" *ngIf="title.invalid && title.touched" >
+        <div *ngIf="title.errors?.['required']" >
+          Title is required
+        </div>
+        <div *ngIf="title.errors?.['minlength']" >
+          Minimum length is 3
+        </div>
+      </div>
     </div>
     <div class="form-floating mb-3">
       <textarea
       class="form-control"
       name="description"
       id="description"
-      placeholder="Enter task description..."
       ngModel
       [ngModel]="defaultValues?.description"
       required
-    ></textarea>
-
+      minlength="6"
+      #description = "ngModel"
+      ></textarea>
+      <label for="description">Enter task description...</label>
+      <div class="text-danger mt-1" *ngIf="description.invalid && description.touched" >
+        <div *ngIf="description.errors?.['required']" >
+          Description is required
+        </div>
+        <div *ngIf="description.errors?.['minlength']" >
+          Minimum length is 5
+        </div>
+      </div>
     </div>
 
     <div class="form-check mb-3 animate__fadeIn">

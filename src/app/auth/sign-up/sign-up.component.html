@@ -1,18 +1,27 @@
-<div class="card shadow-sm p-4">
+<div class="card shadow-sm p-4 ">
   <h2 class="card-title text-center mb-4">Sign Up</h2>
-  <form class="needs-validation" novalidate>
-    <div class="mb-3">
+  <form #signUpForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="">
       <label for="username" class="form-label">Username</label>
       <input
         type="text"
         id="username"
         name="username"
-        [(ngModel)]="username"
         class="form-control"
         placeholder="Enter username"
+        ngModel
         required
+        minlength="3"
+        #username = "ngModel"
       />
-      <div class="invalid-feedback">Please enter a username</div>
+      <div class="text-danger small mt-1" *ngIf="username.invalid && username.touched">
+        <div *ngIf="username.errors?.['required']" >
+          Username is required
+        </div>
+        <div *ngIf="username.errors?.['minlength']" >
+          Minimum length is 3 characters
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
@@ -21,12 +30,21 @@
         type="email"
         id="email"
         name="email"
-        [(ngModel)]="email"
         class="form-control"
         placeholder="Enter email"
         required
+        ngModel
+        email
+        #email = "ngModel"
       />
-      <div class="invalid-feedback">Please enter a valid email</div>
+      <div class="text-danger small mt-1" *ngIf="email.invalid && email.touched" >
+        <div *ngIf="email.errors?.['required']" >
+          Email is required
+        </div>
+        <div *ngIf="email.errors?.['email']" >
+          Invalid email format
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
@@ -35,14 +53,23 @@
         type="password"
         id="password"
         name="password"
-        [(ngModel)]="password"
         class="form-control"
         placeholder="Enter password"
         required
+        minlength="9"
+        ngModel
+        #password = "ngModel"
       />
-      <div class="invalid-feedback">Please enter a password</div>
+      <div class="text-danger small mt-1"*ngIf="password.invalid && password.touched" >
+        <div *ngIf="password.errors?.['required']" >
+          Password is required
+        </div>
+        <div *ngIf="password.errors?.['minlength']">
+          Minimum length is 9
+        </div>
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-success w-100">SignUp</button>
+    <button type="submit" class="btn btn-success w-100" [disabled]="signUpForm.invalid" >SignUp</button>
   </form>
 </div>
