@@ -16,7 +16,7 @@ export class LoginComponent {
 
   handleSubmit(form: NgForm) {
     // const {email, password} = form;
-    console.log(form.value);
+    console.log(form);
     // const loggedIn = this.authService.login(email, password);
     // if(loggedIn){
     //   this.router.navigate(['/home']);

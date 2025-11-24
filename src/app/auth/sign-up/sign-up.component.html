@@ -1,7 +1,7 @@
 <div class="card shadow-sm p-4 ">
   <h2 class="card-title text-center mb-4">Sign Up</h2>
   <form #signUpForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
-    <div class="">
+    <div class="mb-1 ">
       <label for="username" class="form-label">Username</label>
       <input
         type="text"
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-1">
       <label for="email" class="form-label">Email</label>
       <input
         type="email"
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-1">
       <label for="password" class="form-label">Password</label>
       <input
         type="password"
@@ -70,6 +70,6 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-success w-100" [disabled]="signUpForm.invalid" >SignUp</button>
+    <button type="submit" class="btn btn-success w-100 signup-btn" [disabled]="signUpForm.invalid" >SignUp</button>
   </form>
 </div>

@@ -13,3 +13,13 @@ h2{
 .form-label {
   font-weight: 500;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px; /* Adjust as needed for minimum height */
+}
+
+.signup-btn {
+  margin-top: auto;
+}
