@@ -1,10 +1,12 @@
 <div class="container mt-4 mb-5">
   <div class="d-flex gap-2 h-auto">
-    <input type="text"
-       class="form-control w-25 mb-3"
-       placeholder="Enter text to search..."
-       [(ngModel)]="searchText"
-       (ngModelChange)="search()" />
+    <input
+      type="text"
+      class="form-control w-25 mb-3"
+      placeholder="Enter text to search..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="search()"
+    />
     <ng-select
       class="form-select mb-3"
       [items]="filterOptions"
@@ -18,9 +20,7 @@
     </ng-select>
   </div>
   <div class="table-responsive mt-3">
-    <table
-      class="table table-hover align-middle shadow-sm rounded"
-    >
+    <table class="table table-hover align-middle shadow-sm rounded">
       <thead class="table-light text-center">
         <tr>
           <th>#</th>
@@ -28,10 +28,10 @@
           <th>Description</th>
           <th>Urgent?</th>
           <th>Completed</th>
-          <th  *ngIf="role === 'admin' " >Add</th>
-          <th *ngIf="role === 'user' "></th>
-          <th >Edit</th>
-          <th *ngIf="role === 'admin' " >Delete</th>
+          <th *ngIf="role === 'admin'">Add Comments</th>
+          <th *ngIf="role === 'user'">Comments</th>
+          <th>Edit</th>
+          <th *ngIf="role === 'admin'">Delete</th>
         </tr>
       </thead>
 
@@ -58,7 +58,7 @@
             }}
           </td>
           <td>{{ todo.title }}</td>
-          <td>{{todo.description}}</td>
+          <td>{{ todo.description }}</td>
           <td [class]="todo.urgent ? 'text-success' : 'text-danger'">
             {{ todo.urgent ? "Yes" : "No" }}
           </td>
@@ -70,14 +70,26 @@
             />
           </td>
           <td>
-            <button class="btn btn-primary btn-sm" *ngIf="role === 'admin' "  (click)="addTask()">Add</button>
+            <button
+              class="btn btn-primary btn-sm"
+              *ngIf="role === 'admin'"
+              (click)="addTask()"
+            >
+              <i class="bi bi-plus-circle"></i>
+            </button>
           </td>
           <td>
-            <button class="btn btn-warning btn-sm"  (click)="updateTask()">Edit</button>
+            <button class="btn btn-warning btn-sm" (click)="updateTask()">
+              <i class="bi bi-pencil-square"></i>
+            </button>
           </td>
           <td>
-            <button class="btn btn-danger btn-sm" *ngIf="role === 'admin' " (click)="deleteTask(todo.id)">
-              Delete
+            <button
+              class="btn btn-danger btn-sm"
+              *ngIf="role === 'admin'"
+              (click)="deleteTask(todo.id)"
+            >
+              <i class="bi bi-trash"></i>
             </button>
           </td>
         </tr>
@@ -88,7 +100,7 @@
   <div
     class="w-100 d-flex flex-row align-items-center justify-content-between mt-2 px-2 flex-wrap"
   >
-    <div class="d-flex align-items-center gap-2 ">
+    <div class="d-flex align-items-center gap-2">
       <label class="mb-0">Show</label>
 
       <ng-select
