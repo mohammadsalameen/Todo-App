@@ -3,27 +3,5 @@
     <h2 class="fw-bold">Admin Dashboard</h2>
     <p class="text-muted">View user list and manage their tasks</p>
   </div>
-  <table class="table text-center ">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>User</th>
-        <th>Tasks</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let user of users; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ user.name }}</td>
-        <td>
-          <button class="btn btn-outline-primary"
-                  (click)="viewTasks(user.id)">
-            View Tasks
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-</div>
+  <app-user-table [show] = 'showViewList'  ></app-user-table>
+  <div>

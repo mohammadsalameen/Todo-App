@@ -93,7 +93,7 @@ export class TaskTableComponent {
   }
 
   addTask(){
-    this.router.navigate(['/add-task'])
+    this.router.navigate(['/admin-dashboard/add-task'])
   }
   updateTask(){
     this.router.navigate(['/admin-dashboard/edit-task']);

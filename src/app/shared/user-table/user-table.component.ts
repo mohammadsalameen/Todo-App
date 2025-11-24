@@ -1,20 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { UserTableComponent } from "../../shared/user-table/user-table.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  imports: [ UserTableComponent],
-  templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css'
+  selector: 'app-user-table',
+  imports: [CommonModule],
+  templateUrl: './user-table.component.html',
+  styleUrl: './user-table.component.css',
 })
-export class AdminDashboardComponent {
+export class UserTableComponent {
   userService = inject(UserService);
   router = inject(Router);
   users = this.userService.getAllUsers(); // from backend or service
-  showViewList: boolean = true;
-
+  @Input() show!: boolean;
 
   viewTasks(userId: number) {
     // this.router.navigate(['/admin-dashboard/user-tasks', userId]);
