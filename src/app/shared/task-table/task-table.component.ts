@@ -64,7 +64,7 @@ export class TaskTableComponent {
 
     this.getFilteredTodos(params).subscribe(res => {
 
-      this.todos = res.data;
+      this.todos = res.filtered;
       this.pagingManager.totalItems = res.total;
 
       const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
@@ -90,9 +90,9 @@ export class TaskTableComponent {
   }
 
   getFilteredTodos(params: any){
-    const{Page, PageSize, StrSearch} = params;
+    const{StrSearch} = params;
 
-    let filtered = this.todos.filter(t => {
+    let filtered = this.allTodos.filter(t => {
       const matchesSearch = t.title.toLowerCase().includes(StrSearch.toLowerCase());
       let matchesFilter = true;
       if (this.selectedFilter === 'completed') {
@@ -103,12 +103,9 @@ export class TaskTableComponent {
       return matchesSearch && matchesFilter;
     });
     const total = filtered.length;
-    const start = (Page - 1) * PageSize;
-    const end = start + PageSize;
-    const Paginated = filtered.slice(start, end);
 
     return of({
-      data:Paginated,
+      filtered: filtered,
       total: total
     })
 
