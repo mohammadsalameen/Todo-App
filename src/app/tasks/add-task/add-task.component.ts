@@ -23,7 +23,7 @@ export class AddTaskComponent {
       this.title = '';
       this.description = '';
       this.urgent = false;
-      this.router.navigate(['/admin-dashboard']);
+      this.router.navigate(['/admin/dashboard']);
   }
 
 }

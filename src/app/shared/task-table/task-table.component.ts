@@ -114,10 +114,10 @@ export class TaskTableComponent {
   }
 
   addTask(){
-    this.router.navigate(['/admin-dashboard/add-task'])
+    this.router.navigate(['/admin/add-task'])
   }
   updateTask(){
-    this.router.navigate(['/admin-dashboard/edit-task']);
+    this.router.navigate(['/admin/edit-task']);
   }
   deleteTask(id: number) {
     this.todoService.deleteTask(id);

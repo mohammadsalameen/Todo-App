@@ -3,15 +3,15 @@ import { Routes } from "@angular/router";
 export const viewRoutes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./auth.route').then(m => m.authRoutes)
+    loadChildren: () => import('./auth/auth.route').then(m => m.authRoutes)
   },
   {
-    path: 'admin-dashboard',
-    loadChildren: () => import('./admin-dashboard.routing').then(m => m.adminRoutes)
+    path: 'admin',
+    loadChildren: () => import('./admin/admin-dashboard.routing').then(m => m.adminRoutes)
   },
   {
-    path: 'user-dashboard',
-    loadChildren: () => import('./user-dashboard.routes').then(m => m.userRoutes)
+    path: 'user',
+    loadChildren: () => import('./user/user-dashboard.routes').then(m => m.userRoutes)
   },
   {
     path: 'tasks-summary',
@@ -19,6 +19,6 @@ export const viewRoutes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth.route').then(m => m.authRoutes )
+    loadChildren: () => import('./auth/auth.route').then(m => m.authRoutes )
   }
 ];

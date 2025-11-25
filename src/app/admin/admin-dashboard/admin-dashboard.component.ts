@@ -18,6 +18,6 @@ export class AdminDashboardComponent {
 
   viewTasks(userId: number) {
     // this.router.navigate(['/admin-dashboard/user-tasks', userId]);
-    this.router.navigate(['/admin-dashboard/user-tasks']);
+    this.router.navigate(['/admin/user-tasks']);
   }
 }
