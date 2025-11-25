@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { TodoService } from '../../services/todo.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagination';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
 @Component({
@@ -14,13 +15,21 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, NgSelectModule, NgxPaginationModule, FormsModule],
   templateUrl: './task-table.component.html',
-  styleUrls: ['./task-table.component.css']
+  styleUrls: ['./task-table.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({height: '80px', opacity: 1})),
+      state('close', style({height: '0px', opacity: 0})),
+      transition('open <=> close', [animate('200ms ease-in-out')])
+    ])
+  ]
 })
 export class TaskTableComponent {
   constructor(private todoService: TodoService, private router: Router){}
+  @Input() role! : string;
+  open: boolean = false;
   todos: any[] = [];
   allTodos: any[] = [];
-  @Input() role! : string;
 
   selectedOption: number = 10;
   itemsPerPageOptions = ITEMS_PER_PAGE_OPTIONS;
@@ -112,9 +121,8 @@ export class TaskTableComponent {
   toggleCompleted(id: number) {
     this.todoService.toggleCompleted(id);
   }
-
-  addTask(){
-    this.router.navigate(['/admin/add-task'])
+  addComment(form: NgForm){
+    console.log(form);
   }
   updateTask(){
     this.router.navigate(['/admin/edit-task']);
