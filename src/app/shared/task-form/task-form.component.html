@@ -1,72 +1,88 @@
-  <form
-    #taskForm="ngForm"
-    class="task-form shadow-lg p-4 rounded animate__fadeIn w-100 h-75"
-    (ngSubmit)="submit(taskForm.value)"
-  >
-    <h4 class="text-center mb-3 fw-bold">{{defaultValues }}</h4>
+<form
+  #taskForm="ngForm"
+  class="task-form shadow-lg p-4 rounded animate__fadeIn w-100 h-75"
+  (ngSubmit)="submit(taskForm.value)"
+>
+  <h4 class="text-center mb-3 fw-bold">{{defaultValues }}</h4>
 
-    <div class="form-floating mb-3">
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        name="title"
-        placeholder="Enter Task"
-        ngModel
-        [ngModel]="defaultValues?.title"
-        required
-        minlength="3"
-        #title = "ngModel"
-      />
-      <label for="title">Task Title</label>
-      <div class="text-danger mt-1" *ngIf="title.invalid && title.touched" >
-        <div *ngIf="title.errors?.['required']" >
-          Title is required
-        </div>
-        <div *ngIf="title.errors?.['minlength']" >
-          Minimum length is 3
-        </div>
+  <div class="form-floating mb-3">
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      name="title"
+      placeholder="Enter Task"
+      ngModel
+      [ngModel]="defaultValues?.title"
+      required
+      minlength="3"
+      #title = "ngModel"
+    />
+    <label for="title">Task Title</label>
+    <div class="text-danger mt-1" *ngIf="title.invalid && title.touched" >
+      <div *ngIf="title.errors?.['required']" >
+        Title is required
+      </div>
+      <div *ngIf="title.errors?.['minlength']" >
+        Minimum length is 3
       </div>
     </div>
-    <div class="form-floating mb-3">
-      <textarea
+  </div>
+  <div class="form-floating mb-3">
+    <textarea
       class="form-control"
       name="description"
       id="description"
+      placeholder="Write task description..."
+      rows="2"
       ngModel
       [ngModel]="defaultValues?.description"
       required
       minlength="6"
       #description = "ngModel"
-      ></textarea>
-      <label for="description">Enter task description...</label>
-      <div class="text-danger mt-1" *ngIf="description.invalid && description.touched" >
-        <div *ngIf="description.errors?.['required']" >
-          Description is required
-        </div>
-        <div *ngIf="description.errors?.['minlength']" >
-          Minimum length is 5
-        </div>
+    ></textarea>
+    <label for="description">Task Description</label>
+    <div class="text-danger mt-1" *ngIf="description.invalid && description.touched" >
+      <div *ngIf="description.errors?.['required']" >
+        Description is required
+      </div>
+      <div *ngIf="description.errors?.['minlength']" >
+        Minimum length is 5
       </div>
     </div>
+  </div>
+  <div class="form-floating mb-2">
+    <textarea
+      name="comment"
+      class="form-control"
+      id="comment"
+      rows="2"
+      placeholder="Write your note..."
+      style="resize: none"
+      required
+      ngModel
+      #comment = "ngModel"
+    ></textarea>
+    <label for="comment">Comment</label>
+  </div>
 
-    <div class="form-check mb-3 animate__fadeIn">
-      <input
-        type="checkbox"
-        name="urgent"
-        id="urgent"
-        class="form-check-input"
-        ngModel
-        [ngModel]="defaultValues?.urgent"
-      />
-      <label for="urgent" class="form-check-label">Urgent</label>
-    </div>
+  <div class="form-check mb-3 animate__fadeIn">
+    <input
+      type="checkbox"
+      name="urgent"
+      id="urgent"
+      class="form-check-input"
+      ngModel
+      [ngModel]="defaultValues?.urgent"
+    />
+    <label for="urgent" class="form-check-label">Urgent</label>
+  </div>
 
-    <button
-      [disabled]="taskForm.invalid"
-      type="submit"
-      class="btn btn-primary w-100 submit-btn"
-    >
-      {{defaultValues}}
-    </button>
-  </form>
+  <button
+    [disabled]="taskForm.invalid"
+    type="submit"
+    class="btn btn-primary w-100 submit-btn"
+  >
+    {{defaultValues}}
+  </button>
+</form>
