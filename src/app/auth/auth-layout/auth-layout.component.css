@@ -189,7 +189,7 @@
   }
 
   .container.right-panel-active .container--signup {
-    display: block;
+    display: block !important;
   }
 
   /* Remove overlay completely */

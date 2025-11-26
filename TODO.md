@@ -1,6 +1,0 @@
-- [x] Modify auth-layout.component.html to add toggle buttons outside the container for mobile view
-- [x] Update auth-layout.component.css to add responsive styles: hide overlay on mobile, show toggle buttons, stack forms vertically on small screens
-- [x] Test the responsiveness on different screen sizes
-- [x] Fix sign-up component not appearing on mobile when clicking SIGN UP
-- [x] Add margin-top for small devices
-- [x] Make sign in and sign up buttons smaller on small devices
