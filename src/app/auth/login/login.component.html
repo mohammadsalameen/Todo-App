@@ -7,14 +7,15 @@
           type="text"
           id="username"
           name="username"
-          class="form-control"
+          class="form-control mb-3"
+          [class.is-invalid]="email.invalid && email.touched"
           placeholder="Enter Your Email"
           required
           email
           ngModel
           #email = "ngModel"
         />
-        <div class="text-danger mt-1" *ngIf="email.invalid && email.touched" >
+        <div class="invalid-feedback" >
           <div *ngIf="email.errors?.['required']" >
             Email is required
           </div>
@@ -31,13 +32,14 @@
           id="password"
           name="password"
           class="form-control"
+          [class.is-invalid]="password.invalid && password.touched"
           placeholder="Enter password"
           required
           minlength="9"
           ngModel
           #password = "ngModel"
         />
-        <div class="text-danger mt-1" *ngIf="password.invalid && password.touched" >
+        <div class="invalid-feedback" >
           <div *ngIf="password.errors?.['required']" >
             Password is required
           </div>

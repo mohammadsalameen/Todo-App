@@ -95,7 +95,7 @@
 .container.right-panel-active .overlay--right { transform: translateX(20%); }
 
 .btn {
-  background: linear-gradient(90deg, #0367a6 0%, #008997 74%);
+  background: linear-gradient(90deg, #014976 0%, #120505 74%);
   border-radius: 20px;
   border: 1px solid #125e91;
   color: #fff;
