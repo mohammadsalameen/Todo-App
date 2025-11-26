@@ -9,6 +9,7 @@
     <input
       type="text"
       class="form-control"
+      [class.is-invalid]="title.invalid && title.touched"
       id="title"
       name="title"
       placeholder="Enter Task"
@@ -19,11 +20,11 @@
       #title = "ngModel"
     />
     <label for="title">Task Title</label>
-    <div class="text-danger mt-1" *ngIf="title.invalid && title.touched" >
-      <div *ngIf="title.errors?.['required']" >
+    <div class="invalid-feedback" *ngIf="title.invalid && title.touched">
+      <div *ngIf="title.errors?.['required']">
         Title is required
       </div>
-      <div *ngIf="title.errors?.['minlength']" >
+      <div *ngIf="title.errors?.['minlength']">
         Minimum length is 3
       </div>
     </div>
@@ -31,6 +32,7 @@
   <div class="form-floating mb-3">
     <textarea
       class="form-control"
+      [class.is-invalid]="description.invalid && description.touched"
       name="description"
       id="description"
       placeholder="Write task description..."
@@ -42,11 +44,11 @@
       #description = "ngModel"
     ></textarea>
     <label for="description">Task Description</label>
-    <div class="text-danger mt-1" *ngIf="description.invalid && description.touched" >
-      <div *ngIf="description.errors?.['required']" >
+    <div class="invalid-feedback" *ngIf="description.invalid && description.touched">
+      <div *ngIf="description.errors?.['required']">
         Description is required
       </div>
-      <div *ngIf="description.errors?.['minlength']" >
+      <div *ngIf="description.errors?.['minlength']">
         Minimum length is 5
       </div>
     </div>
@@ -64,6 +66,7 @@
       #comment = "ngModel"
     ></textarea>
     <label for="comment">Comment</label>
+
   </div>
 
   <div class="form-check mb-3 animate__fadeIn">
