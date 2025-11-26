@@ -1,5 +1,12 @@
-<div class="container mt-lg-5" [class.right-panel-active]="isSignUpActive" [@fadeIn]>
-  <div class="container__form container--signup  ">
+
+<!-- Mobile toggle button -->
+<button
+  class="btn mt-3 mobile-switch-btn d-block d-md-none mx-auto mb-3"
+  (click)="toggle(!isSignUpActive)">
+  {{ isSignUpActive ? 'Sign In' : 'Sign Up' }}
+</button>
+<div class="container mt-3 mt-lg-5" [class.right-panel-active]="isSignUpActive" [@fadeIn]>
+  <div class="container__form container--signup">
     <app-signup></app-signup>
   </div>
 
@@ -7,7 +14,7 @@
     <app-login></app-login>
   </div>
 
-  <div class="container__overlay">
+  <div class="container__overlay d-none d-md-block">
     <div class="overlay">
       <div class="overlay__panel overlay--left">
         <button class="btn" (click)="toggle(false)">Sign In</button>

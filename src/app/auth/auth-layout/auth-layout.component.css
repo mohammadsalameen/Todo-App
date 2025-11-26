@@ -1,3 +1,6 @@
+/* ============================= */
+/* MAIN CONTAINER */
+/* ============================= */
 .container {
   background-color: white;
   border-radius: 0.7rem;
@@ -7,14 +10,20 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {
   .container {
     height: 420px;
+    flex-direction: row;
   }
 }
 
+/* ============================= */
+/* FORMS */
+/* ============================= */
 .container__form {
   height: 100%;
   position: absolute;
@@ -47,6 +56,9 @@
   z-index: 5;
 }
 
+/* ============================= */
+/* OVERLAY */
+/* ============================= */
 .container__overlay {
   height: 100%;
   left: 50%;
@@ -88,12 +100,26 @@
   transition: transform 0.6s ease-in-out;
 }
 
-.overlay--left { transform: translateX(-20%); }
-.container.right-panel-active .overlay--left { transform: translateX(0); }
+.overlay--left {
+  transform: translateX(-20%);
+}
 
-.overlay--right { right: 0; transform: translateX(0); }
-.container.right-panel-active .overlay--right { transform: translateX(20%); }
+.container.right-panel-active .overlay--left {
+  transform: translateX(0);
+}
 
+.overlay--right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container.right-panel-active .overlay--right {
+  transform: translateX(20%);
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
 .btn {
   background: linear-gradient(90deg, #014976 0%, #120505 74%);
   border-radius: 20px;
@@ -106,4 +132,88 @@
   padding: 0.9rem 4rem;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+}
+
+.btn.active {
+  background: linear-gradient(90deg, #120505 0%, #014976 74%);
+}
+
+/* ============================= */
+/* MOBILE SWITCH BUTTON */
+/* ============================= */
+.mobile-switch-btn {
+  background: linear-gradient(90deg, #014976 0%, #120505 74%);
+  border-radius: 20px;
+  border: 1px solid #125e91;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.7rem 2rem;
+  text-transform: uppercase;
+  display: none; /* hidden by default on desktop */
+}
+
+/* Hide previously used mobile toggle row */
+.mobile-toggle {
+  display: none !important;
+}
+
+/* ============================= */
+/* MOBILE RESPONSIVE MODE */
+/* ============================= */
+@media (max-width: 767px) {
+
+  /* Make the switch button visible */
+  .mobile-switch-btn {
+    display: block;
+  }
+
+  .container__form {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  .container--signin {
+    display: block;
+    width: 100%;
+  }
+
+  .container.right-panel-active .container--signin {
+    display: none;
+  }
+
+  .container--signup {
+    display: none;
+    width: 100%;
+  }
+
+  .container.right-panel-active .container--signup {
+    display: block;
+  }
+
+  /* Remove overlay completely */
+  .container__overlay {
+    display: none;
+  }
+
+  /* Reduce padding on buttons inside forms */
+  .btn {
+    padding: 0.7rem 2rem;
+  }
+}
+
+/* ============================= */
+/* ANIMATION KEYFRAME */
+/* ============================= */
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(100%);
+  }
 }
