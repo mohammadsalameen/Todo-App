@@ -7,7 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagination';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { fadeIn } from '../animations';
 
 
 @Component({
@@ -16,14 +16,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   imports: [CommonModule, NgSelectModule, NgxPaginationModule, FormsModule],
   templateUrl: './task-table.component.html',
   styleUrls: ['./task-table.component.css'],
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('700ms ease-in', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+  animations: [fadeIn]
 })
 export class TaskTableComponent {
   constructor(private todoService: TodoService, private router: Router){}
