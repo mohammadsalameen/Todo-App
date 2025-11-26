@@ -1,0 +1,38 @@
+.table tbody tr {
+  height: 60px; /* Fixed height for table rows */
+}
+
+.table tbody td {
+  vertical-align: middle; /* Center content vertically */
+  max-height: 60px; /* Ensure cells don't exceed row height */
+  overflow: hidden; /* Hide overflow */
+}
+
+/* Handle long descriptions */
+.table tbody td:nth-child(3) { /* Assuming description is the 3rd column */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* Set a max width for description column */
+}
+
+/* Optional: Add tooltip for truncated text */
+.table tbody td:nth-child(3) {
+  position: relative;
+}
+
+.table tbody td:nth-child(3):hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  white-space: normal;
+  z-index: 10;
+  max-width: 300px;
+  word-wrap: break-word;
+}

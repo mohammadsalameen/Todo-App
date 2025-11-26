@@ -1,10 +1,7 @@
-# TODO: Make App Responsive for All Screens
+# Task: Fix Task-Table Element Positions
 
-## Tasks
-- [ ] Update `src/styles.css` to make `.modal-box` responsive
-- [ ] Update `src/app/auth/auth-layout/auth-layout.component.css` for responsive auth layout
-- [ ] Update `src/app/shared/task-table/task-table.component.html` for responsive search/filter
-- [ ] Update `src/app/shared/task-form/task-form.component.html` to remove fixed height
+## Steps to Complete
+- [ ] Add CSS styles to task-table.component.css to set fixed row heights and handle long descriptions with text overflow.
 
-## Followup
-- [ ] Run the app and test responsiveness on different screen sizes
+## Progress Tracking
+- [ ] Step 1: Implement CSS for fixed row heights and text overflow in task-table.component.css
