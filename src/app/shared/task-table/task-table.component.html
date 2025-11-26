@@ -34,8 +34,6 @@
             <th>Description</th>
             <th>Urgent?</th>
             <th>Completed</th>
-            <th *ngIf="role === 'admin'">Comments</th>
-            <th *ngIf="role === 'user'">Comments</th>
             <th>Edit</th>
             <th *ngIf="role === 'admin'">Delete</th>
           </tr>
@@ -75,37 +73,6 @@
                 [checked]="todo.completed"
                 (change)="toggleCompleted(todo.id)"
               />
-            </td>
-            <td>
-              <button
-                class="btn btn-primary btn-sm"
-                (click)="open = !open"
-                *ngIf="role === 'admin'"
-              >
-                <i class="bi bi-plus-circle"></i>
-              </button>
-              <form #commentForm='ngForm' (ngSubmit)="addComment(commentForm.value)" >
-                <div
-                class="p-3 bg-info-subtle rounded shadow-sm d-flex align-items-center gap-2 mt-2"
-                [@openClose]="open ? 'open' : 'close'"
-              >
-                <textarea
-                  name="comment"
-                  class="form-control"
-                  rows="2"
-                  placeholder="Write your note..."
-                  style="resize: none"
-                  required
-                  ngModel
-                  #comment = "ngModel"
-                ></textarea>
-
-                <button [disabled]="commentForm.invalid" class="btn btn-primary d-flex align-items-center justify-content-center px-3">
-                  <i class="bi bi-send-fill"></i>
-                </button>
-              </div>
-              </form>
-
             </td>
             <td>
               <button class="btn btn-warning btn-sm" (click)="updateTask()">

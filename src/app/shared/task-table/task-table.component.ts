@@ -17,11 +17,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: './task-table.component.html',
   styleUrls: ['./task-table.component.css'],
   animations: [
-    trigger('openClose', [
-      state('open', style({height: '80px', opacity: 1})),
-      state('close', style({height: '0px', opacity: 0})),
-      transition('open <=> close', [animate('200ms ease-in-out')])
-    ]),
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0 }),
@@ -33,7 +28,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class TaskTableComponent {
   constructor(private todoService: TodoService, private router: Router){}
   @Input() role! : string;
-  open: boolean = false;
   todos: any[] = [];
   allTodos: any[] = [];
 

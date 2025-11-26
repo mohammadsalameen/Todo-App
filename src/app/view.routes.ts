@@ -1,9 +1,10 @@
 import { Routes } from "@angular/router";
+import { HomeComponent } from "./home/home.component";
 
 export const viewRoutes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./auth/auth.route').then(m => m.authRoutes)
+    component: HomeComponent
   },
   {
     path: 'admin',
