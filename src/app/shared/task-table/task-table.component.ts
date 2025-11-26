@@ -21,6 +21,12 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('open', style({height: '80px', opacity: 1})),
       state('close', style({height: '0px', opacity: 0})),
       transition('open <=> close', [animate('200ms ease-in-out')])
+    ]),
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('700ms ease-in', style({ opacity: 1 }))
+      ])
     ])
   ]
 })
