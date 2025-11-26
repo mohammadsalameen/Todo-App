@@ -11,6 +11,7 @@ import { TodoService } from '../../services/todo.service';
   encapsulation: ViewEncapsulation.None
 })
 export class EditTaskComponent {
+  heading: string = 'Update Task'
   title: string = '';
   urgent: string = '';
   description: string = '';

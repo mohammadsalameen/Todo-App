@@ -14,6 +14,7 @@ import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 })
 export class AddTaskComponent {
   constructor(private todoService: TodoService, private router: Router){}
+  heading: string = 'Add Task'
   title: string = '';
   description: string = '';
   urgent: boolean = false;
