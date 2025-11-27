@@ -20,13 +20,14 @@
       #title = "ngModel"
     />
     <label for="title">Task Title</label>
-    <div class="invalid-feedback" *ngIf="title.invalid && title.touched">
-      <div *ngIf="title.errors?.['required']">
+    <div class="small text-danger" *ngIf="title.invalid && title.touched">
+      <span *ngIf="title.errors?.['required']">
         Title is required
-      </div>
-      <div *ngIf="title.errors?.['minlength']">
+      </span>
+      <span *ngIf="title.errors?.['minlength']">
         Minimum length is 3
-      </div>
+      </span>
+      <span *ngIf="!(title.invalid && title.touched)" class="invisible"></span>
     </div>
   </div>
   <div class="form-floating mb-3">
@@ -44,13 +45,14 @@
       #description = "ngModel"
     ></textarea>
     <label for="description">Task Description</label>
-    <div class="invalid-feedback" *ngIf="description.invalid && description.touched">
-      <div *ngIf="description.errors?.['required']">
+    <div class="small text-danger" *ngIf="description.invalid && description.touched">
+      <span *ngIf="description.errors?.['required']">
         Description is required
-      </div>
-      <div *ngIf="description.errors?.['minlength']">
+      </span>
+      <span *ngIf="description.errors?.['minlength']">
         Minimum length is 5
-      </div>
+      </span>
+      <span *ngIf="description.invalid && description.touched" class="invalid"></span>
     </div>
   </div>
   <div class="form-floating mb-2">
