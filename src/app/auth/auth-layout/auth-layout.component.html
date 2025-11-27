@@ -1,17 +1,32 @@
-
-<!-- Mobile toggle button -->
 <button
   class="btn mt-3 mobile-switch-btn d-block d-md-none mx-auto mb-3"
-  (click)="toggle(!isSignUpActive)">
-  {{ isSignUpActive ? 'Sign In' : 'Sign Up' }}
+  (click)="toggle(!isSignUpActive)"
+>
+  {{ isSignUpActive ? "Sign In" : "Sign Up" }}
 </button>
-<div class="container mt-3 mt-lg-5" [class.right-panel-active]="isSignUpActive" [@fadeIn]>
+<div
+  class="container mt-2"
+  [class.right-panel-active]="isSignUpActive"
+  [@fadeIn]
+>
+  <!-- Sign up -->
   <div class="container__form container--signup">
-    <app-signup></app-signup>
+    <app-auth-form
+      [titleHeading]="signUpTitle"
+      [showForgetPassword]="false"
+      [showUserName]="true"
+      (formSubmitted)="signUpForm($event)"
+    ></app-auth-form>
   </div>
 
+  <!-- Sign in -->
   <div class="container__form container--signin">
-    <app-login></app-login>
+    <app-auth-form
+      [titleHeading]="signInTitle"
+      [showForgetPassword]="true"
+      [showUserName]="false"
+      (formSubmitted)="signInForm($event)"
+    ></app-auth-form>
   </div>
 
   <div class="container__overlay d-none d-md-block">

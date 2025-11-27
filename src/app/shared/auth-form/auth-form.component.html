@@ -1,8 +1,8 @@
 <div class="card shadow-sm p-4 ">
-  <h2 class="card-title text-center mb-4">{{titleHeading.toUpperCase()}}</h2>
+  <h2 class="card-title text-center text-primary mb-4">{{titleHeading.toUpperCase()}}</h2>
   <form #signUpForm="ngForm" (ngSubmit)="submit(signUpForm)" novalidate>
-    <div class="mb-1 ">
-      <label for="username" class="form-label">Username</label>
+    <div class="mb-1" *ngIf="showUserName">
+      <label for="username" class="form-label" >Username</label>
       <input
         type="text"
         id="username"
