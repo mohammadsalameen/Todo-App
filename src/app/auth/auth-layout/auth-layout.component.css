@@ -1,6 +1,4 @@
-/* ============================= */
 /* MAIN CONTAINER */
-/* ============================= */
 .container {
   background-color: white;
   border-radius: 0.7rem;
@@ -21,9 +19,7 @@
   }
 }
 
-/* ============================= */
 /* FORMS */
-/* ============================= */
 .container__form {
   height: 100%;
   position: absolute;
@@ -56,9 +52,7 @@
   z-index: 5;
 }
 
-/* ============================= */
 /* OVERLAY */
-/* ============================= */
 .container__overlay {
   height: 100%;
   left: 50%;
@@ -117,9 +111,7 @@
   transform: translateX(20%);
 }
 
-/* ============================= */
 /* BUTTONS */
-/* ============================= */
 .btn {
   background: linear-gradient(90deg, #014976 0%, #120505 74%);
   border-radius: 20px;
@@ -138,9 +130,7 @@
   background: linear-gradient(90deg, #120505 0%, #014976 74%);
 }
 
-/* ============================= */
 /* MOBILE SWITCH BUTTON */
-/* ============================= */
 .mobile-switch-btn {
   background: linear-gradient(90deg, #014976 0%, #120505 74%);
   border-radius: 20px;
@@ -150,70 +140,66 @@
   font-weight: bold;
   padding: 0.7rem 2rem;
   text-transform: uppercase;
-  display: none; /* hidden by default on desktop */
+  display: none;
 }
 
-/* Hide previously used mobile toggle row */
 .mobile-toggle {
   display: none !important;
 }
 
-/* ============================= */
 /* MOBILE RESPONSIVE MODE */
-/* ============================= */
 @media (max-width: 767px) {
 
-  /* Make the switch button visible */
   .mobile-switch-btn {
     display: block;
+  }
+
+  .container {
+    height: auto;
+    flex-direction: column;
   }
 
   .container__form {
     position: static;
     width: 100%;
     height: auto;
+    transition: none;
   }
 
   .container--signin {
     display: block;
     width: 100%;
-  }
-
-  .container.right-panel-active .container--signin {
-    display: none;
+    opacity: 1;
+    transform: none !important;
+    animation: none !important;
   }
 
   .container--signup {
     display: none;
     width: 100%;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .container.right-panel-active .container--signin {
+    display: none;
+    transform: none !important;
+    animation: none !important;
   }
 
   .container.right-panel-active .container--signup {
     display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 
-  /* Remove overlay completely */
   .container__overlay {
     display: none;
   }
 
-  /* Reduce padding on buttons inside forms */
   .btn {
     padding: 0.7rem 2rem;
-  }
-}
-
-/* ============================= */
-/* ANIMATION KEYFRAME */
-/* ============================= */
-@keyframes show {
-  0% {
-    opacity: 0;
-    transform: translateX(0);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(100%);
   }
 }
