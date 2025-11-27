@@ -1,6 +1,5 @@
 import { Routes } from "@angular/router";
-import { TasksSummaryComponent } from "./tasks/tasks-summary/tasks-summary.component";
-import { AuthGuard } from "./services/auth-guard.service";
+import { TasksSummaryComponent } from "./tasks-summary.component";
 
 export const tasksSummaryRoutes: Routes = [
   {
