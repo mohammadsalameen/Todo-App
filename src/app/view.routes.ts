@@ -16,7 +16,7 @@ export const viewRoutes: Routes = [
   },
   {
     path: 'tasks-summary',
-    loadChildren: () => import('./tasks-summary.routes').then(m => m.tasksSummaryRoutes)
+    loadChildren: () => import('./tasks/tasks-summary/tasks-summary.routes').then(m => m.tasksSummaryRoutes)
   },
   {
     path: 'auth',
