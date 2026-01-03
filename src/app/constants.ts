@@ -5,3 +5,9 @@ export const navLinks = [
   { label: 'Tasks Summary', route: '/tasks-summary', exact: false },
   { label: 'Add Task', route: '/admin/add-task', exact: false },
 ];
+
+export const filterOptions = [
+  { label: 'All', value: 'all' },
+  { label: 'Completed', value: 'completed' },
+  { label: 'Urgent', value: 'urgent' },
+];

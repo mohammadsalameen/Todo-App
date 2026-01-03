@@ -12,7 +12,7 @@ export const viewRoutes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('./user/user-dashboard.routes').then(m => m.userRoutes)
+    loadChildren: () => import('./user/user-dashboard/user-dashboard.routes').then(m => m.userRoutes)
   },
   {
     path: 'tasks-summary',

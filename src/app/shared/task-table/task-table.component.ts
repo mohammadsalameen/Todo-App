@@ -8,6 +8,7 @@ import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagi
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { fadeIn } from '../animations';
+import { filterOptions } from '../../constants';
 
 
 @Component({
@@ -23,16 +24,11 @@ export class TaskTableComponent {
   @Input() role! : string;
   todos: any[] = [];
   allTodos: any[] = [];
-
+  filterOptions = filterOptions;
   selectedOption: number = 10;
   itemsPerPageOptions = ITEMS_PER_PAGE_OPTIONS;
   pagingManager: any = CREATE_PAGING_MANAGER(this.selectedOption);
   searchText: string = '';
-  filterOptions = [
-    { label: 'All', value: 'all' },
-    { label: 'Completed', value: 'completed' },
-    { label: 'Urgent', value: 'urgent' }
-  ];
   selectedFilter: string = 'all';
 
   ngOnInit() {
