@@ -4,12 +4,12 @@
     {{ titleHeading.toUpperCase() }}
   </h2>
 
-  <form #signForm="ngForm" (ngSubmit)="submit(signForm)" novalidate
+  <form #signForm="ngForm" (ngSubmit)="submit(signForm, signUpShow)" novalidate
         class="d-flex flex-column flex-grow-1">
 
     <div class="d-flex flex-column  flex-grow-1">
 
-      <div *ngIf="showUserName">
+      <div *ngIf="signUpShow">
         <label class="form-label">Username</label>
 
         <input

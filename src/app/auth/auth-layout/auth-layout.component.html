@@ -4,6 +4,7 @@
 >
   {{ isSignUpActive ? "Sign In" : "Sign Up" }}
 </button>
+
 <div
   class="container mt-2"
   [class.right-panel-active]="isSignUpActive"
@@ -14,8 +15,7 @@
     <app-auth-form
       [titleHeading]="signUpTitle"
       [showForgetPassword]="false"
-      [showUserName]="true"
-      (formSubmitted)="signUpForm($event)"
+      [signUpShow]="true"
     ></app-auth-form>
   </div>
 
@@ -24,8 +24,7 @@
     <app-auth-form
       [titleHeading]="signInTitle"
       [showForgetPassword]="true"
-      [showUserName]="false"
-      (formSubmitted)="signInForm($event)"
+      [signUpShow]="false"
     ></app-auth-form>
   </div>
 

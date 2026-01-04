@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth-service.service';
 })
 export class AuthFormComponent {
   @Input() titleHeading: string;
-  @Input() showUserName: boolean;
+  @Input() signUpShow: boolean;
   @Input() showForgetPassword: boolean;
   @Output() formSubmitted = new EventEmitter<any>();
 
@@ -23,20 +23,34 @@ export class AuthFormComponent {
 
   constructor(private authService: AuthService){}
 
-  submit(form: NgForm) {
+  submit(form: NgForm, signUpShow: boolean) {
     if(form.invalid) return;
     const payload = {...form.value, role: 'User'};
-    this.authService.register(payload.username, payload.email, payload.password, payload.role)
-    .subscribe({
-      next:(res) =>{
-        console.log('User registered successfully', res);
-        alert('Registration successfully!');
-        form.resetForm();
-      },
-      error: (err) => {
-        console.error('Registration failed', err);
-        alert(err.error?.message || 'Registration failed. Check console.')
-      }
-    })
+    if(signUpShow){
+      this.authService.handleSignUp(payload.username, payload.email, payload.password, payload.role)
+      .subscribe({
+        next:(res) =>{
+          console.log('User registered successfully', res);
+          alert('Registration successfully!');
+          form.resetForm();
+        },
+        error: (err) => {
+          console.error('Registration failed', err);
+          alert(err.error?.message || 'Registration failed. Check console.')
+        }
+      })
+    }else{
+      this.authService.handleSignIn(payload.email, payload.password).subscribe({
+        next:(res) =>{
+          console.log('User loggedIn successfully', res);
+          alert('LogIn successfully!');
+          form.resetForm();
+        },
+        error: (err) => {
+          console.error('LogIn failed', err);
+          alert(err.error?.message || 'LogIn failed. Check console.')
+        }
+      })
+    }
   }
 }

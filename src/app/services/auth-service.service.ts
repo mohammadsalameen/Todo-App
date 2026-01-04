@@ -9,14 +9,16 @@ export class AuthService {
   private readonly STORAGE_KEY = 'loggedUser';
   private readonly BASE_URL = "http://localhost:5089/api";
   constructor(private http: HttpClient) { }
-  login(Email: string, Password: string){
-    if(Email === "admin@gmail.com" && Password === "123456"){
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify({Email}));
-      return true;
-    } else return false;
+  handleSignIn(Email: string, Password: string): Observable<any>{
+    // if(Email === "admin@gmail.com" && Password === "123456"){
+    //   localStorage.setItem(this.STORAGE_KEY, JSON.stringify({Email}));
+    //   return true;
+    // } else return false;
+    const payload = {Email, Password};
+    return this.http.post(`${this.BASE_URL + '/Auth/login'}`, payload);
 
   }
-  register(Username: string, Email: string, Password: string, Role: string): Observable<any>{
+  handleSignUp(Username: string, Email: string, Password: string, Role: string): Observable<any>{
     const payload = {Username, Email, Password, Role};
     return this.http.post(`${this.BASE_URL + '/Auth/register'}`, payload);
   }
@@ -26,4 +28,6 @@ export class AuthService {
   isLoggedIn() {
     return localStorage.getItem(this.STORAGE_KEY) !== null;
   }
+
+
 }
