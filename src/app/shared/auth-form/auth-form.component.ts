@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-form',
@@ -21,8 +22,7 @@ export class AuthFormComponent {
   password = '';
   role = "User";
 
-  constructor(private authService: AuthService){}
-
+  constructor(private authService: AuthService, private router: Router){}
   submit(form: NgForm, signUpShow: boolean) {
     if(form.invalid) return;
     const payload = {...form.value, role: 'User'};
@@ -44,6 +44,14 @@ export class AuthFormComponent {
         next:(res) =>{
           console.log('User loggedIn successfully', res);
           alert('LogIn successfully!');
+          localStorage.setItem('token', res.accessToken);
+          const role = this.authService.getUserRole();
+          console.log(role);
+          if(role == "User"){
+            this.router.navigate(['/user/dashboard']);
+          }else{
+            this.router.navigate(['admin/dashboard']);
+          }
           form.resetForm();
         },
         error: (err) => {

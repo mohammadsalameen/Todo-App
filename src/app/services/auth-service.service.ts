@@ -1,7 +1,12 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
 
+interface JwtPayload{
+  role?: string;
+  exp?: number;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +33,23 @@ export class AuthService {
   isLoggedIn() {
     return localStorage.getItem(this.STORAGE_KEY) !== null;
   }
+
+getToken(): string | null{
+  return localStorage.getItem('token');
+}
+
+getDecodedToken(): JwtPayload | null{
+  const token = this.getToken();
+  if(!token) return null;
+  return jwtDecode<JwtPayload>(token);
+}
+
+getUserRole(): string | null{
+  const decoded: any = this.getDecodedToken();
+  return decoded?.[
+    'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+  ] || null;
+}
 
 
 }
