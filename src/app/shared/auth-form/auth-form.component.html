@@ -4,7 +4,7 @@
     {{ titleHeading.toUpperCase() }}
   </h2>
 
-  <form #signUpForm="ngForm" (ngSubmit)="submit(signUpForm)" novalidate
+  <form #signForm="ngForm" (ngSubmit)="submit(signForm)" novalidate
         class="d-flex flex-column flex-grow-1">
 
     <div class="d-flex flex-column  flex-grow-1">
@@ -25,7 +25,7 @@
 
         <div class="small text-danger">
           <span *ngIf="username.touched && username.errors?.['required']">Username is required</span>
-          <span *ngIf="username.touched && username.errors?.['minlength']">Minimum length is 3</span>
+          <span *ngIf="username.touched && username.errors?.['minlength']">Username must be at least 3 characters</span>
           <span *ngIf="!(username.invalid && username.touched)" class="invisible">.</span>
         </div>
       </div>
@@ -62,17 +62,21 @@
           class="form-control"
           [class.is-invalid]="password.invalid && password.touched"
           placeholder="Enter password"
-          required minlength="9"
+          required minlength="6"
           ngModel
           #password="ngModel"
         />
 
         <div class="small text-danger">
           <span *ngIf="password.touched && password.errors?.['required']">Password is required</span>
-          <span *ngIf="password.touched && password.errors?.['minlength']">Minimum length is 9</span>
+          <span *ngIf="password.touched && password.errors?.['minlength']">Password must be at least 6 characters</span>
 
           <span *ngIf="!(password.invalid && password.touched)" class="invisible">.</span>
         </div>
+      </div>
+      <div>
+        <input type="hidden" name="role" [ngModel]="role" />
+
       </div>
 
       <!-- Forgot -->
@@ -85,7 +89,7 @@
     <button
       type="submit"
       class="btn btn-success w-100 mt-3"
-      [disabled]="signUpForm.invalid"
+      [disabled]="signForm.invalid"
     >
       {{ titleHeading.toUpperCase() }}
     </button>
