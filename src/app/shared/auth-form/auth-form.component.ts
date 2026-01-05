@@ -24,10 +24,12 @@ export class AuthFormComponent {
   email = '';
   password = '';
   role = "User";
+  isLoading = false;
 
   constructor(private authService: AuthService, private router: Router, private toastr: ThirdPartyToastyServiceService){}
   submit(form: NgForm, signUpShow: boolean) {
     if(form.invalid) return;
+    this.isLoading = true;
     const payload = {...form.value, role: 'User'};
     if(signUpShow){
       this.authService.handleSignUp(payload.username, payload.email, payload.password, payload.role)
@@ -36,10 +38,12 @@ export class AuthFormComponent {
           console.log('User registered successfully', res);
           this.toastr.toasterSuccess('Registration successfully!', 'Success');
           form.resetForm();
+          this.isLoading = false;
         },
         error: (err) => {
           console.error('Registration failed', err);
           this.toastr.toasterError(err.error?.message || 'Registration failed. Check console.')
+          this.isLoading = false;
         }
       })
     }else{
@@ -56,10 +60,12 @@ export class AuthFormComponent {
             this.router.navigate(['admin/dashboard']);
           }
           form.resetForm();
+          this.isLoading = false;
         },
         error: (err) => {
           console.error('LogIn failed', err);
           this.toastr.toasterError(err.error?.message || 'LogIn failed. Check console.')
+          this.isLoading = false;
         }
       })
     }

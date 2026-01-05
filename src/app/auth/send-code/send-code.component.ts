@@ -16,6 +16,7 @@ export class SendCodeComponent implements OnInit {
   email = '';
   newPassword = '';
   code = '';
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -32,16 +33,19 @@ export class SendCodeComponent implements OnInit {
 
   submit(form: NgForm) {
     if (form.invalid) return;
+    this.isLoading = true;
     this.authService.resetPasswordWithCode(form.value.email, form.value.newPassword, form.value.code).subscribe({
       next: (res) => {
         console.log('Password reset successfully', res);
         this.toastr.toasterSuccess('Password reset successfully!', 'Success');
         this.router.navigate(['/auth']);
         form.resetForm();
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Password reset failed', err);
         this.toastr.toasterError(err.error?.message || 'Password reset failed. Check console.');
+        this.isLoading = false;
       }
     });
   }

@@ -14,7 +14,7 @@
         <div class="d-flex flex-column flex-grow-1">
           <!-- Email (hidden or readonly) -->
           <div>
-            <label class="form-label">Email</label>
+            <label class="form-label" hidden>Email</label>
             <input
               type="email"
               name="email"
@@ -24,6 +24,7 @@
               email
               [ngModel]="email"
               readonly
+              hidden
             />
           </div>
 
@@ -85,9 +86,10 @@
         <button
           type="submit"
           class="btn btn-success w-100 mt-3"
-          [disabled]="codeForm.invalid"
+          [disabled]="codeForm.invalid || isLoading"
         >
-          RESET PASSWORD
+          <span class="spinner-border spinner-border-sm me-2" *ngIf="isLoading"></span>
+          {{ isLoading ? 'LOADING...' : 'RESET PASSWORD' }}
         </button>
       </form>
     </div>

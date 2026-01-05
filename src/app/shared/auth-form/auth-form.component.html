@@ -89,9 +89,10 @@
     <button
       type="submit"
       class="btn btn-success w-100 mt-3"
-      [disabled]="signForm.invalid"
+      [disabled]="signForm.invalid || isLoading"
     >
-      {{ titleHeading.toUpperCase() }}
+      <span class="spinner-border spinner-border-sm me-2" *ngIf="isLoading"></span>
+      {{ isLoading ? 'LOADING...' : titleHeading.toUpperCase() }}
     </button>
 
   </form>
