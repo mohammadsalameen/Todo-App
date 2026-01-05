@@ -23,6 +23,14 @@ export class AuthService {
     const payload = {Username, Email, Password, Role};
     return this.http.post(`${this.BASE_URL + '/Auth/register'}`, payload);
   }
+  sendResetCode(Email: string): Observable<any>{
+    const payload = {Email};
+    return this.http.post(`${this.BASE_URL + '/Auth/send-code'}`, payload);
+  }
+  resetPasswordWithCode(Email: string, NewPassword: string, Code: string): Observable<any>{
+    const payload = {Email, NewPassword, Code};
+    return this.http.post(`${this.BASE_URL + '/Auth/reset-password'}`, payload);
+  }
   logout(){
     localStorage.removeItem(this.STORAGE_KEY);
   }

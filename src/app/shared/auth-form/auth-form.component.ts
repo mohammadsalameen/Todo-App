@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth-service.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
@@ -10,7 +10,7 @@ import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './auth-form.component.html',
   styleUrl: './auth-form.component.css'
 })

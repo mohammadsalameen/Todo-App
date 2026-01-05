@@ -1,0 +1,95 @@
+<div class="overlays">
+  <div class="modal-box mb-5">
+    <div
+      class="shadow-sm p-4 min-vh-50 d-flex flex-column justify-content-between"
+    >
+      <h2 class="text-center text-primary mb-3">ENTER RESET CODE</h2>
+
+      <form
+        #codeForm="ngForm"
+        (ngSubmit)="submit(codeForm)"
+        novalidate
+        class="d-flex flex-column flex-grow-1"
+      >
+        <div class="d-flex flex-column flex-grow-1">
+          <!-- Email (hidden or readonly) -->
+          <div>
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter email"
+              required
+              email
+              [ngModel]="email"
+              readonly
+            />
+          </div>
+
+          <!-- New Password -->
+          <div>
+            <label class="form-label">New Password</label>
+            <input
+              type="password"
+              name="newPassword"
+              class="form-control"
+              [class.is-invalid]="newPassword.invalid && newPassword.touched"
+              placeholder="Enter new password"
+              required
+              minlength="6"
+              ngModel
+              #newPassword="ngModel"
+            />
+            <div class="small text-danger">
+              <span
+                *ngIf="newPassword.touched && newPassword.errors?.['required']"
+                >New password is required</span
+              >
+              <span
+                *ngIf="newPassword.touched && newPassword.errors?.['minlength']"
+                >Password must be at least 6 characters</span
+              >
+              <span
+                *ngIf="!(newPassword.invalid && newPassword.touched)"
+                class="invisible"
+                >.</span
+              >
+            </div>
+          </div>
+
+          <!-- Code -->
+          <div>
+            <label class="form-label">Reset Code</label>
+            <input
+              type="text"
+              name="code"
+              class="form-control"
+              [class.is-invalid]="code.invalid && code.touched"
+              placeholder="Enter reset code"
+              required
+              ngModel
+              #code="ngModel"
+            />
+            <div class="small text-danger">
+              <span *ngIf="code.touched && code.errors?.['required']"
+                >Reset code is required</span
+              >
+              <span *ngIf="!(code.invalid && code.touched)" class="invisible"
+                >.</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success w-100 mt-3"
+          [disabled]="codeForm.invalid"
+        >
+          RESET PASSWORD
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
