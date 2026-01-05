@@ -11,7 +11,7 @@ interface JwtPayload{
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly STORAGE_KEY = 'loggedUser';
+  private readonly STORAGE_KEY = 'token';
   private readonly BASE_URL = "http://localhost:5089/api";
   constructor(private http: HttpClient) { }
   handleSignIn(Email: string, Password: string): Observable<any>{
