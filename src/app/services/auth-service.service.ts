@@ -15,10 +15,6 @@ export class AuthService {
   private readonly BASE_URL = "http://localhost:5089/api";
   constructor(private http: HttpClient) { }
   handleSignIn(Email: string, Password: string): Observable<any>{
-    // if(Email === "admin@gmail.com" && Password === "123456"){
-    //   localStorage.setItem(this.STORAGE_KEY, JSON.stringify({Email}));
-    //   return true;
-    // } else return false;
     const payload = {Email, Password};
     return this.http.post(`${this.BASE_URL + '/Auth/login'}`, payload);
 
@@ -50,6 +46,5 @@ getUserRole(): string | null{
     'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
   ] || null;
 }
-
 
 }
