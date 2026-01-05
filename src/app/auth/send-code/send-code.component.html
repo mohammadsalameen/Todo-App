@@ -37,7 +37,7 @@
               [class.is-invalid]="newPassword.invalid && newPassword.touched"
               placeholder="Enter new password"
               required
-              minlength="6"
+              minlength="9"
               ngModel
               #newPassword="ngModel"
             />
@@ -48,7 +48,7 @@
               >
               <span
                 *ngIf="newPassword.touched && newPassword.errors?.['minlength']"
-                >Password must be at least 6 characters</span
+                >Password must be at least 9 characters</span
               >
               <span
                 *ngIf="!(newPassword.invalid && newPassword.touched)"
