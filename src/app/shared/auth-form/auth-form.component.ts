@@ -52,7 +52,7 @@ export class AuthFormComponent {
           console.log('User loggedIn successfully', res);
           this.toastr.toasterSuccess('LogIn successfully!');
           localStorage.setItem('token', res.accessToken);
-          const role = this.authService.getUserRole();
+          const role = this.authService.getUserData("role");
           console.log(role);
           if(role == "User"){
             this.router.navigate(['/user/dashboard']);

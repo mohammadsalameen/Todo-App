@@ -48,11 +48,17 @@ getDecodedToken(): JwtPayload | null{
   return jwtDecode<JwtPayload>(token);
 }
 
-getUserRole(): string | null{
+getUserData(data: string): string | null{
   const decoded: any = this.getDecodedToken();
-  return decoded?.[
-    'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-  ] || null;
+  if(data == "role"){
+    return decoded?.[
+      `http://schemas.microsoft.com/ws/2008/06/identity/claims/${data}`
+    ] || null;
+  }else{
+    return decoded?.[
+      `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/${data}`
+    ] || null;
+  }
 }
 
 }

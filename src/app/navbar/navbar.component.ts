@@ -15,9 +15,11 @@ import { fadeIn } from '../shared/animations';
 export class NavbarComponent {
   links = navLinks;
   role!: string | null;
+  userName!: string | null;
   constructor(private authService: AuthService, private router: Router){}
   ngOnInit(){
-    this.role = this.authService.getUserRole();
+    this.role = this.authService.getUserData("role");
+    this.userName = this.authService.getUserData("name");
     this.links = navLinks.filter(link =>
       this.role && link.roles.includes(this.role as any)
     )
