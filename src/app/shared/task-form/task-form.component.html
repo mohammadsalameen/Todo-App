@@ -55,6 +55,19 @@
       <span *ngIf="description.invalid && description.touched" class="invalid"></span>
     </div>
   </div>
+  <div class="form-floating mb-3" *ngIf="defaultValues === 'Add Task'">
+    <select
+      class="form-select"
+      name="assignedUser"
+      id="assignedUser"
+      ngModel
+      [ngModel]="defaultValues?.assignedUser"
+    >
+      <option value="">Select User</option>
+      <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
+    </select>
+    <label for="assignedUser">Assign to User</label>
+  </div>
   <div class="form-floating mb-2">
     <textarea
       name="comment"

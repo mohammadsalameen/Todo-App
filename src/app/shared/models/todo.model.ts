@@ -4,5 +4,6 @@ export interface ITodo {
   urgent: boolean;
   description: string;
   completed: boolean;
+  assignedUser?: number;
   createdAt?: Date;
 }

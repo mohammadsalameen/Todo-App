@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-task-form',
@@ -8,9 +9,17 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.css'
 })
-export class TaskFormComponent {
+export class TaskFormComponent implements OnInit {
   @Input() defaultValues: any = null;
   @Output() submitTask: EventEmitter<any> = new EventEmitter();
+
+  users: any[] = [];
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.users = this.userService.getAllUsers();
+  }
 
   submit(formData: any){
     this.submitTask.emit(formData);
