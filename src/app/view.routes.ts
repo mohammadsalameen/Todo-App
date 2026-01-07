@@ -1,15 +1,13 @@
 import { Routes } from "@angular/router";
-import { HomeComponent } from "./home/home.component";
-import { ViewTaskComponent } from "./tasks/view-task/view-task.component";
 
 export const viewRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
   },
   {
     path: 'view-task/:id',
-    component: ViewTaskComponent
+    loadComponent: () => import('./tasks/view-task/view-task.component').then(m => m.ViewTaskComponent)
   },
   {
     path: 'admin',

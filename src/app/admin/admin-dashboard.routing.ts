@@ -1,31 +1,25 @@
 import { Routes } from "@angular/router";
-import { AdminDashboardComponent } from "./admin-dashboard/admin-dashboard.component";
-import { AddTaskComponent } from "../tasks/add-task/add-task.component";
-import { EditTaskComponent } from "../tasks/edit-task/edit-task.component";
-import { UserTasksComponent } from "./user-tasks/user-tasks.component";
-import { UsersListComponent } from "./users-list/users-list.component";
-
 
 export const adminRoutes: Routes = [
   {
     path: 'dashboard',
-    component: AdminDashboardComponent,
+    loadComponent: () => import('./admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent),
     // canActivate: [AuthGuard]
   },
   {
     path: 'add-task',
-    component: AddTaskComponent
+    loadComponent: () => import('../tasks/add-task/add-task.component').then(m => m.AddTaskComponent)
   },
   {
     path: 'edit-task',
-    component: EditTaskComponent
+    loadComponent: () => import('../tasks/edit-task/edit-task.component').then(m => m.EditTaskComponent)
   },
   {
     path: 'dashboard/user-tasks/:userId',
-    component: UserTasksComponent
+    loadComponent: () => import('./user-tasks/user-tasks.component').then(m => m.UserTasksComponent)
     },
     {
       path: 'users-list',
-      component: UsersListComponent
+      loadComponent: () => import('./users-list/users-list.component').then(m => m.UsersListComponent)
     }
 ]

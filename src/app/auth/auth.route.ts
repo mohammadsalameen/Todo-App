@@ -1,19 +1,16 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { SendCodeComponent } from './send-code/send-code.component';
 
 export const authRoutes: Routes = [
   {
     path: '',
-    component: AuthLayoutComponent,
+    loadComponent: () => import('./auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
   },
   {
     path: 'reset-password',
-    component: ResetPasswordComponent,
+    loadComponent: () => import('./reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
   },
   {
     path: 'send-code',
-    component: SendCodeComponent,
+    loadComponent: () => import('./send-code/send-code.component').then(m => m.SendCodeComponent),
   },
 ];
