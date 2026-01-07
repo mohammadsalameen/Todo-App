@@ -5,7 +5,14 @@
       <div class="card-body">
         <h5 class="card-title">Task Number: {{ task.id }}</h5>
         <p class="card-text"><strong>Title:</strong> {{ task.title }}</p>
-        <p class="card-text"><strong>Comments:</strong> {{ task.comments || 'No comments' }}</p>
+        <p class="card-text"><strong>Description:</strong> {{ task.description }}</p>
+        <p class="card-text"><strong>Comments:</strong></p>
+        <ul *ngIf="task.comments.length > 0; else noComments">
+          <li *ngFor="let comment of task.comments">{{ comment }}</li>
+        </ul>
+        <ng-template #noComments>
+          <p>No comments</p>
+        </ng-template>
       </div>
     </div>
   </div>

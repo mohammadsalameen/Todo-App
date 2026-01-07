@@ -1,6 +1,23 @@
-- [x] Update ITodo interface to include comments: string;
-- [x] Update TodoService addTask to include comments field (default empty string)
-- [x] Create ViewTaskComponent under src/app/tasks/view-task/ (ts, html, css)
-- [x] Add route for view-task/:id in view.routes.ts
-- [x] Update TaskTableComponent: add viewComments method to navigate to /view-task/:id
-- [x] Update TaskTable HTML: add Comments column header and td with eye icon button
+# TODO: Integrate Admin Dashboard with API
+
+## Completed
+- [x] Analyze project structure and API requirements
+- [x] Create implementation plan
+- [x] Get user confirmation
+
+## In Progress
+- [x] Update models in todo.model.ts (Add IUser, change ITodo id to string, comments to string[])
+- [x] Update UserService (HttpClient, observables, methods)
+- [x] Update AdminDashboardComponent (subscribe to users)
+- [x] Update UserTableComponent (subscribe, use userName, navigate with userId)
+- [x] Update routes (add :userId to user-tasks)
+- [x] Update UserTasksComponent (get userId from route, pass to TaskTable)
+- [x] Update TaskTableComponent (accept userId, filter tasks)
+- [x] Update ViewTaskComponent (subscribe to task, display comments list)
+- [x] Update ViewTaskComponent.html (show comments as list)
+
+## Followup
+- [x] Add auth interceptor
+- [ ] Test API integration
+- [ ] Verify navigation and data display
+- [ ] Handle loading/error states if needed

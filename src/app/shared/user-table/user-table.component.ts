@@ -17,7 +17,7 @@ import { of } from 'rxjs';
 export class UserTableComponent implements OnInit {
   userService = inject(UserService);
   router = inject(Router);
-  allUsers = this.userService.getAllUsers(); // from backend or service
+  allUsers: any[] = [];
   users: any[] = [];
   @Input() show!: boolean;
 
@@ -27,13 +27,17 @@ export class UserTableComponent implements OnInit {
   searchText: string = '';
 
   ngOnInit() {
-    this.users = [...this.allUsers];
-    this.pagingManager.totalItems = this.users.length;
+    debugger;
+    this.userService.getAllUsers().subscribe(users => {
+      this.allUsers = users;
+      this.users = [...this.allUsers];
+      this.pagingManager.totalItems = this.users.length;
 
-    const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
-    if (this.pagingManager.currentPage > maxPage) {
-      this.pagingManager.currentPage = maxPage;
-    }
+      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
+      if (this.pagingManager.currentPage > maxPage) {
+        this.pagingManager.currentPage = maxPage;
+      }
+    });
   }
 
   search() {
@@ -66,7 +70,7 @@ export class UserTableComponent implements OnInit {
   getFilteredUsers(params: any) {
     const { Page, PageSize, StrSearch } = params;
 
-    let filtered = this.allUsers.filter(u => u.name.toLowerCase().includes(StrSearch.toLowerCase()));
+    let filtered = this.allUsers.filter(u => u.userName.toLowerCase().includes(StrSearch.toLowerCase()));
     const total = filtered.length;
     const start = (Page - 1) * PageSize;
     const end = start + PageSize;
@@ -82,8 +86,7 @@ export class UserTableComponent implements OnInit {
     return item.id;
   }
 
-  viewTasks(userId: number) {
-    // this.router.navigate(['/admin-dashboard/user-tasks', userId]);
-    this.router.navigate(['/admin/dashboard/user-tasks']);
+  viewTasks(userId: string) {
+    this.router.navigate(['/admin/dashboard/user-tasks', userId]);
   }
 }

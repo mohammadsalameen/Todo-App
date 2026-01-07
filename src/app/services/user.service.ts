@@ -1,19 +1,36 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { IUser, ITodo } from '../shared/models/todo.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private BASE_URL = 'http://localhost:5089/api';
+  private usersSubject = new BehaviorSubject<IUser[]>([]);
+  users$ = this.usersSubject.asObservable();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllUsers(){
-    const users = [
-      { id: 1, name: 'Mohammad' },
-      { id: 2, name: 'Ahmad' },
-      { id: 3, name: 'Omar' }
-    ];
+  getAllUsers(): Observable<IUser[]> {
+    if (this.usersSubject.getValue().length === 0) {
+      this.http.get<IUser[]>(`${this.BASE_URL}/Users/users-tasks`).subscribe(users => {
+        this.usersSubject.next(users);
+      });
+    }
+    return this.users$;
+  }
 
-    return users;
+  getTasksForUser(userId: string): Observable<ITodo[]> {
+    return this.users$.pipe(
+      map(users => users.find(u => u.userId === userId)?.tasks || [])
+    );
+  }
+
+  getTaskById(id: string): Observable<ITodo | null> {
+    return this.users$.pipe(
+      map(users => users.flatMap(u => u.tasks).find(t => t.id === id) || null)
+    );
   }
 }

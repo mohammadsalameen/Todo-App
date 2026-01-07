@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoService } from '../../services/todo.service';
+import { UserService } from '../../services/user.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -20,8 +21,9 @@ import { filterOptions } from '../../constants';
   animations: [fadeIn]
 })
 export class TaskTableComponent {
-  constructor(private todoService: TodoService, private router: Router){}
+  constructor(private todoService: TodoService, private router: Router, private userService: UserService){}
   @Input() role! : string;
+  @Input() userId?: string;
   todos: any[] = [];
   allTodos: any[] = [];
   filterOptions = filterOptions;
@@ -32,16 +34,29 @@ export class TaskTableComponent {
   selectedFilter: string = 'all';
 
   ngOnInit() {
-    this.todoService.todos$.subscribe((res: any[]) => {
-      this.allTodos = res ?? [];
-      this.todos = [...this.allTodos];
-      this.pagingManager.totalItems = this.todos.length;
+    if (this.userId) {
+      this.userService.getTasksForUser(this.userId).subscribe((res: any[]) => {
+        this.allTodos = res ?? [];
+        this.todos = [...this.allTodos];
+        this.pagingManager.totalItems = this.todos.length;
 
-      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
-      if (this.pagingManager.currentPage > maxPage) {
-        this.pagingManager.currentPage = maxPage;
-      }
-    });
+        const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
+        if (this.pagingManager.currentPage > maxPage) {
+          this.pagingManager.currentPage = maxPage;
+        }
+      });
+    } else {
+      this.todoService.todos$.subscribe((res: any[]) => {
+        this.allTodos = res ?? [];
+        this.todos = [...this.allTodos];
+        this.pagingManager.totalItems = this.todos.length;
+
+        const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
+        if (this.pagingManager.currentPage > maxPage) {
+          this.pagingManager.currentPage = maxPage;
+        }
+      });
+    }
   }
 
   search() {
@@ -104,7 +119,7 @@ export class TaskTableComponent {
     return item.id;
   }
 
-  toggleCompleted(id: number) {
+  toggleCompleted(id: string) {
     this.todoService.toggleCompleted(id);
   }
   addComment(form: NgForm){
@@ -113,10 +128,10 @@ export class TaskTableComponent {
   updateTask(){
     this.router.navigate(['/admin/edit-task']);
   }
-  viewComments(id: number) {
+  viewComments(id: string) {
     this.router.navigate(['/view-task', id]);
   }
-  deleteTask(id: number) {
+  deleteTask(id: string) {
     this.todoService.deleteTask(id);
     this.pagingManager.totalItems = this.todos.length - 1;
   }

@@ -19,7 +19,7 @@
       <tbody class="text-center">
         <tr *ngFor="let user of users | paginate: { id: pagingManager.id, itemsPerPage: pagingManager.itemsPerPage, currentPage: pagingManager.currentPage, totalItems: pagingManager.totalItems }; trackBy: trackById; let i = index">
           <td>{{ (pagingManager.currentPage - 1) * pagingManager.itemsPerPage + (i + 1) }}</td>
-          <td>{{ user.name }}</td>
+          <td>{{ user.userName }}</td>
           <td>
             <button *ngIf="show" class="btn btn-outline-primary" (click)="viewTasks(user.id)">
               View Tasks

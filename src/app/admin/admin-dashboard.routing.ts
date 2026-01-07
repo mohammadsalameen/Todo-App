@@ -21,7 +21,7 @@ export const adminRoutes: Routes = [
     component: EditTaskComponent
   },
   {
-    path: 'dashboard/user-tasks',
+    path: 'dashboard/user-tasks/:userId',
     component: UserTasksComponent
     },
     {

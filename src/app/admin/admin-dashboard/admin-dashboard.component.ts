@@ -14,12 +14,16 @@ import { fadeIn, slideInUp } from '../../shared/animations';
 export class AdminDashboardComponent {
   userService = inject(UserService);
   router = inject(Router);
-  users = this.userService.getAllUsers(); // from backend or service
+  users: any[] = [];
   showViewList: boolean = true;
 
+  ngOnInit() {
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
+  }
 
-  viewTasks(userId: number) {
-    // this.router.navigate(['/admin-dashboard/user-tasks', userId]);
-    this.router.navigate(['/admin/user-tasks']);
+  viewTasks(userId: string) {
+    this.router.navigate(['/admin/dashboard/user-tasks', userId]);
   }
 }

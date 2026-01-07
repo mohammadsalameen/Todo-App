@@ -26,17 +26,14 @@ export class TodoService {
     return this.todosSubject.getValue();
   }
 
-  addTask(task: { title: string; description: string; urgent: boolean; assignedUser?: number }) {
+  addTask(task: ITodo) {
     const todos = this.getTodos();
     const newTask: ITodo = {
-      id: todos.length + 1,
-      title: task.title,
-      description: task.description,
-      urgent: task.urgent,
-      assignedUser: task.assignedUser,
+      ...task,
+      id: (todos.length + 1).toString(),
       completed: false,
       createdAt: new Date(),
-      comments: ''
+      comments: []
     };
     const updatedTodos = [...todos, newTask];
     this.saveTodos(updatedTodos);
@@ -46,14 +43,14 @@ export class TodoService {
     const updatedTodos = todos.map(todo => todo.id === updatedTask.id ? {...updatedTask} : todo);
     this.saveTodos(updatedTodos);
   }
-  toggleCompleted(id: number) {
+  toggleCompleted(id: string) {
     const todos = this.getTodos().map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
     this.saveTodos(todos);
   }
 
-  deleteTask(id: number) {
+  deleteTask(id: string) {
     const todos = this.getTodos().filter(todo => todo.id !== id);
     this.saveTodos(todos);
   }

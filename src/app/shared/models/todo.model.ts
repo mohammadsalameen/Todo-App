@@ -1,10 +1,17 @@
 export interface ITodo {
-  id: number;
+  id: string;
   title: string;
   urgent: boolean;
   description: string;
   completed: boolean;
-  assignedUser?: number;
+  assignedUser?: string;
   createdAt?: Date;
-  comments: string;
+  comments: string[];
+}
+
+export interface IUser {
+  userId: string;
+  userName: string;
+  email?: string;
+  tasks: ITodo[];
 }

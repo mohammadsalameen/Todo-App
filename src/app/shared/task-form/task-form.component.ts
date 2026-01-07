@@ -18,7 +18,9 @@ export class TaskFormComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.users = this.userService.getAllUsers();
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
   }
 
   submit(formData: any){
