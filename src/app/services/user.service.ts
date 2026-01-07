@@ -14,11 +14,9 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<IUser[]> {
-    if (this.usersSubject.getValue().length === 0) {
-      this.http.get<IUser[]>(`${this.BASE_URL}/Users/users-tasks`).subscribe(users => {
-        this.usersSubject.next(users);
-      });
-    }
+    this.http.get<IUser[]>(`${this.BASE_URL}/Users/users-tasks`).subscribe(users => {
+      this.usersSubject.next(users);
+    });
     return this.users$;
   }
 

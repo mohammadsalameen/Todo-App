@@ -27,7 +27,6 @@ export class UserTableComponent implements OnInit {
   searchText: string = '';
 
   ngOnInit() {
-    // debugger;
     this.userService.getAllUsers().subscribe(users => {
       this.allUsers = users;
       this.users = [...this.allUsers];

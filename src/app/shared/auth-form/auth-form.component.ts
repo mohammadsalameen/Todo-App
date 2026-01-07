@@ -54,7 +54,6 @@ export class AuthFormComponent {
           localStorage.setItem('token', res.accessToken);
           const role = this.authService.getUserData("role");
           console.log(role);
-          debugger
           if(role == "User"){
             this.router.navigate(['/user/dashboard']);
           }else{
