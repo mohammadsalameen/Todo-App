@@ -21,6 +21,11 @@ export class ViewTaskComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.userService.getTaskById(id).subscribe(task => {
       this.task = task;
+      if (this.task) {
+        this.userService.getCommentsByTaskId(this.task.id).subscribe(comments => {
+          this.task.comments = comments;
+        });
+      }
     });
   }
 }

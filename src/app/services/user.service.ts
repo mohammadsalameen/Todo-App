@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { IUser, ITodo } from '../shared/models/todo.model';
 
 @Injectable({
@@ -14,15 +14,24 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<IUser[]> {
-    this.http.get<IUser[]>(`${this.BASE_URL}/Users/users-tasks`).subscribe(users => {
-      this.usersSubject.next(users);
+    this.http.get<IUser[]>(`${this.BASE_URL}/Users`).subscribe(users => {
+      const usersWithEmptyTasks = users.map(user => ({ ...user, tasks: [] }));
+      this.usersSubject.next(usersWithEmptyTasks);
     });
     return this.users$;
   }
 
   getTasksForUser(userId: string): Observable<ITodo[]> {
-    return this.users$.pipe(
-      map(users => users.find(u => u.userId === userId)?.tasks || [])
+    return this.http.get<ITodo[]>(`${this.BASE_URL}/Tasks/${userId}`).pipe(
+      map(tasks => {
+        const currentUsers = this.usersSubject.value;
+        const userIndex = currentUsers.findIndex(u => u.userId === userId);
+        if (userIndex !== -1) {
+          currentUsers[userIndex] = { ...currentUsers[userIndex], tasks };
+          this.usersSubject.next([...currentUsers]);
+        }
+        return tasks;
+      })
     );
   }
 
@@ -30,5 +39,9 @@ export class UserService {
     return this.users$.pipe(
       map(users => users.flatMap(u => u.tasks).find(t => t.id === id) || null)
     );
+  }
+
+  getCommentsByTaskId(taskId: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.BASE_URL}/Comments/task/${taskId}`);
   }
 }
