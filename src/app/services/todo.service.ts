@@ -35,7 +35,8 @@ export class TodoService {
       urgent: task.urgent,
       assignedUser: task.assignedUser,
       completed: false,
-      createdAt: new Date()
+      createdAt: new Date(),
+      comments: ''
     };
     const updatedTodos = [...todos, newTask];
     this.saveTodos(updatedTodos);

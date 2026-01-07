@@ -34,6 +34,7 @@
             <th>Description</th>
             <th>Urgent?</th>
             <th>Completed</th>
+            <th>Comments</th>
             <th>Edit</th>
             <th *ngIf="role === 'admin'">Delete</th>
           </tr>
@@ -73,6 +74,11 @@
                 [checked]="todo.completed"
                 (change)="toggleCompleted(todo.id)"
               />
+            </td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="viewComments(todo.id)">
+                <i class="bi bi-eye"></i>
+              </button>
             </td>
             <td>
               <button class="btn btn-warning btn-sm" (click)="updateTask()">

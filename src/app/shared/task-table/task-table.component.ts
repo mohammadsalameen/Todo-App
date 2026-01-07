@@ -113,6 +113,9 @@ export class TaskTableComponent {
   updateTask(){
     this.router.navigate(['/admin/edit-task']);
   }
+  viewComments(id: number) {
+    this.router.navigate(['/view-task', id]);
+  }
   deleteTask(id: number) {
     this.todoService.deleteTask(id);
     this.pagingManager.totalItems = this.todos.length - 1;

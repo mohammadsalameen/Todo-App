@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <h2>Task Details</h2>
+  <div *ngIf="task; else noTask">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Task Number: {{ task.id }}</h5>
+        <p class="card-text"><strong>Title:</strong> {{ task.title }}</p>
+        <p class="card-text"><strong>Comments:</strong> {{ task.comments || 'No comments' }}</p>
+      </div>
+    </div>
+  </div>
+  <ng-template #noTask>
+    <p>Task not found.</p>
+  </ng-template>
+</div>

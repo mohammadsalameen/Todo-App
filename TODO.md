@@ -1,7 +1,6 @@
-# TODO: Add Assign to User Field for Add-Task
-
-- [x] Update ITodo interface in src/app/shared/models/todo.model.ts to include assignedUser?: number;
-- [x] Modify TodoService.addTask in src/app/services/todo.service.ts to accept and set assignedUser in the new task object.
-- [x] Update TaskFormComponent in src/app/shared/task-form/task-form.component.ts to inject UserService, fetch users, and add users property.
-- [x] Add select dropdown for assignedUser in src/app/shared/task-form/task-form.component.html.
-- [x] Test the add-task functionality to ensure the new field works correctly.
+- [x] Update ITodo interface to include comments: string;
+- [x] Update TodoService addTask to include comments field (default empty string)
+- [x] Create ViewTaskComponent under src/app/tasks/view-task/ (ts, html, css)
+- [x] Add route for view-task/:id in view.routes.ts
+- [x] Update TaskTableComponent: add viewComments method to navigate to /view-task/:id
+- [x] Update TaskTable HTML: add Comments column header and td with eye icon button

@@ -6,4 +6,5 @@ export interface ITodo {
   completed: boolean;
   assignedUser?: number;
   createdAt?: Date;
+  comments: string;
 }
