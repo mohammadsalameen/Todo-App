@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TodoService } from '../../services/todo.service';
+import { TaskService } from '../../services/task.service';
 import { UserService } from '../../services/user.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -22,7 +22,7 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
   animations: [fadeIn]
 })
 export class TaskTableComponent {
-  constructor(private todoService: TodoService, private router: Router, private userService: UserService){}
+  constructor(private taskService: TaskService, private router: Router, private userService: UserService){}
   @Input() role! : string;
   @Input() userId?: string;
   todos: any[] = [];
@@ -38,7 +38,7 @@ export class TaskTableComponent {
 
   ngOnInit() {
     if (this.userId) {
-      this.userService.getTasksForUser(this.userId).subscribe((res: any[]) => {
+      this.taskService.getTasksForUser(this.userId).subscribe((res: any[]) => {
         this.allTodos = res ?? [];
         this.todos = [...this.allTodos];
         this.pagingManager.totalItems = this.todos.length;
@@ -49,7 +49,7 @@ export class TaskTableComponent {
         }
       });
     } else {
-      this.todoService.todos$.subscribe((res: any[]) => {
+      this.taskService.todos$.subscribe((res: any[]) => {
         this.allTodos = res ?? [];
         this.todos = [...this.allTodos];
         this.pagingManager.totalItems = this.todos.length;
@@ -123,7 +123,7 @@ export class TaskTableComponent {
   }
 
   toggleCompleted(id: string) {
-    this.todoService.toggleCompleted(id);
+    this.taskService.toggleCompleted(id);
   }
   addComment(form: NgForm){
     console.log(form);
@@ -141,7 +141,7 @@ export class TaskTableComponent {
     this.selectedTaskId = null;
   }
   deleteTask(id: string) {
-    this.todoService.deleteTask(id);
+    this.taskService.deleteTask(id);
     this.pagingManager.totalItems = this.todos.length - 1;
   }
 }

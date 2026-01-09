@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TodoService } from '../../services/todo.service';
+import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
-import { ITodo } from '../../shared/models/todo.model';
+import { ITasks } from '../../shared/models/task.model';
 import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 
 @Component({
@@ -13,14 +13,14 @@ import { TaskFormComponent } from '../../shared/task-form/task-form.component';
   encapsulation: ViewEncapsulation.None
 })
 export class AddTaskComponent {
-  constructor(private todoService: TodoService, private router: Router){}
+  constructor(private taskService: TaskService, private router: Router){}
   heading: string = 'Add Task'
   title: string = '';
   description: string = '';
   urgent: boolean = false;
-  submitTask(value: ITodo) {
+  submitTask(value: ITasks) {
     console.log("submit", value);
-      this.todoService.addTask(value);
+      this.taskService.addTask(value);
       this.title = '';
       this.description = '';
       this.urgent = false;

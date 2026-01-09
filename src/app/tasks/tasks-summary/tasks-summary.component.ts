@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ITodo } from '../../shared/models/todo.model';
-import { TodoService } from '../../services/todo.service';
+import { ITasks } from '../../shared/models/task.model';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-tasks-summary',
@@ -11,11 +11,11 @@ import { TodoService } from '../../services/todo.service';
   styleUrl: './tasks-summary.component.css'
 })
 export class TasksSummaryComponent {
-  constructor(private todoService: TodoService){}
-  todos: ITodo[] = [];
+  constructor(private taskService: TaskService){}
+  todos: ITasks[] = [];
 
   ngOnInit(): void {
-    this.todoService.todos$.subscribe(todos => {
+    this.taskService.todos$.subscribe(todos => {
       this.todos = todos;
     })
   }

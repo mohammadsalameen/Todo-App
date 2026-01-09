@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
-import { TodoService } from '../../services/todo.service';
+import { TaskService } from '../../services/task.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class EditTaskComponent {
   title: string = '';
   urgent: string = '';
   description: string = '';
-  constructor(private todoService: TodoService) {}
+  constructor(private taskService: TaskService) {}
 
   updateTodo(values: any){}
 }

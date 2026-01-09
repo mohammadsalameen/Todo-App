@@ -4,7 +4,7 @@ export interface IComment {
   taskTitle: string;
 }
 
-export interface ITodo {
+export interface ITasks {
   id: string;
   title: string;
   urgent: boolean;
@@ -19,5 +19,5 @@ export interface IUser {
   userId: string;
   userName: string;
   email?: string;
-  tasks: ITodo[];
+  tasks: ITasks[];
 }

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
-import { IComment } from '../models/todo.model';
+import { CommentService } from '../../services/comment.service';
+import { IComment } from '../models/task.model';
 
 @Component({
   selector: 'app-view-comment',
@@ -16,7 +16,7 @@ export class ViewCommentComponent implements OnInit {
   comments: IComment[] = [];
   loading = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private commentService: CommentService) {}
 
   ngOnInit() {
     this.loadComments();
@@ -24,7 +24,7 @@ export class ViewCommentComponent implements OnInit {
 
   loadComments() {
     this.loading = true;
-    this.userService.getCommentsByTaskId(this.taskId).subscribe({
+    this.commentService.getCommentsByTaskId(this.taskId).subscribe({
       next: (comments) => {
         this.comments = comments;
         this.loading = false;
