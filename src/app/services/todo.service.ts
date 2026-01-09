@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ITodo } from '../shared/models/task.model';
+import { ITasks } from '../shared/models/task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
   private STORAGE_KEY = 'todos';
-  private todosSubject = new BehaviorSubject<ITodo[]>(this.loadTodos());
+  private todosSubject = new BehaviorSubject<ITasks[]>(this.loadTodos());
   todos$ = this.todosSubject.asObservable();
 
   constructor() {}
 
-  private loadTodos(): ITodo[] {
+  private loadTodos(): ITasks[] {
     const data = localStorage.getItem(this.STORAGE_KEY);
     return data ? JSON.parse(data) : [];
   }
 
-  private saveTodos(todos: ITodo[]): void {
+  private saveTodos(todos: ITasks[]): void {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(todos));
     this.todosSubject.next(todos);
   }
 
-  getTodos(): ITodo[] {
+  getTodos(): ITasks[] {
     return this.todosSubject.getValue();
   }
 
-  addTask(task: ITodo) {
+  addTask(task: ITasks) {
     const todos = this.getTodos();
-    const newTask: ITodo = {
+    const newTask: ITasks = {
       ...task,
       id: (todos.length + 1).toString(),
       completed: false,
@@ -38,7 +38,7 @@ export class TodoService {
     const updatedTodos = [...todos, newTask];
     this.saveTodos(updatedTodos);
   }
-  updateTask(updatedTask: ITodo){
+  updateTask(updatedTask: ITasks){
     const todos = this.getTodos();
     const updatedTodos = todos.map(todo => todo.id === updatedTask.id ? {...updatedTask} : todo);
     this.saveTodos(updatedTodos);
