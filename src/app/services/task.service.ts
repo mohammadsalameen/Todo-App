@@ -67,4 +67,25 @@ export class TaskService {
     );
   }
 
+  getMyTasks(): Observable<ITasks[]> {
+    return this.http.get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`).pipe(
+      map(tasks => tasks.map(t => ({
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        completed: t.isCompleted,
+        urgent: t.isUrgent,
+        comments: []
+      } as ITasks)))
+    );
+  }
+
+  toggleCompletedAPI(id: string): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/Tasks/${id}/toggle`, {});
+  }
+
+  deleteTaskAPI(id: string): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/Tasks/${id}`);
+  }
+
 }

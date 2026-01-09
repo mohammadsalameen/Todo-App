@@ -48,6 +48,17 @@ export class TaskTableComponent {
           this.pagingManager.currentPage = maxPage;
         }
       });
+    } else if (this.role === 'user') {
+      this.taskService.getMyTasks().subscribe((res: any[]) => {
+        this.allTodos = res ?? [];
+        this.todos = [...this.allTodos];
+        this.pagingManager.totalItems = this.todos.length;
+
+        const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
+        if (this.pagingManager.currentPage > maxPage) {
+          this.pagingManager.currentPage = maxPage;
+        }
+      });
     } else {
       this.taskService.todos$.subscribe((res: any[]) => {
         this.allTodos = res ?? [];
@@ -123,7 +134,15 @@ export class TaskTableComponent {
   }
 
   toggleCompleted(id: string) {
-    this.taskService.toggleCompleted(id);
+    if (this.role === 'user') {
+      this.taskService.toggleCompletedAPI(id).subscribe(() => {
+        // Update local list
+        this.allTodos = this.allTodos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+        this.todos = [...this.allTodos];
+      });
+    } else {
+      this.taskService.toggleCompleted(id);
+    }
   }
   addComment(form: NgForm){
     console.log(form);
@@ -141,7 +160,16 @@ export class TaskTableComponent {
     this.selectedTaskId = null;
   }
   deleteTask(id: string) {
-    this.taskService.deleteTask(id);
-    this.pagingManager.totalItems = this.todos.length - 1;
+    if (this.role === 'user') {
+      this.taskService.deleteTaskAPI(id).subscribe(() => {
+        // Remove from local list
+        this.allTodos = this.allTodos.filter(t => t.id !== id);
+        this.todos = [...this.allTodos];
+        this.pagingManager.totalItems = this.todos.length;
+      });
+    } else {
+      this.taskService.deleteTask(id);
+      this.pagingManager.totalItems = this.todos.length - 1;
+    }
   }
 }
