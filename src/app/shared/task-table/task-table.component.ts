@@ -10,12 +10,13 @@ import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { fadeIn } from '../animations';
 import { filterOptions } from '../../constants';
+import { ViewCommentComponent } from '../view-comment/view-comment.component';
 
 
 @Component({
   selector: 'app-task-table',
   standalone: true,
-  imports: [CommonModule, NgSelectModule, NgxPaginationModule, FormsModule],
+  imports: [CommonModule, NgSelectModule, NgxPaginationModule, FormsModule, ViewCommentComponent],
   templateUrl: './task-table.component.html',
   styleUrls: ['./task-table.component.css'],
   animations: [fadeIn]
@@ -32,6 +33,8 @@ export class TaskTableComponent {
   pagingManager: any = CREATE_PAGING_MANAGER(this.selectedOption);
   searchText: string = '';
   selectedFilter: string = 'all';
+  showCommentModal = false;
+  selectedTaskId: string | null = null;
 
   ngOnInit() {
     if (this.userId) {
@@ -129,7 +132,13 @@ export class TaskTableComponent {
     this.router.navigate(['/admin/edit-task']);
   }
   viewComments(id: string) {
-    this.router.navigate(['/view-task', id]);
+    this.selectedTaskId = id;
+    this.showCommentModal = true;
+  }
+
+  closeCommentModal() {
+    this.showCommentModal = false;
+    this.selectedTaskId = null;
   }
   deleteTask(id: string) {
     this.todoService.deleteTask(id);

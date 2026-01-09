@@ -1,0 +1,35 @@
+<div class="modal fade show d-block" tabindex="-1" role="dialog" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Comments for Task</h5>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="loading" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div *ngIf="!loading && comments.length === 0" class="text-center">
+          No comments available.
+        </div>
+        <form *ngIf="!loading && comments.length > 0">
+          <div class="mb-3" *ngFor="let comment of comments; let i = index">
+            <label for="comment{{i}}" class="form-label">Comment {{i + 1}}</label>
+            <textarea
+              class="form-control"
+              id="comment{{i}}"
+              rows="3"
+              readonly
+              [value]="comment.content"
+            ></textarea>
+            <small class="form-text text-muted">Task: {{ comment.taskTitle }}</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="onClose()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

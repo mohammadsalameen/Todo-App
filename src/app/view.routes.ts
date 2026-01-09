@@ -6,10 +6,6 @@ export const viewRoutes: Routes = [
     loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
   },
   {
-    path: 'view-task/:id',
-    loadComponent: () => import('./tasks/view-task/view-task.component').then(m => m.ViewTaskComponent)
-  },
-  {
     path: 'admin',
     loadChildren: () => import('./admin/admin-dashboard.routing').then(m => m.adminRoutes)
   },

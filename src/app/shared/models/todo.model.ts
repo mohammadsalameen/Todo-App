@@ -1,3 +1,9 @@
+export interface IComment {
+  id: string;
+  content: string;
+  taskTitle: string;
+}
+
 export interface ITodo {
   id: string;
   title: string;
@@ -6,7 +12,7 @@ export interface ITodo {
   completed: boolean;
   assignedUser?: string;
   createdAt?: Date;
-  comments: string[];
+  comments: IComment[];
 }
 
 export interface IUser {

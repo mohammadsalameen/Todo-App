@@ -132,6 +132,13 @@
             class="my-pagination"
           >
           </pagination-controls>
-        </div>
-      </div>
     </div>
+  </div>
+</div>
+
+<!-- Comment Modal -->
+<app-view-comment
+  *ngIf="showCommentModal && selectedTaskId"
+  [taskId]="selectedTaskId"
+  (close)="closeCommentModal()">
+</app-view-comment>

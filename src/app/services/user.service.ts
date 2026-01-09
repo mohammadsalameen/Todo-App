@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map, of } from 'rxjs';
-import { IUser, ITodo } from '../shared/models/todo.model';
+import { IUser, ITodo, IComment } from '../shared/models/todo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,7 @@ export class UserService {
     );
   }
 
-  getCommentsByTaskId(taskId: string): Observable<string[]> {
-    return this.http.get<string[]>(`${this.BASE_URL}/Comments/task/${taskId}`);
+  getCommentsByTaskId(taskId: string): Observable<IComment[]> {
+    return this.http.get<IComment[]>(`${this.BASE_URL}/Comments/task/${taskId}`);
   }
 }
