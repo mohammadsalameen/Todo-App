@@ -1,8 +1,7 @@
-- [x] Add updateUser method to UserService
-- [x] Modify auth-form component (added back initial values for pre-filling)
-- [x] Add Edit column to user-table
-- [x] Add editUserEvent output to user-table component
-- [x] Add edit modal to users-list component
-- [x] Add edit handling logic to users-list component
-- [x] Test the edit functionality (build successful, no compilation errors; runtime testing not possible due to browser tool disabled)
-- [x] Activate deleteTaskById and add confirmation message (Swal) from service
+# TODO: Implement addTask API Integration
+
+- [x] Update `src/app/shared/task-form/task-form.component.ts`: Add selectedUser property and logic to emit transformed data (assignedUserId, assignedUserName, isUrgent, createdAt).
+- [x] Update `src/app/shared/task-form/task-form.component.html`: Add (change) event on user select to set selectedUser.
+- [x] Update `src/app/services/task.service.ts`: Change addTask method to POST to /api/Tasks and return Observable.
+- [x] Update `src/app/tasks/add-task/add-task.component.ts`: Modify submitTask to subscribe to addTask Observable and handle navigation.
+- [x] Test the add task functionality.

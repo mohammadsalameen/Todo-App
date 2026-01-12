@@ -5,3 +5,32 @@
 .form-floating.mb-2 {
   min-height: 4rem;
 }
+
+.ng-select {
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  min-height: 38px;
+}
+
+.ng-select .ng-select-container {
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: none;
+}
+
+.ng-select.ng-select-focused .ng-select-container {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.ng-select .ng-arrow-wrapper {
+  padding-right: 0.75rem;
+}
+
+.ng-select .ng-clear-wrapper {
+  padding-left: 0.75rem;
+}

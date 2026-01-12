@@ -28,17 +28,8 @@ export class TaskService {
     return this.todosSubject.getValue();
   }
 
-  addTask(task: ITasks) {
-    const todos = this.getTodos();
-    const newTask: ITasks = {
-      ...task,
-      id: (todos.length + 1).toString(),
-      completed: false,
-      createdAt: new Date(),
-      comments: []
-    };
-    const updatedTodos = [...todos, newTask];
-    this.saveTodos(updatedTodos);
+  addTask(task: any): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/Tasks`, task );
   }
   updateTask(updatedTask: ITasks){
     const todos = this.getTodos();

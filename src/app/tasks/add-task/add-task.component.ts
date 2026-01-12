@@ -14,17 +14,28 @@ import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 })
 export class AddTaskComponent {
   constructor(private taskService: TaskService, private router: Router){}
-  heading: string = 'Add Task'
+  heading: string = 'Add Task';
   title: string = '';
   description: string = '';
   urgent: boolean = false;
-  submitTask(value: ITasks) {
+  submitTask(value: any) {
     console.log("submit", value);
-      this.taskService.addTask(value);
-      this.title = '';
-      this.description = '';
-      this.urgent = false;
-      this.router.navigate(['/admin/dashboard/user-tasks']);
+    this.taskService.addTask(value).subscribe({
+      next: () => {
+        this.title = '';
+        this.description = '';
+        this.urgent = false;
+        if (value.AssignedUserId) {
+          this.router.navigate(['/admin/dashboard/user-tasks', value.AssignedUserId]);
+        } else {
+          this.router.navigate(['/admin/dashboard']);
+        }
+      },
+      error: (err) => {
+        console.error('Error adding task:', err);
+        // Optionally show error message
+      }
+    });
   }
 
   onClose() {

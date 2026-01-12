@@ -58,17 +58,20 @@
     </div>
   </div>
   <div class="form-floating mb-3" *ngIf="defaultValues === 'Add Task'">
-    <select
-      class="form-select"
+    <ng-select
+      class="styled-select"
+      [items]="users"
+      bindLabel="userName"
+      bindValue="id"
       name="assignedUser"
       id="assignedUser"
-      ngModel
-      [ngModel]="defaultValues?.assignedUser"
+      [(ngModel)]="selectedAssignedUser"
+      (selectionChange)="onUserChange($event)"
+      placeholder="Select User"
+      [searchable]="true"
+      [clearable]="true"
     >
-      <option value="">Select User</option>
-      <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
-    </select>
-    <label for="assignedUser">Assign to User</label>
+    </ng-select>
   </div>
   <div class="form-floating mb-2">
     <textarea
