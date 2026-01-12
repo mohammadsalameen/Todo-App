@@ -12,6 +12,7 @@
         <tr>
           <th>#</th>
           <th>User</th>
+          <th *ngIf="show == false">Role</th>
           <th *ngIf="show">Tasks</th>
         </tr>
       </thead>
@@ -20,6 +21,7 @@
         <tr *ngFor="let user of users | paginate: { id: pagingManager.id, itemsPerPage: pagingManager.itemsPerPage, currentPage: pagingManager.currentPage, totalItems: pagingManager.totalItems }; trackBy: trackById; let i = index">
           <td>{{ (pagingManager.currentPage - 1) * pagingManager.itemsPerPage + (i + 1) }}</td>
           <td>{{ user.userName }}</td>
+          <td *ngIf="show == false" >{{ user.role }}</td>
           <td>
             <button *ngIf="show" class="btn btn-outline-primary" (click)="viewTasks(user.id)">
               View Tasks
