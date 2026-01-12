@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagination';
 import { of } from 'rxjs';
 import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
-import { SweetAlertService } from '../../services/sweet-alert.service';
+
 
 @Component({
   selector: 'app-user-table',
@@ -20,7 +20,6 @@ export class UserTableComponent implements OnInit {
   userService = inject(UserService);
   router = inject(Router);
   toastr = inject(ThirdPartyToastyServiceService);
-  sweetAlert = inject(SweetAlertService);
   allUsers: any[] = [];
   users: any[] = [];
   @Input() show!: boolean;
@@ -94,7 +93,7 @@ export class UserTableComponent implements OnInit {
   }
 
   async deleteUser(userId: string) {
-    const confirmed = await this.sweetAlert.confirmDelete();
+    const confirmed = await this.toastr.confirmDelete();
     if (confirmed) {
       this.userService.deleteUser(userId).subscribe({
         next: () => {
