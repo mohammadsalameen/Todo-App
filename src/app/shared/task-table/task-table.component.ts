@@ -135,14 +135,14 @@ export class TaskTableComponent {
   }
 
   toggleCompleted(id: string) {
-    if (this.role === 'user') {
-      this.taskService.toggleCompletedAPI(id).subscribe(() => {
+    const task = this.allTodos.find(t => t.id === id);
+    if (task) {
+      const newCompleted = !task.completed;
+      this.taskService.changeStatus(id, newCompleted).subscribe(() => {
         // Update local list
-        this.allTodos = this.allTodos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+        this.allTodos = this.allTodos.map(t => t.id === id ? { ...t, completed: newCompleted } : t);
         this.todos = [...this.allTodos];
       });
-    } else {
-      this.taskService.toggleCompleted(id);
     }
   }
   addComment(form: NgForm){

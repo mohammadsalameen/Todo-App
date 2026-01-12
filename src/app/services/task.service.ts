@@ -97,6 +97,10 @@ export class TaskService {
     return this.http.put(`${this.BASE_URL}/Tasks/${id}/toggle`, {});
   }
 
+  changeStatus(taskId: string, completed: boolean): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/Tasks/change-status/${taskId}`, { isCompleted: completed });
+  }
+
   deleteTaskById(taskId: string): Observable<any> {
     return this.http.post(`${this.BASE_URL}/Tasks/delete-task/${taskId}`, taskId);
   }
