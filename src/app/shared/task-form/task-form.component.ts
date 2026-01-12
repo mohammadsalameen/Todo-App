@@ -12,6 +12,7 @@ import { UserService } from '../../services/user.service';
 export class TaskFormComponent implements OnInit {
   @Input() defaultValues: any = null;
   @Output() submitTask: EventEmitter<any> = new EventEmitter();
+  @Output() close: EventEmitter<void> = new EventEmitter();
 
   users: any[] = [];
 

@@ -16,18 +16,15 @@ import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.
 export class UsersListComponent {
   showViewList: boolean = false;
   showAddForm: boolean = false;
-  isLoading: boolean = false;
 
   constructor(private userService: UserService, private toastr: ThirdPartyToastyServiceService) {}
 
   onAddUser(payload: any) {
-    this.isLoading = true;
     this.userService.createUser(payload.username, payload.email, payload.password, payload.role).subscribe({
       next: (res) => {
         console.log('User created successfully', res);
         this.toastr.toasterSuccess('User Created Successfully', 'Success');
         this.showAddForm = false;
-        this.isLoading = false;
         this.userService.getAllUsers(); // Refresh the list
       },
       error: (err) => {

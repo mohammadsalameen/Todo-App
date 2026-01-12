@@ -2,7 +2,8 @@
   <div class="modal-box mb-5">
     <app-task-form
       defaultValues={{heading}}
-      (submitTask)="updateTodo($event)">
+      (submitTask)="updateTodo($event)"
+      (close)="onClose()">
     </app-task-form>
   </div>
 </div>

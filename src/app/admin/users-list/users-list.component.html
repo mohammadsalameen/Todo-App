@@ -8,15 +8,22 @@
       <i class="bi bi-plus"></i> Add User
     </button>
   </div>
-  <div *ngIf="showAddForm" class="mb-4 modal-box">
-    <app-auth-form
-      [titleHeading]="'Add User'"
-      [signUpShow]="true"
-      [showForgetPassword]="false"
-      [handleSubmit]="false"
-      [showRole]="true"
-      (formSubmitted)="onAddUser($event)">
-    </app-auth-form>
+  <div *ngIf="showAddForm" class="overlays">
+    <div class="modal-box">
+      <div class="modal-header d-flex justify-content-between align-items-center">
+        <button type="button" class="btn-close" (click)="showAddForm = false"></button>
+      </div>
+      <div class="modal-body">
+        <app-auth-form
+          [titleHeading]="'Add User'"
+          [signUpShow]="true"
+          [showForgetPassword]="false"
+          [handleSubmit]="false"
+          [showRole]="true"
+          (formSubmitted)="onAddUser($event)">
+        </app-auth-form>
+      </div>
+    </div>
   </div>
   <div [@slideInUp] >
     <app-user-table [show] = 'showViewList'></app-user-table>

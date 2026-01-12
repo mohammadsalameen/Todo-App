@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,11 @@ export class EditTaskComponent {
   title: string = '';
   urgent: string = '';
   description: string = '';
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private router: Router) {}
 
   updateTodo(values: any){}
+
+  onClose() {
+    this.router.navigate(['/admin/dashboard']);
+  }
 }

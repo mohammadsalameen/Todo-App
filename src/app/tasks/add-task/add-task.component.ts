@@ -27,4 +27,8 @@ export class AddTaskComponent {
       this.router.navigate(['/admin/dashboard/user-tasks']);
   }
 
+  onClose() {
+    this.router.navigate(['/admin/dashboard']);
+  }
+
 }

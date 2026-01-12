@@ -3,8 +3,10 @@
   class="task-form shadow-lg p-4 rounded animate__fadeIn w-100 h-75"
   (ngSubmit)="submit(taskForm.value)"
 >
+  <div class="modal-header d-flex justify-content-between align-items-center">
+    <button type="button" class="btn-close" (click)="close.emit()"></button>
+  </div>
   <h4 class="text-center mb-3 fw-bold">{{defaultValues }}</h4>
-
   <div class="form-floating mb-3">
     <input
       type="text"
