@@ -74,9 +74,12 @@
           <span *ngIf="!(password.invalid && password.touched)" class="invisible">.</span>
         </div>
       </div>
-      <div>
-        <input type="hidden" name="role" [ngModel]="role" />
-
+      <div *ngIf="showRole">
+        <label class="form-label">Role</label>
+        <select name="role" class="form-control" ngModel>
+          <option value="User">User</option>
+          <option value="Admin">Admin</option>
+        </select>
       </div>
 
       <!-- Forgot -->

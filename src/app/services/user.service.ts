@@ -20,4 +20,9 @@ export class UserService {
     });
     return this.users$;
   }
+
+  createUser(userName: string, email: string, password: string, role: string): Observable<any> {
+    const payload = {userName, email, password, role};
+    return this.http.post(`${this.BASE_URL}/Users/create-user`, payload);
+  }
 }

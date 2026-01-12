@@ -3,7 +3,22 @@
     <h2 class="fw-bold text-primary">Admin Dashboard</h2>
     <p class="text-muted text-primary">View user list</p>
   </div>
+  <div class="mb-3">
+    <button class="btn btn-primary" (click)="showAddForm = !showAddForm">
+      <i class="bi bi-plus"></i> Add User
+    </button>
+  </div>
+  <div *ngIf="showAddForm" class="mb-4 modal-box">
+    <app-auth-form
+      [titleHeading]="'Add User'"
+      [signUpShow]="true"
+      [showForgetPassword]="false"
+      [handleSubmit]="false"
+      [showRole]="true"
+      (formSubmitted)="onAddUser($event)">
+    </app-auth-form>
+  </div>
   <div [@slideInUp] >
     <app-user-table [show] = 'showViewList'></app-user-table>
   </div>
-  <div>
+</div>

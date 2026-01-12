@@ -18,6 +18,8 @@ export class AuthFormComponent {
   @Input() titleHeading: string;
   @Input() signUpShow: boolean;
   @Input() showForgetPassword: boolean;
+  @Input() handleSubmit: boolean = true;
+  @Input() showRole: boolean = false;
   @Output() formSubmitted = new EventEmitter<any>();
 
   username = '';
@@ -30,44 +32,54 @@ export class AuthFormComponent {
   submit(form: NgForm, signUpShow: boolean) {
     if(form.invalid) return;
     this.isLoading = true;
-    const payload = {...form.value, role: 'User'};
+    const payload = {...form.value, role: form.value.role || 'User'};
     if(signUpShow){
-      this.authService.handleSignUp(payload.username, payload.email, payload.password, payload.role)
-      .subscribe({
-        next:(res) =>{
-          console.log('User registered successfully', res);
-          this.toastr.toasterSuccess('Registration successfully!', 'Success');
-          form.resetForm();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Registration failed', err);
-          this.toastr.toasterError(err.error?.message || 'Registration failed. Check console.')
-          this.isLoading = false;
-        }
-      })
-    }else{
-      this.authService.handleSignIn(payload.email, payload.password).subscribe({
-        next:(res) =>{
-          console.log('User loggedIn successfully', res);
-          this.toastr.toasterSuccess('LogIn successfully!');
-          localStorage.setItem('token', res.accessToken);
-          const role = this.authService.getUserData("role");
-          console.log(role);
-          if(role == "User"){
-            this.router.navigate(['/user/dashboard']);
-          }else{
-            this.router.navigate(['admin/dashboard']);
+      if(this.handleSubmit){
+        this.authService.handleSignUp(payload.username, payload.email, payload.password, payload.role)
+        .subscribe({
+          next:(res) =>{
+            console.log('User registered successfully', res);
+            this.toastr.toasterSuccess('Registration successfully!', 'Success');
+            form.resetForm();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error('Registration failed', err);
+            this.toastr.toasterError(err.error?.message || 'Registration failed. Check console.')
+            this.isLoading = false;
           }
-          form.resetForm();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('LogIn failed', err);
-          this.toastr.toasterError(err.error?.message || 'LogIn failed. Check console.')
-          this.isLoading = false;
-        }
-      })
+        })
+      }else{
+        this.formSubmitted.emit(payload);
+        this.isLoading = false;
+      }
+    }else{
+      if(this.handleSubmit){
+        this.authService.handleSignIn(payload.email, payload.password).subscribe({
+          next:(res) =>{
+            console.log('User loggedIn successfully', res);
+            this.toastr.toasterSuccess('LogIn successfully!');
+            localStorage.setItem('token', res.accessToken);
+            const role = this.authService.getUserData("role");
+            console.log(role);
+            if(role == "User"){
+              this.router.navigate(['/user/dashboard']);
+            }else{
+              this.router.navigate(['admin/dashboard']);
+            }
+            form.resetForm();
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error('LogIn failed', err);
+            this.toastr.toasterError(err.error?.message || 'LogIn failed. Check console.')
+            this.isLoading = false;
+          }
+        })
+      }else{
+        // For signin, not used in this context
+        this.isLoading = false;
+      }
     }
   }
 }
