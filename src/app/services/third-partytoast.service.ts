@@ -13,6 +13,12 @@ export class ThirdPartyToastyServiceService {
       positionClass: 'toast-bottom-right'
     })
   }
+  toasterWarning(msg?: any, title?: any){
+    this.toastrService.warning(title ? title: 'warning', msg ? msg : 'warning!', {
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right'
+    })
+  }
   toasterSuccess(title?: any, msg?: any){
     this.toastrService.success(title ? title: 'We Done', msg ? msg: 'Success!', {
       timeOut: 3000,

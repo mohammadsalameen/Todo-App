@@ -45,12 +45,38 @@ export class TaskService {
 
 
   getTasksForUser(userId: string): Observable<ITasks[]> {
-    return this.http.get<ITasks[]>(`${this.BASE_URL}/Tasks/${userId}`);
+    return this.http.get<any[]>(`${this.BASE_URL}/Tasks/${userId}`).pipe(
+      map(tasks => tasks.map(t => ({
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        completed: t.isCompleted,
+        urgent: t.isUrgent,
+        assignedUser: t.assignedUser,
+        createdAt: t.createdAt,
+        comments: t.comments || []
+      } as ITasks)))
+    );
   }
 
   getTaskById(id: string): Observable<ITasks | null> {
-    return this.http.get<ITasks[]>(`${this.BASE_URL}/Tasks`).pipe(
-      map(tasks => tasks.find(t => t.id === id) || null)
+    return this.http.get<any[]>(`${this.BASE_URL}/Tasks`).pipe(
+      map(tasks => {
+        const task = tasks.find(t => t.id === id);
+        if (task) {
+          return {
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            completed: task.isCompleted,
+            urgent: task.isUrgent,
+            assignedUser: task.assignedUser,
+            createdAt: task.createdAt,
+            comments: task.comments || []
+          } as ITasks;
+        }
+        return null;
+      })
     );
   }
 
