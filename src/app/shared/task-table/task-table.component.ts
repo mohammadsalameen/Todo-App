@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { fadeIn } from '../animations';
 import { filterOptions } from '../../constants';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
+import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
   animations: [fadeIn]
 })
 export class TaskTableComponent {
-  constructor(private taskService: TaskService, private router: Router, private userService: UserService){}
+  constructor(private taskService: TaskService, private router: Router, private userService: UserService, private toastr: ThirdPartyToastyServiceService){}
   @Input() role! : string;
   @Input() userId?: string;
   todos: any[] = [];
@@ -159,17 +160,21 @@ export class TaskTableComponent {
     this.showCommentModal = false;
     this.selectedTaskId = null;
   }
-  deleteTask(id: string) {
-    if (this.role === 'user') {
-      this.taskService.deleteTaskAPI(id).subscribe(() => {
-        // Remove from local list
-        this.allTodos = this.allTodos.filter(t => t.id !== id);
-        this.todos = [...this.allTodos];
-        this.pagingManager.totalItems = this.todos.length;
+  async deleteTask(id: string) {
+    const confirmed = await this.toastr.confirmDelete();
+    if (confirmed) {
+      this.taskService.deleteTaskById(id).subscribe({
+        next: () => {
+          this.toastr.toasterSuccess('Task deleted successfully', 'Success');
+          // Remove from local list
+          this.allTodos = this.allTodos.filter(t => t.id !== id);
+          this.todos = [...this.allTodos];
+          this.pagingManager.totalItems = this.todos.length;
+        },
+        error: (err) => {
+          this.toastr.toasterError(err.error?.message || 'Failed to delete task');
+        }
       });
-    } else {
-      this.taskService.deleteTask(id);
-      this.pagingManager.totalItems = this.todos.length - 1;
     }
   }
 }

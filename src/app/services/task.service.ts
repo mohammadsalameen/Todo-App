@@ -52,10 +52,6 @@ export class TaskService {
     this.saveTodos(todos);
   }
 
-  deleteTask(id: string) {
-    const todos = this.getTodos().filter(todo => todo.id !== id);
-    this.saveTodos(todos);
-  }
 
   getTasksForUser(userId: string): Observable<ITasks[]> {
     return this.http.get<ITasks[]>(`${this.BASE_URL}/Tasks/${userId}`);
@@ -84,8 +80,8 @@ export class TaskService {
     return this.http.put(`${this.BASE_URL}/Tasks/${id}/toggle`, {});
   }
 
-  deleteTaskAPI(id: string): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/Tasks/${id}`);
+  deleteTaskById(taskId: string): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/Tasks/delete-task/${taskId}`, taskId);
   }
 
 }

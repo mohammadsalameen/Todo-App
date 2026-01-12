@@ -5,3 +5,4 @@
 - [x] Add edit modal to users-list component
 - [x] Add edit handling logic to users-list component
 - [x] Test the edit functionality (build successful, no compilation errors; runtime testing not possible due to browser tool disabled)
+- [x] Activate deleteTaskById and add confirmation message (Swal) from service
