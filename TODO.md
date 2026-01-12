@@ -1,6 +1,2 @@
-- [x] Modify auth-form component to add handleSubmit and showRole inputs
-- [x] Update auth-form template to include role select
-- [x] Adjust auth-form submit logic to emit form data if !handleSubmit
-- [x] Add createUser method to UserService
-- [x] Update users-list component to include "Add User" button with icon and conditionally display auth-form
-- [x] Handle form submission in users-list to call createUser, show toasts, and refresh user list
+- [x] Update src/app/shared/user-table/user-table.component.html: Replace "delete" text with delete icon button and add click handler.
+- [x] Update src/app/shared/user-table/user-table.component.ts: Import ThirdPartyToastyServiceService, inject it, add deleteUser method with confirmation alert and API call.

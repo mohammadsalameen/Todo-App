@@ -13,6 +13,7 @@
           <th>#</th>
           <th>User</th>
           <th *ngIf="show == false">Role</th>
+          <th *ngIf="show == false">Delete</th>
           <th *ngIf="show">Tasks</th>
         </tr>
       </thead>
@@ -22,6 +23,11 @@
           <td>{{ (pagingManager.currentPage - 1) * pagingManager.itemsPerPage + (i + 1) }}</td>
           <td>{{ user.userName }}</td>
           <td *ngIf="show == false" >{{ user.role }}</td>
+          <td *ngIf="show == false">
+            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
           <td>
             <button *ngIf="show" class="btn btn-outline-primary" (click)="viewTasks(user.id)">
               View Tasks

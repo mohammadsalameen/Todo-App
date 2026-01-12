@@ -25,4 +25,7 @@ export class UserService {
     const payload = {userName, email, password, role};
     return this.http.post(`${this.BASE_URL}/Users/create-user`, payload);
   }
+  deleteUser(id: string): Observable<any>{
+    return this.http.post(`${this.BASE_URL}/Users/delete-user/${id}`, id);
+  }
 }

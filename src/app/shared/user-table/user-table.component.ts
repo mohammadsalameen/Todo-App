@@ -7,6 +7,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagination';
 import { of } from 'rxjs';
+import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 
 @Component({
   selector: 'app-user-table',
@@ -17,6 +19,8 @@ import { of } from 'rxjs';
 export class UserTableComponent implements OnInit {
   userService = inject(UserService);
   router = inject(Router);
+  toastr = inject(ThirdPartyToastyServiceService);
+  sweetAlert = inject(SweetAlertService);
   allUsers: any[] = [];
   users: any[] = [];
   @Input() show!: boolean;
@@ -87,5 +91,33 @@ export class UserTableComponent implements OnInit {
 
   viewTasks(userId: string) {
     this.router.navigate(['/admin/dashboard/user-tasks', userId]);
+  }
+
+  async deleteUser(userId: string) {
+    const confirmed = await this.sweetAlert.confirmDelete();
+    if (confirmed) {
+      this.userService.deleteUser(userId).subscribe({
+        next: () => {
+          this.toastr.toasterSuccess('User deleted successfully', 'Success');
+          this.refreshUsers();
+        },
+        error: (err) => {
+          this.toastr.toasterError(err.error?.message || 'Failed to delete user');
+        }
+      });
+    }
+  }
+
+  private refreshUsers() {
+    this.userService.getAllUsers().subscribe(users => {
+      this.allUsers = users;
+      this.users = [...this.allUsers];
+      this.pagingManager.totalItems = this.users.length;
+
+      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
+      if (this.pagingManager.currentPage > maxPage) {
+        this.pagingManager.currentPage = maxPage;
+      }
+    });
   }
 }
