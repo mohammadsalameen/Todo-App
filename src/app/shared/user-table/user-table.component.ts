@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,7 @@ export class UserTableComponent implements OnInit {
   allUsers: any[] = [];
   users: any[] = [];
   @Input() show!: boolean;
+  @Output() editUserEvent = new EventEmitter<any>();
 
   selectedOption: number = 10;
   itemsPerPageOptions = ITEMS_PER_PAGE_OPTIONS;
@@ -90,6 +91,10 @@ export class UserTableComponent implements OnInit {
 
   viewTasks(userId: string) {
     this.router.navigate(['/admin/dashboard/user-tasks', userId]);
+  }
+
+  editUser(user: any) {
+    this.editUserEvent.emit(user);
   }
 
   async deleteUser(userId: string) {

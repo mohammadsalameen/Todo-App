@@ -53,7 +53,7 @@
       </div>
 
       <!-- Password -->
-      <div>
+      <div *ngIf="!isEdit">
         <label class="form-label">Password</label>
 
         <input
@@ -76,7 +76,7 @@
       </div>
       <div *ngIf="showRole">
         <label class="form-label">Role</label>
-        <select name="role" class="form-control" ngModel>
+        <select name="role" class="form-control" [(ngModel)]="role">
           <option value="User">User</option>
           <option value="Admin">Admin</option>
         </select>

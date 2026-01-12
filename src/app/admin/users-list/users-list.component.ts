@@ -16,6 +16,8 @@ import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.
 export class UsersListComponent {
   showViewList: boolean = false;
   showAddForm: boolean = false;
+  showEditForm: boolean = false;
+  selectedUser: any = null;
 
   constructor(private userService: UserService, private toastr: ThirdPartyToastyServiceService) {}
 
@@ -30,6 +32,27 @@ export class UsersListComponent {
       error: (err) => {
         console.error('User creation failed', err);
         this.toastr.toasterError(err.error?.message || 'User creation failed. Check console.');
+      }
+    });
+  }
+
+  onEditUserEvent(user: any) {
+    this.selectedUser = user;
+    this.showEditForm = true;
+  }
+
+  onEditUser(payload: any) {
+    this.userService.updateUser(this.selectedUser.id, payload.username, payload.email, payload.role).subscribe({
+      next: (res) => {
+        console.log('User updated successfully', res);
+        this.toastr.toasterSuccess('User Updated Successfully', 'Success');
+        this.showEditForm = false;
+        this.selectedUser = null;
+        this.userService.getAllUsers(); // Refresh the list
+      },
+      error: (err) => {
+        console.error('User update failed', err);
+        this.toastr.toasterError(err.error?.message || 'User update failed. Check console.');
       }
     });
   }

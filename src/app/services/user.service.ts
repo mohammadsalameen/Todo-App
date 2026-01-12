@@ -28,4 +28,9 @@ export class UserService {
   deleteUser(id: string): Observable<any>{
     return this.http.post(`${this.BASE_URL}/Users/delete-user/${id}`, id);
   }
+
+  updateUser(userId: string, userName: string, email: string, role: string): Observable<any> {
+    const payload = { userName, email, role };
+    return this.http.post(`${this.BASE_URL}/Users/update-user/${userId}`, payload);
+  }
 }

@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth-service.service';
 import { Router, RouterLink } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
 
@@ -14,12 +13,16 @@ import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.
   templateUrl: './auth-form.component.html',
   styleUrl: './auth-form.component.css'
 })
-export class AuthFormComponent {
+export class AuthFormComponent implements OnInit {
   @Input() titleHeading: string;
   @Input() signUpShow: boolean;
   @Input() showForgetPassword: boolean;
   @Input() handleSubmit: boolean = true;
   @Input() showRole: boolean = false;
+  @Input() isEdit: boolean = false;
+  @Input() initialUsername: string = '';
+  @Input() initialEmail: string = '';
+  @Input() initialRole: string = 'User';
   @Output() formSubmitted = new EventEmitter<any>();
 
   username = '';
@@ -27,6 +30,12 @@ export class AuthFormComponent {
   password = '';
   role = "User";
   isLoading = false;
+
+  ngOnInit() {
+    this.username = this.initialUsername;
+    this.email = this.initialEmail;
+    this.role = this.initialRole;
+  }
 
   constructor(private authService: AuthService, private router: Router, private toastr: ThirdPartyToastyServiceService){}
   submit(form: NgForm, signUpShow: boolean) {

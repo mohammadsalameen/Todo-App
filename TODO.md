@@ -1,2 +1,7 @@
-- [x] Update src/app/shared/user-table/user-table.component.html: Replace "delete" text with delete icon button and add click handler.
-- [x] Update src/app/shared/user-table/user-table.component.ts: Import ThirdPartyToastyServiceService, inject it, add deleteUser method with confirmation alert and API call.
+- [x] Add updateUser method to UserService
+- [x] Modify auth-form component (added back initial values for pre-filling)
+- [x] Add Edit column to user-table
+- [x] Add editUserEvent output to user-table component
+- [x] Add edit modal to users-list component
+- [x] Add edit handling logic to users-list component
+- [x] Test the edit functionality (build successful, no compilation errors; runtime testing not possible due to browser tool disabled)
