@@ -6,7 +6,7 @@
   <div class="modal-header d-flex justify-content-between align-items-center">
     <button type="button" class="btn-close" (click)="close.emit()"></button>
   </div>
-  <h4 class="text-center mb-3 fw-bold">{{defaultValues }}</h4>
+  <h4 class="text-center mb-3 fw-bold">{{heading}}</h4>
   <div class="form-floating mb-3">
     <input
       type="text"
@@ -17,8 +17,8 @@
       placeholder="Enter Task"
       ngModel
       [ngModel]="defaultValues?.title"
-      required
-      minlength="3"
+      [required]="heading === 'Add Task'"
+      [minlength]="heading === 'Add Task' ? 3 : 0"
       #title = "ngModel"
     />
     <label for="title">Task Title</label>
@@ -42,8 +42,8 @@
       rows="2"
       ngModel
       [ngModel]="defaultValues?.description"
-      required
-      minlength="6"
+      [required]="heading === 'Add Task'"
+      [minlength]="heading === 'Add Task' ? 6 : 0"
       #description = "ngModel"
     ></textarea>
     <label for="description">Task Description</label>
@@ -52,12 +52,12 @@
         Description is required
       </span>
       <span *ngIf="description.errors?.['minlength']">
-        Minimum length is 5
+        Minimum length is 6
       </span>
       <span *ngIf="description.invalid && description.touched" class="invalid"></span>
     </div>
   </div>
-  <div class="form-floating mb-3" *ngIf="defaultValues === 'Add Task'">
+  <div class="form-floating mb-3" *ngIf="heading === 'Add Task'">
     <ng-select
       class="styled-select"
       [items]="users"
@@ -101,10 +101,10 @@
   </div>
 
   <button
-    [disabled]="taskForm.invalid"
+    [disabled]="heading === 'Add Task' && taskForm.invalid"
     type="submit"
     class="btn btn-primary w-100 submit-btn"
   >
-    {{defaultValues}}
+    {{heading}}
   </button>
 </form>

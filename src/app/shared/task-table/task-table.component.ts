@@ -148,8 +148,8 @@ export class TaskTableComponent {
   addComment(form: NgForm){
     console.log(form);
   }
-  updateTask(){
-    this.router.navigate(['/admin/edit-task']);
+  updateTask(taskId: string){
+    this.router.navigate(['/admin/edit-task', taskId]);
   }
   viewComments(id: string) {
     this.selectedTaskId = id;

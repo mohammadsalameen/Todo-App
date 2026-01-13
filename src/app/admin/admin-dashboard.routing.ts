@@ -12,7 +12,7 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('../tasks/add-task/add-task.component').then(m => m.AddTaskComponent)
   },
   {
-    path: 'edit-task',
+    path: 'edit-task/:taskId',
     loadComponent: () => import('../tasks/edit-task/edit-task.component').then(m => m.EditTaskComponent)
   },
   {

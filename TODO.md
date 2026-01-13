@@ -1,7 +1,6 @@
-# TODO: Implement addTask API Integration
-
-- [x] Update `src/app/shared/task-form/task-form.component.ts`: Add selectedUser property and logic to emit transformed data (assignedUserId, assignedUserName, isUrgent, createdAt).
-- [x] Update `src/app/shared/task-form/task-form.component.html`: Add (change) event on user select to set selectedUser.
-- [x] Update `src/app/services/task.service.ts`: Change addTask method to POST to /api/Tasks and return Observable.
-- [x] Update `src/app/tasks/add-task/add-task.component.ts`: Modify submitTask to subscribe to addTask Observable and handle navigation.
-- [x] Test the add task functionality.
+- [x] Update task.service.ts: Change updateTask to make HTTP PUT request to /api/Tasks/edit-task/{taskId}
+- [x] Update admin-dashboard.routing.ts: Change edit-task path to 'edit-task/:taskId'
+- [x] Update task-table.component.ts: Modify updateTask() to accept taskId and navigate with it
+- [x] Update edit-task.component.ts: Inject ActivatedRoute, get taskId, fetch task, set defaultValues, implement updateTodo
+- [x] Update task-form.component.html: Show assignedUser select for edit too
+- [x] Update task-form.component.ts: Handle defaultValues for assignedUser in edit mode

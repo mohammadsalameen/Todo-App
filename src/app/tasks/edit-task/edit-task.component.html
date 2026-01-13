@@ -1,7 +1,8 @@
 <div class="overlays">
   <div class="modal-box mb-5">
     <app-task-form
-      defaultValues={{heading}}
+      [heading]="heading"
+      [defaultValues]="defaultValues"
       (submitTask)="updateTodo($event)"
       (close)="onClose()">
     </app-task-form>

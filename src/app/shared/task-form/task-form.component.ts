@@ -13,6 +13,7 @@ import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.
 })
 export class TaskFormComponent implements OnInit {
   @Input() defaultValues: any = null;
+  @Input() heading: string = '';
   @Output() submitTask: EventEmitter<any> = new EventEmitter();
   @Output() close: EventEmitter<void> = new EventEmitter();
 
@@ -25,6 +26,9 @@ export class TaskFormComponent implements OnInit {
   ngOnInit() {
     this.userService.getAllUsers().subscribe(users => {
       this.users = users;
+      if (this.defaultValues?.assignedUser) {
+        this.selectedAssignedUser = this.defaultValues.assignedUser;
+      }
     });
   }
 
@@ -40,7 +44,7 @@ export class TaskFormComponent implements OnInit {
       IsUrgent: formData.urgent,
       CreatedAt: new Date().toISOString()
     };
-    if (!this.selectedAssignedUser) {
+    if (this.heading === 'Add Task' && !this.selectedAssignedUser) {
       this.toastrService.toasterWarning('Please select a user');
       return;
     }

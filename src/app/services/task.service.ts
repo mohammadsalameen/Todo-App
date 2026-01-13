@@ -31,10 +31,8 @@ export class TaskService {
   addTask(task: any): Observable<any> {
     return this.http.post(`${this.BASE_URL}/Tasks`, task );
   }
-  updateTask(updatedTask: ITasks){
-    const todos = this.getTodos();
-    const updatedTodos = todos.map(todo => todo.id === updatedTask.id ? {...updatedTask} : todo);
-    this.saveTodos(updatedTodos);
+  updateTask(taskId: string, updatedTask: any): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/Tasks/edit-task/${taskId}`, updatedTask);
   }
   toggleCompleted(id: string) {
     const todos = this.getTodos().map(todo =>
@@ -93,9 +91,6 @@ export class TaskService {
     );
   }
 
-  toggleCompletedAPI(id: string): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/Tasks/${id}/toggle`, {});
-  }
 
   changeStatus(taskId: string, completed: boolean): Observable<any> {
     return this.http.post(`${this.BASE_URL}/Tasks/change-status/${taskId}`, { isCompleted: completed });
