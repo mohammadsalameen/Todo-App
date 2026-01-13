@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommentService } from '../../services/comment.service';
+import { AuthService } from '../../services/auth-service.service';
+import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
 import { IComment } from '../models/task.model';
 
 @Component({
@@ -15,10 +17,12 @@ export class ViewCommentComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   comments: IComment[] = [];
   loading = false;
+  isAdmin = false;
 
-  constructor(private commentService: CommentService) {}
+  constructor(private commentService: CommentService, private authService: AuthService, private toastService: ThirdPartyToastyServiceService) {}
 
   ngOnInit() {
+    this.isAdmin = this.authService.getUserData('role') === 'Admin';
     this.loadComments();
   }
 
@@ -38,5 +42,21 @@ export class ViewCommentComponent implements OnInit {
 
   onClose() {
     this.close.emit();
+  }
+
+  async deleteComment(comment: IComment) {
+    const confirmed = await this.toastService.confirmDelete('Delete Comment', 'Are you sure you want to delete this comment?');
+    if (confirmed) {
+      this.commentService.deleteComment(this.taskId, comment.id).subscribe({
+        next: () => {
+          this.toastService.toasterSuccess('Comment deleted successfully');
+          this.loadComments(); // Reload comments
+        },
+        error: (err) => {
+          console.error('Error deleting comment', err);
+          this.toastService.toasterError('Failed to delete comment');
+        }
+      });
+    }
   }
 }

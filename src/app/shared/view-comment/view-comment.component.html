@@ -16,13 +16,18 @@
         <form *ngIf="!loading && comments.length > 0">
           <div class="mb-3" *ngFor="let comment of comments; let i = index">
             <label for="comment{{i}}" class="form-label">Comment {{i + 1}}</label>
-            <textarea
-              class="form-control"
-              id="comment{{i}}"
-              rows="3"
-              readonly
-              [value]="comment.content"
-            ></textarea>
+            <div class="d-flex">
+              <textarea
+                class="form-control"
+                id="comment{{i}}"
+                rows="3"
+                readonly
+                [value]="comment.content"
+              ></textarea>
+              <button *ngIf="isAdmin" type="button" class="btn btn-danger ms-2" (click)="deleteComment(comment)" title="Delete Comment">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
             <small class="form-text text-muted">Task: {{ comment.taskTitle }}</small>
           </div>
         </form>
