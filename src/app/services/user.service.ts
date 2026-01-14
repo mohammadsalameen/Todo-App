@@ -34,6 +34,10 @@ export class UserService {
     return this.http.post(`${this.BASE_URL}/Users/delete-user/${id}`, id);
   }
 
+  getUserById(userId: string): Observable<IUser> {
+    return this.http.get<IUser>(`${this.BASE_URL}/Users/${userId}`);
+  }
+
   updateUser(userId: string, userName: string, email: string, role: string): Observable<any> {
     const payload = { userName, email, role };
     return this.http.post(`${this.BASE_URL}/Users/update-user/${userId}`, payload);

@@ -37,8 +37,16 @@ export class UsersListComponent {
   }
 
   onEditUserEvent(user: any) {
-    this.selectedUser = user;
-    this.showEditForm = true;
+    this.userService.getUserById(user.id).subscribe({
+      next: (fullUser) => {
+        this.selectedUser = fullUser;
+        this.showEditForm = true;
+      },
+      error: (err) => {
+        console.error('Failed to fetch user details', err);
+        this.toastr.toasterError('Failed to load user details');
+      }
+    });
   }
 
   onEditUser(payload: any) {
