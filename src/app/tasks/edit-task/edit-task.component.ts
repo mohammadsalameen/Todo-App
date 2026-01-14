@@ -3,6 +3,7 @@ import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
 
 
@@ -23,6 +24,7 @@ export class EditTaskComponent implements OnInit {
     private taskService: TaskService,
     private router: Router,
     private route: ActivatedRoute,
+    private location: Location,
     private toastr: ThirdPartyToastyServiceService
   ) {}
 
@@ -55,6 +57,6 @@ export class EditTaskComponent implements OnInit {
   }
 
   onClose() {
-    this.router.navigate(['/admin/dashboard']);
+    this.location.back();
   }
 }
