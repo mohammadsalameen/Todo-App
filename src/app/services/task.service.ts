@@ -100,4 +100,40 @@ export class TaskService {
     return this.http.post(`${this.BASE_URL}/Tasks/delete-task/${taskId}`, taskId);
   }
 
+  getTasksPaged(userId: string, pageNumber: number, pageSize: number, search?: string): Observable<{items: ITasks[], totalCount: number}> {
+    const params = `pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
+    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/${userId}/paged?${params}`).pipe(
+      map(res => ({
+        items: res.items.map(t => ({
+          id: t.id,
+          title: t.title,
+          description: t.description,
+          completed: t.isCompleted,
+          urgent: t.isUrgent,
+          assignedUser: t.assignedUser,
+          createdAt: t.createdAt,
+          comments: t.comments || []
+        } as ITasks)),
+        totalCount: res.totalCount
+      }))
+    );
+  }
+
+  getMyTasksPaged(pageNumber: number, pageSize: number, search?: string): Observable<{items: ITasks[], totalCount: number}> {
+    const params = `pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
+    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/my-tasks/paged?${params}`).pipe(
+      map(res => ({
+        items: res.items.map(t => ({
+          id: t.id,
+          title: t.title,
+          description: t.description,
+          completed: t.isCompleted,
+          urgent: t.isUrgent,
+          comments: []
+        } as ITasks)),
+        totalCount: res.totalCount
+      }))
+    );
+  }
+
 }

@@ -1,19 +1,13 @@
-# TODO: Implement Pagination and Search for Admin Dashboard and Users List
+# TODO: Implement Pagination for Tasks using Paged API
 
 ## Tasks
-- [x] Add getUsersPaged method to user.service.ts
-- [x] Add refreshSubject to user.service.ts for triggering data refresh
-- [x] Modify user-table.component.ts to use server-side pagination:
-  - [x] Remove client-side filtering logic (allUsers, getFilteredUsers)
-  - [x] Add loadUsers() method
-  - [x] Update ngOnInit to call loadUsers()
-  - [x] Modify search() to reset page and call loadUsers()
-  - [x] Modify pageChanged() to call loadUsers()
-  - [x] Modify onItemsPerPageChange() to reset page and call loadUsers()
-  - [x] Subscribe to refreshSubject in ngOnInit
-  - [x] Update refreshUsers() to call loadUsers()
-- [x] Update admin-dashboard.component.ts to remove getAllUsers subscription
-- [x] Update users-list.component.ts to trigger refreshSubject after operations
-- [x] Test pagination and search functionality
+- [x] Add getTasksPaged and getMyTasksPaged methods to task.service.ts
+- [x] Modify task-table.component.ts to use server-side pagination:
+  - [x] Add loadTasks() method
+  - [x] Update ngOnInit to call loadTasks()
+  - [x] Modify search() to reset page and call loadTasks()
+  - [x] Modify pageChanged() to call loadTasks()
+  - [x] Modify onItemsPerPageChange() to reset page and call loadTasks()
+  - [x] Keep filters (completed/urgent) client-side on loaded tasks
+- [x] Test pagination in admin user-tasks and user dashboard
 - [x] Verify API integration
-- [x] Ensure refresh after add/edit/delete operations
