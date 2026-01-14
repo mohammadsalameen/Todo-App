@@ -10,9 +10,9 @@ export class AuthGuard {
   constructor() { }
   authService = inject(AuthService);
   router = inject(Router);
-  canActive(): boolean {
+  canActivate(): boolean {
     if(!this.authService.isLoggedIn()){
-      this.router.navigate(['/']);
+      this.router.navigate(['/auth']);
       return false
     }
     return true;
