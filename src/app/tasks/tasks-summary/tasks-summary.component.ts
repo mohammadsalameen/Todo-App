@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ITasks } from '../../shared/models/task.model';
+import { Component, OnInit } from '@angular/core';
+import { ITaskCounts } from '../../shared/models/task.model';
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -10,25 +10,19 @@ import { TaskService } from '../../services/task.service';
   templateUrl: './tasks-summary.component.html',
   styleUrl: './tasks-summary.component.css'
 })
-export class TasksSummaryComponent {
+export class TasksSummaryComponent implements OnInit {
   constructor(private taskService: TaskService){}
-  todos: ITasks[] = [];
+
+  createdTasksCount: number = 0;
+  urgentTasksCount: number = 0;
+  completedTasksCount: number = 0;
 
   ngOnInit(): void {
-    this.taskService.todos$.subscribe(todos => {
-      this.todos = todos;
-    })
-  }
-  get createdTasksCount(): number {
-    return this.todos.length;
-  }
-
-  get urgentTasksCount(): number {
-    return this.todos.filter(task => task.urgent).length;
-  }
-
-  get completedTasksCount(): number {
-    return this.todos.filter(task => task.completed).length;
+    this.taskService.getTaskCounts().subscribe(counts => {
+      this.createdTasksCount = counts.createdTasks;
+      this.urgentTasksCount = counts.urgentTasks;
+      this.completedTasksCount = counts.completedTasks;
+    });
   }
 
 }

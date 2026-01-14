@@ -20,4 +20,11 @@ export interface IUser {
   userName: string;
   email?: string;
   tasks: ITasks[];
+  role?:string;
+}
+
+export interface ITaskCounts {
+  createdTasks: number;
+  urgentTasks: number;
+  completedTasks: number;
 }

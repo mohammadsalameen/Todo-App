@@ -24,12 +24,13 @@ export class TaskFormComponent implements OnInit {
   constructor(private userService: UserService, private toastrService: ThirdPartyToastyServiceService) {}
 
   ngOnInit() {
-    this.userService.getAllUsers().subscribe(users => {
-      this.users = users;
-      if (this.defaultValues?.assignedUser) {
-        this.selectedAssignedUser = this.defaultValues.assignedUser;
-      }
-    });
+    console.log(this.defaultValues);
+    // this.userService.getAllUsers().subscribe(users => {
+    //   this.users = users;
+    //   if (this.defaultValues?.assignedUser) {
+    //     this.selectedAssignedUser = this.defaultValues.assignedUser;
+    //   }
+    // });
   }
 
   onUserChange(event: any) {

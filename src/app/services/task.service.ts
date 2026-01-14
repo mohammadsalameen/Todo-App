@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { ITasks, IUser } from '../shared/models/task.model';
+import { ITasks, IUser, ITaskCounts } from '../shared/models/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +58,7 @@ export class TaskService {
   }
 
   getTaskById(id: string): Observable<ITasks | null> {
-    return this.http.get<any[]>(`${this.BASE_URL}/Tasks`).pipe(
+    return this.http.get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`).pipe(
       map(tasks => {
         const task = tasks.find(t => t.id === id);
         if (task) {
@@ -121,7 +121,7 @@ export class TaskService {
 
   getMyTasksPaged(pageNumber: number, pageSize: number, search?: string): Observable<{items: ITasks[], totalCount: number}> {
     const params = `pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
-    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/my-tasks/paged?${params}`).pipe(
+    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/paged?${params}`).pipe(
       map(res => ({
         items: res.items.map(t => ({
           id: t.id,
@@ -134,6 +134,10 @@ export class TaskService {
         totalCount: res.totalCount
       }))
     );
+  }
+
+  getTaskCounts(): Observable<ITaskCounts> {
+    return this.http.get<ITaskCounts>(`${this.BASE_URL}/Tasks/task-count`);
   }
 
 }
