@@ -18,9 +18,8 @@ export class AdminDashboardComponent {
   showViewList: boolean = true;
 
   ngOnInit() {
-    this.userService.getAllUsers().subscribe(users => {
-      this.users = users;
-    });
+    // Data is now loaded in user-table component
+    
   }
 
   viewTasks(userId: string) {

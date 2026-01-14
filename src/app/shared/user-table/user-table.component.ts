@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -6,7 +6,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { CREATE_PAGING_MANAGER, ITEMS_PER_PAGE_OPTIONS } from '../../shared/pagination';
-import { of } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
 
 
@@ -16,11 +16,10 @@ import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.css',
 })
-export class UserTableComponent implements OnInit {
+export class UserTableComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   router = inject(Router);
   toastr = inject(ThirdPartyToastyServiceService);
-  allUsers: any[] = [];
   users: any[] = [];
   @Input() show!: boolean;
   @Output() editUserEvent = new EventEmitter<any>();
@@ -29,60 +28,42 @@ export class UserTableComponent implements OnInit {
   itemsPerPageOptions = ITEMS_PER_PAGE_OPTIONS;
   pagingManager: any = CREATE_PAGING_MANAGER(this.selectedOption);
   searchText: string = '';
+  private refreshSubscription: Subscription;
 
   ngOnInit() {
-    this.userService.getAllUsers().subscribe(users => {
-      this.allUsers = users;
-      this.users = [...this.allUsers];
-      this.pagingManager.totalItems = this.users.length;
+    this.loadUsers();
+    this.refreshSubscription = this.userService.refreshSubject.subscribe(() => {
+      this.loadUsers();
+    });
+  }
 
-      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
-      if (this.pagingManager.currentPage > maxPage) {
-        this.pagingManager.currentPage = maxPage;
-      }
+  ngOnDestroy() {
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+  }
+
+  loadUsers() {
+    this.userService.getUsersPaged(this.pagingManager.currentPage, this.pagingManager.itemsPerPage, this.searchText).subscribe(res => {
+      this.users = res.items;
+      this.pagingManager.totalItems = res.totalCount;
     });
   }
 
   search() {
-    const params = {
-      Page: this.pagingManager.currentPage,
-      PageSize: this.pagingManager.itemsPerPage,
-      StrSearch: this.searchText?.trim() || ''
-    };
-
-    this.getFilteredUsers(params).subscribe(res => {
-      this.users = res.data;
-      this.pagingManager.totalItems = res.total;
-
-      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
-      if (this.pagingManager.currentPage > maxPage) {
-        this.pagingManager.currentPage = maxPage;
-      }
-    });
+    this.pagingManager.currentPage = 1;
+    this.loadUsers();
   }
 
   pageChanged($e: any): void {
     this.pagingManager.currentPage = $e;
+    this.loadUsers();
   }
 
   onItemsPerPageChange(): void {
     this.pagingManager.itemsPerPage = this.selectedOption;
     this.pagingManager.currentPage = 1;
-  }
-
-  getFilteredUsers(params: any) {
-    const { Page, PageSize, StrSearch } = params;
-
-    let filtered = this.allUsers.filter(u => u.userName.toLowerCase().includes(StrSearch.toLowerCase()));
-    const total = filtered.length;
-    const start = (Page - 1) * PageSize;
-    const end = start + PageSize;
-    const paginated = filtered.slice(start, end);
-
-    return of({
-      data: paginated,
-      total: total
-    });
+    this.loadUsers();
   }
 
   trackById(index: number, item: any): any {
@@ -103,25 +84,12 @@ export class UserTableComponent implements OnInit {
       this.userService.deleteUser(userId).subscribe({
         next: () => {
           this.toastr.toasterSuccess('User deleted successfully', 'Success');
-          this.refreshUsers();
+          this.loadUsers();
         },
         error: (err) => {
           this.toastr.toasterError(err.error?.message || 'Failed to delete user');
         }
       });
     }
-  }
-
-  private refreshUsers() {
-    this.userService.getAllUsers().subscribe(users => {
-      this.allUsers = users;
-      this.users = [...this.allUsers];
-      this.pagingManager.totalItems = this.users.length;
-
-      const maxPage = Math.ceil(this.pagingManager.totalItems / this.pagingManager.itemsPerPage) || 1;
-      if (this.pagingManager.currentPage > maxPage) {
-        this.pagingManager.currentPage = maxPage;
-      }
-    });
   }
 }

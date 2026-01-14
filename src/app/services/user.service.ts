@@ -10,6 +10,7 @@ export class UserService {
   private BASE_URL = 'http://localhost:5089/api';
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   users$ = this.usersSubject.asObservable();
+  refreshSubject = new BehaviorSubject<void>(null);
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +20,10 @@ export class UserService {
       this.usersSubject.next(usersWithEmptyTasks);
     });
     return this.users$;
+  }
+
+  getUsersPaged(pageNumber: number, pageSize: number, search: string): Observable<{items: IUser[], totalCount: number}> {
+    return this.http.get<{items: IUser[], totalCount: number}>(`${this.BASE_URL}/Users/paged?pageNumber=${pageNumber}&pageSize=${pageSize}&search=${encodeURIComponent(search)}`);
   }
 
   createUser(userName: string, email: string, password: string, role: string): Observable<any> {

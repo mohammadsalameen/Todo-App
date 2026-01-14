@@ -27,7 +27,7 @@ export class UsersListComponent {
         console.log('User created successfully', res);
         this.toastr.toasterSuccess('User Created Successfully', 'Success');
         this.showAddForm = false;
-        this.userService.getAllUsers(); // Refresh the list
+        this.userService.refreshSubject.next(); // Refresh the list
       },
       error: (err) => {
         console.error('User creation failed', err);
@@ -48,7 +48,7 @@ export class UsersListComponent {
         this.toastr.toasterSuccess('User Updated Successfully', 'Success');
         this.showEditForm = false;
         this.selectedUser = null;
-        this.userService.getAllUsers(); // Refresh the list
+        this.userService.refreshSubject.next(); // Refresh the list
       },
       error: (err) => {
         console.error('User update failed', err);
