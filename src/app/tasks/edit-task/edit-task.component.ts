@@ -15,7 +15,9 @@ import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.
 export class EditTaskComponent implements OnInit {
   heading: string = 'Update Task';
   taskId: string = '';
-  defaultValues: any = null;
+  defaultValues: any = {
+    urgent: false
+  };
 
   constructor(
     private taskService: TaskService,

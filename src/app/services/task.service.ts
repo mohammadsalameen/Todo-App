@@ -58,10 +58,18 @@ export class TaskService {
   }
 
   getTaskById(id: string): Observable<ITasks | null> {
-    return this.http.get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`).pipe(
-      map(tasks => {
-        const task = tasks.find(t => t.id === id);
-        if (task) {
+    return this.http
+      .get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`, {
+        params: { taskId: id }
+      })
+      .pipe(
+        map(tasks => {
+          if (!tasks || tasks.length === 0) {
+            return null;
+          }
+
+          const task = tasks[0]; 
+
           return {
             id: task.id,
             title: task.title,
@@ -70,26 +78,25 @@ export class TaskService {
             urgent: task.isUrgent,
             assignedUser: task.assignedUser,
             createdAt: task.createdAt,
-            comments: task.comments || []
+            comments: task.comments ?? []
           } as ITasks;
-        }
-        return null;
-      })
-    );
+        })
+      );
   }
 
-  getMyTasks(): Observable<ITasks[]> {
-    return this.http.get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`).pipe(
-      map(tasks => tasks.map(t => ({
-        id: t.id,
-        title: t.title,
-        description: t.description,
-        completed: t.isCompleted,
-        urgent: t.isUrgent,
-        comments: []
-      } as ITasks)))
-    );
-  }
+
+  // getMyTasks(): Observable<ITasks[]> {
+  //   return this.http.get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`).pipe(
+  //     map(tasks => tasks.map(t => ({
+  //       id: t.id,
+  //       title: t.title,
+  //       description: t.description,
+  //       completed: t.isCompleted,
+  //       urgent: t.isUrgent,
+  //       comments: []
+  //     } as ITasks)))
+  //   );
+  // }
 
 
   changeStatus(taskId: string, completed: boolean): Observable<any> {
