@@ -20,21 +20,19 @@ export class AuthFormComponent implements OnInit {
   @Input() handleSubmit: boolean = true;
   @Input() showRole: boolean = false;
   @Input() isEdit: boolean = false;
-  @Input() initialUsername: string = '';
-  @Input() initialEmail: string = '';
-  @Input() initialRole: string = 'User';
+  @Input() initialValues: any = null;
   @Output() formSubmitted = new EventEmitter<any>();
 
   username = '';
   email = '';
   password = '';
-  role = "User";
   isLoading = false;
 
   ngOnInit() {
-    this.username = this.initialUsername;
-    this.email = this.initialEmail;
-    this.role = this.initialRole;
+    if (this.initialValues) {
+      this.username = this.initialValues.userName || '';
+      this.email = this.initialValues.email || '';
+    }
   }
 
   constructor(private authService: AuthService, private router: Router, private toastr: ThirdPartyToastyServiceService){}

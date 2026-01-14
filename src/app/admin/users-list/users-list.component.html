@@ -38,9 +38,7 @@
           [handleSubmit]="false"
           [showRole]="true"
           [isEdit]="true"
-          [initialUsername]="selectedUser?.userName"
-          [initialEmail]="selectedUser?.email"
-          [initialRole]="selectedUser?.role"
+          [initialValues]="selectedUser"
           (formSubmitted)="onEditUser($event)">
         </app-auth-form>
       </div>

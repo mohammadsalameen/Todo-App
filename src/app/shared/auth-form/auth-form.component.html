@@ -18,8 +18,10 @@
           class="form-control"
           [class.is-invalid]="username.invalid && username.touched"
           placeholder="Enter username"
-          required minlength="3"
+          [required]="!isEdit"
+          [minlength]="isEdit ? 0 : 3"
           ngModel
+          [ngModel]="initialValues?.userName"
           #username="ngModel"
         />
 
@@ -39,8 +41,9 @@
           class="form-control"
           [class.is-invalid]="email.invalid && email.touched"
           placeholder="Enter email"
-          required email
+          [required]="!isEdit" email
           ngModel
+          [ngModel]="initialValues?.email"
           #email="ngModel"
         />
 
@@ -76,7 +79,7 @@
       </div>
       <div *ngIf="showRole">
         <label class="form-label">Role</label>
-        <select name="role" class="form-control" [(ngModel)]="role">
+        <select name="role" class="form-control" [ngModel]="initialValues?.role || 'User'">
           <option value="User">User</option>
           <option value="Admin">Admin</option>
         </select>

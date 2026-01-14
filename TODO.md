@@ -1,4 +1,5 @@
-- [x] Add ITaskCounts interface to src/app/shared/models/task.model.ts
-- [x] Add getTaskCounts() method to src/app/services/task.service.ts
-- [x] Update TasksSummaryComponent in src/app/tasks/tasks-summary/tasks-summary.component.ts to fetch counts from API
-- [x] Update src/app/tasks/tasks-summary/tasks-summary.component.html to use fetched counts
+- [x] Modify auth-form.component.ts: Add @Input() initialValues: any = null; Remove initialUsername, initialEmail, initialRole. Remove this.role = "User";
+- [x] Modify auth-form.component.html: Add [ngModel]="initialValues?.userName" to username input, [ngModel]="initialValues?.email" to email input, change role select to [ngModel]="initialValues?.role || 'User'"
+- [x] Modify users-list.component.html: Change to [initialValues]="selectedUser" remove the separate initial*
+- [x] Fix email not filling: Set this.username and this.email in ngOnInit
+- [x] Remove validation for edit user: Make required conditional on !isEdit
