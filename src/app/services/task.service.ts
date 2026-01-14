@@ -101,8 +101,8 @@ export class TaskService {
   }
 
   getTasksPaged(userId: string, pageNumber: number, pageSize: number, search?: string): Observable<{items: ITasks[], totalCount: number}> {
-    const params = `pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
-    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/${userId}/paged?${params}`).pipe(
+    const params = `userId=${userId}&pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
+    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/paged?${params}`).pipe(
       map(res => ({
         items: res.items.map(t => ({
           id: t.id,

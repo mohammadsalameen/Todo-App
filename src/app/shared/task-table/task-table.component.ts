@@ -47,13 +47,14 @@ export class TaskTableComponent implements OnInit {
         this.todos = [...this.allTodos];
         this.pagingManager.totalItems = res.totalCount;
         this.applyFilters();
-      });
+        })
     } else if (this.role === 'user') {
       this.taskService.getMyTasksPaged(this.pagingManager.currentPage, this.pagingManager.itemsPerPage, this.searchText || undefined).subscribe(res => {
         this.allTodos = res.items ?? [];
         this.todos = [...this.allTodos];
         this.pagingManager.totalItems = res.totalCount;
         this.applyFilters();
+
       });
     } else {
       this.taskService.todos$.subscribe((res: any[]) => {
@@ -121,9 +122,7 @@ export class TaskTableComponent implements OnInit {
       });
     }
   }
-  addComment(form: NgForm){
-    console.log(form);
-  }
+
   updateTask(taskId: string){
     this.router.navigate(['/admin/edit-task', taskId]);
   }
