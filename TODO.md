@@ -1,5 +1,5 @@
-- [x] Modify auth-form.component.ts: Add @Input() initialValues: any = null; Remove initialUsername, initialEmail, initialRole. Remove this.role = "User";
-- [x] Modify auth-form.component.html: Add [ngModel]="initialValues?.userName" to username input, [ngModel]="initialValues?.email" to email input, change role select to [ngModel]="initialValues?.role || 'User'"
-- [x] Modify users-list.component.html: Change to [initialValues]="selectedUser" remove the separate initial*
-- [x] Fix email not filling: Fetch full user details in onEditUserEvent
-- [x] Remove validation for edit user: Make required conditional on !isEdit
+- [x] Add addComment method to CommentService
+- [x] Uncomment getAllUsers and adjust logic in TaskFormComponent
+- [x] Change bindValue to "userId" in task-form.component.html
+- [x] Modify AddTaskComponent to call addComment after addTask
+- [x] Modify EditTaskComponent to call addComment after updateTask

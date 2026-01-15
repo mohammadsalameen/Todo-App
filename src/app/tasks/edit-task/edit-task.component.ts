@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { TaskFormComponent } from '../../shared/task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
+import { CommentService } from '../../services/comment.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
@@ -22,6 +23,7 @@ export class EditTaskComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private commentService: CommentService,
     private route: ActivatedRoute,
     private location: Location,
     private toastr: ThirdPartyToastyServiceService
@@ -46,6 +48,9 @@ export class EditTaskComponent implements OnInit {
   updateTodo(values: any) {
     this.taskService.updateTask(this.taskId, values).subscribe({
       next: () => {
+        if (values.Comment) {
+          this.commentService.addComment(this.taskId, values.Comment).subscribe();
+        }
         this.toastr.toasterSuccess('Task updated successfully', 'Success');
         this.location.back();
       },

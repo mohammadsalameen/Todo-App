@@ -18,4 +18,8 @@ export class CommentService {
   deleteComment(taskId: string, commentId: string): Observable<any> {
     return this.http.post(`${this.BASE_URL}/Comments/delete-comment/${taskId}/${commentId}`, taskId);
   }
+
+  addComment(taskItemId: string, content: string): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/Comments`, { taskItemId, content });
+  }
 }

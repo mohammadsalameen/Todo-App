@@ -25,12 +25,13 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.defaultValues);
-    // this.userService.getAllUsers().subscribe(users => {
-    //   this.users = users;
-    //   if (this.defaultValues?.assignedUser) {
-    //     this.selectedAssignedUser = this.defaultValues.assignedUser;
-    //   }
-    // });
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+      if (this.defaultValues?.assignedUser) {
+        this.selectedAssignedUser = this.defaultValues.assignedUser;
+        this.selectedUser = this.users.find(u => u.userId === this.defaultValues.assignedUser);
+      }
+    });
   }
 
   onUserChange(event: any) {
