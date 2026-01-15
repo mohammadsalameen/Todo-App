@@ -54,7 +54,7 @@ export class ViewCommentComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error deleting comment', err);
-          this.toastService.toasterError('Failed to delete comment');
+          this.toastService.toasterError('Not Allowed, check console');
         }
       });
     }

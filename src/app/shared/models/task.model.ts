@@ -2,6 +2,7 @@ export interface IComment {
   id: string;
   content: string;
   taskTitle: string;
+  createdBy: string;
 }
 
 export interface ITasks {

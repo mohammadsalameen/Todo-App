@@ -24,11 +24,13 @@
                 readonly
                 [value]="comment.content"
               ></textarea>
-              <button *ngIf="isAdmin" type="button" class="btn btn-danger ms-2" (click)="deleteComment(comment)" title="Delete Comment">
+              <button  type="button" class="btn btn-danger ms-2" (click)="deleteComment(comment)" title="Delete Comment">
                 <i class="bi bi-trash"></i>
               </button>
             </div>
             <small class="form-text text-muted">Task: {{ comment.taskTitle }}</small>
+            <br>
+            <small class="form-text text-muted">Created By: {{ comment.createdBy }}</small>
           </div>
         </form>
       </div>
