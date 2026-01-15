@@ -1,5 +1,0 @@
-- [x] Add addComment method to CommentService
-- [x] Uncomment getAllUsers and adjust logic in TaskFormComponent
-- [x] Change bindValue to "userId" in task-form.component.html
-- [x] Modify AddTaskComponent to call addComment after addTask
-- [x] Modify EditTaskComponent to call addComment after updateTask
