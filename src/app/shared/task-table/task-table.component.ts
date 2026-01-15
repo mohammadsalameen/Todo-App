@@ -42,18 +42,14 @@ export class TaskTableComponent implements OnInit {
 
   loadTasks() {
     if (this.userId) {
-      this.taskService.getTasksPaged(this.userId, this.pagingManager.currentPage, this.pagingManager.itemsPerPage, this.searchText || undefined).subscribe(res => {
-        this.allTodos = res.items ?? [];
-        this.todos = [...this.allTodos];
+      this.taskService.getTasksPaged(this.userId, this.pagingManager.currentPage, this.pagingManager.itemsPerPage, this.searchText || undefined, this.selectedFilter).subscribe(res => {
+        this.todos = res.items ?? [];
         this.pagingManager.totalItems = res.totalCount;
-        this.applyFilters();
         })
     } else if (this.role === 'user') {
-      this.taskService.getMyTasksPaged(this.pagingManager.currentPage, this.pagingManager.itemsPerPage, this.searchText || undefined).subscribe(res => {
-        this.allTodos = res.items ?? [];
-        this.todos = [...this.allTodos];
+      this.taskService.getMyTasksPaged(this.pagingManager.currentPage, this.pagingManager.itemsPerPage, this.searchText || undefined, this.selectedFilter).subscribe(res => {
+        this.todos = res.items ?? [];
         this.pagingManager.totalItems = res.totalCount;
-        this.applyFilters();
 
       });
     } else {
@@ -89,7 +85,11 @@ export class TaskTableComponent implements OnInit {
 
   onFilterChange(): void {
     this.pagingManager.currentPage = 1;
-    this.applyFilters();
+    if (this.userId || this.role === 'user') {
+      this.loadTasks();
+    } else {
+      this.applyFilters();
+    }
   }
 
   applyFilters() {
@@ -112,14 +112,25 @@ export class TaskTableComponent implements OnInit {
   }
 
   toggleCompleted(id: string) {
-    const task = this.allTodos.find(t => t.id === id);
-    if (task) {
-      const newCompleted = !task.completed;
-      this.taskService.changeStatus(id, newCompleted).subscribe(() => {
-        // Update local list
-        this.allTodos = this.allTodos.map(t => t.id === id ? { ...t, completed: newCompleted } : t);
-        this.todos = [...this.allTodos];
-      });
+    if (this.userId || this.role === 'user') {
+      const task = this.todos.find(t => t.id === id);
+      if (task) {
+        const newCompleted = !task.completed;
+        this.taskService.changeStatus(id, newCompleted).subscribe(() => {
+          // Update local list
+          this.todos = this.todos.map(t => t.id === id ? { ...t, completed: newCompleted } : t);
+        });
+      }
+    } else {
+      const task = this.allTodos.find(t => t.id === id);
+      if (task) {
+        const newCompleted = !task.completed;
+        this.taskService.changeStatus(id, newCompleted).subscribe(() => {
+          // Update local list
+          this.allTodos = this.allTodos.map(t => t.id === id ? { ...t, completed: newCompleted } : t);
+          this.todos = [...this.allTodos];
+        });
+      }
     }
   }
 
@@ -141,10 +152,15 @@ export class TaskTableComponent implements OnInit {
       this.taskService.deleteTaskById(id).subscribe({
         next: () => {
           this.toastr.toasterSuccess('Task deleted successfully', 'Success');
-          // Remove from local list
-          this.allTodos = this.allTodos.filter(t => t.id !== id);
-          this.todos = [...this.allTodos];
-          this.pagingManager.totalItems = this.todos.length;
+          if (this.userId || this.role === 'user') {
+            // Reload to update totalCount
+            this.loadTasks();
+          } else {
+            // Remove from local list
+            this.allTodos = this.allTodos.filter(t => t.id !== id);
+            this.todos = [...this.allTodos];
+            this.pagingManager.totalItems = this.todos.length;
+          }
         },
         error: (err) => {
           this.toastr.toasterError(err.error?.message || 'Failed to delete task');

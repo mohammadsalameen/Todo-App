@@ -34,12 +34,6 @@ export class TaskService {
   updateTask(taskId: string, updatedTask: any): Observable<any> {
     return this.http.post(`${this.BASE_URL}/Tasks/edit-task/${taskId}`, updatedTask);
   }
-  toggleCompleted(id: string) {
-    const todos = this.getTodos().map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    );
-    this.saveTodos(todos);
-  }
 
 
   getTasksForUser(userId: string): Observable<ITasks[]> {
@@ -68,7 +62,7 @@ export class TaskService {
             return null;
           }
 
-          const task = tasks[0]; 
+          const task = tasks[0];
 
           return {
             id: task.id,
@@ -107,8 +101,8 @@ export class TaskService {
     return this.http.post(`${this.BASE_URL}/Tasks/delete-task/${taskId}`, taskId);
   }
 
-  getTasksPaged(userId: string, pageNumber: number, pageSize: number, search?: string): Observable<{items: ITasks[], totalCount: number}> {
-    const params = `userId=${userId}&pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
+  getTasksPaged(userId: string, pageNumber: number, pageSize: number, search?: string, status?: string): Observable<{items: ITasks[], totalCount: number}> {
+    const params = `userId=${userId}&pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}${status && status !== 'all' ? `&status=${encodeURIComponent(status)}` : ''}`;
     return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/paged?${params}`).pipe(
       map(res => ({
         items: res.items.map(t => ({
@@ -126,8 +120,8 @@ export class TaskService {
     );
   }
 
-  getMyTasksPaged(pageNumber: number, pageSize: number, search?: string): Observable<{items: ITasks[], totalCount: number}> {
-    const params = `pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
+  getMyTasksPaged(pageNumber: number, pageSize: number, search?: string, status?: string): Observable<{items: ITasks[], totalCount: number}> {
+    const params = `pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}${status && status !== 'all' ? `&status=${encodeURIComponent(status)}` : ''}`;
     return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/paged?${params}`).pipe(
       map(res => ({
         items: res.items.map(t => ({
