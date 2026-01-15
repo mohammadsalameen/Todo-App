@@ -22,7 +22,6 @@ export class EditTaskComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private router: Router,
     private route: ActivatedRoute,
     private location: Location,
     private toastr: ThirdPartyToastyServiceService
@@ -48,7 +47,7 @@ export class EditTaskComponent implements OnInit {
     this.taskService.updateTask(this.taskId, values).subscribe({
       next: () => {
         this.toastr.toasterSuccess('Task updated successfully', 'Success');
-        this.router.navigate(['/admin/dashboard']);
+        this.location.back();
       },
       error: (err) => {
         this.toastr.toasterError(err.error?.message || 'Failed to update task');
