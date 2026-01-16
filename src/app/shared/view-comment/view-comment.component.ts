@@ -61,17 +61,21 @@ export class ViewCommentComponent implements OnInit {
   }
   async updateComment(comment: IComment) {
     const newContent = window.prompt('Edit Comment', comment.content);
-    if (newContent && newContent.trim() !== comment.content.trim()) {
-      this.commentService.updateComment(comment.id, newContent.trim()).subscribe({
+
+    if (!newContent || newContent.trim() === comment.content.trim()) return;
+
+    this.commentService
+      .updateComment(comment.id, newContent.trim())
+      .subscribe({
         next: () => {
           this.toastService.toasterSuccess('Comment updated successfully');
-          this.loadComments(); // Reload comments
+          this.loadComments();
         },
         error: (err) => {
           console.error('Error updating comment', err);
           this.toastService.toasterError('Not Allowed, check console');
         }
       });
-    }
   }
+
 }

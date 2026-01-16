@@ -22,7 +22,7 @@ export class CommentService {
   addComment(taskItemId: string, content: string): Observable<any> {
     return this.http.post(`${this.BASE_URL}/Comments`, { taskItemId, content });
   }
-  updateComment(commentId: string, content:string): Observable<any>{
-    return this.http.post(`${this.BASE_URL}/Comments/update-comment`, {commentId, content});
-  }
+    updateComment(Id: string, content:string): Observable<any>{
+      return this.http.post(`${this.BASE_URL}/Comments/update-comment`, {Id, content})
+    }
 }
