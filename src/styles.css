@@ -1,4 +1,4 @@
-@import './styles.css';
+/* @import './styles.css'; */
 
 .overlays {
   position: fixed;
@@ -103,3 +103,63 @@
   padding-right: 8px;
 }
 
+
+
+
+/* ===== Entries Length Select (DataTables style) ===== */
+
+.entries-select {
+  width: 70px;
+  font-size: 13px;
+}
+
+/* Main box */
+.entries-select .ng-select-container {
+  min-height: 30px;
+  height: 30px;
+  padding: 0 6px;
+  border: 1px solid #cfd4da;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: none;
+}
+
+/* Value text */
+.entries-select .ng-value {
+  font-size: 13px;
+  line-height: 30px;
+  color: #212529;
+}
+
+/* Arrow */
+.entries-select .ng-arrow-wrapper {
+  padding-right: 4px;
+}
+
+.entries-select .ng-arrow {
+  border-color: #6c757d transparent transparent;
+}
+
+/* Dropdown panel */
+.entries-select .ng-dropdown-panel {
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  font-size: 13px;
+}
+
+/* Dropdown items */
+.entries-select .ng-option {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* Hover */
+.entries-select .ng-option:hover {
+  background-color: #f5f5f5;
+}
+
+/* Selected option */
+.entries-select .ng-option-selected {
+  background-color: #e9ecef;
+  font-weight: 500;
+}

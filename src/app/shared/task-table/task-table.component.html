@@ -106,7 +106,7 @@
         <label class="mb-0">Show</label>
 
         <ng-select
-          class="form-select"
+          class="entries-select"
           [items]="itemsPerPageOptions"
           bindLabel="label"
           bindValue="value"
@@ -114,6 +114,7 @@
           [(ngModel)]="selectedOption"
           (change)="onItemsPerPageChange()"
           [dropdownPosition]="'top'"
+          appendTo="body"
         >
         </ng-select>
         <label class="mb-0">entries</label>

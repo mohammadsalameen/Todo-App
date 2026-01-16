@@ -47,13 +47,17 @@
     <div class="d-flex align-items-center gap-2">
       <label class="mb-0">Show</label>
       <ng-select
-        class="styled-select"
+        class="entries-select"
         [items]="itemsPerPageOptions"
         bindLabel="label"
         bindValue="value"
         [clearable]="false"
         [(ngModel)]="selectedOption"
-        (change)="onItemsPerPageChange()">
+        (change)="onItemsPerPageChange()"
+        [dropdownPosition]="'top'"
+        
+        >
+
       </ng-select>
       <label class="mb-0">entries</label>
     </div>
