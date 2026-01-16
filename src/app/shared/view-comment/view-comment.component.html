@@ -24,6 +24,9 @@
                 readonly
                 [value]="comment.content"
               ></textarea>
+              <button  type="button" class="btn btn-primary ms-2" (click)="updateComment(comment)" title="Edit Comment">
+                <i class="bi bi-pencil-square"></i>
+              </button>
               <button  type="button" class="btn btn-danger ms-2" (click)="deleteComment(comment)" title="Delete Comment">
                 <i class="bi bi-trash"></i>
               </button>

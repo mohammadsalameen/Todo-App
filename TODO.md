@@ -1,0 +1,3 @@
+- [x] Modify the updateComment method in view-comment.component.ts to prompt for new content and call service.updateComment
+- [x] Update the button title in view-comment.component.html to "Edit Comment"
+- [x] Change the button class from btn-danger to btn-primary in view-comment.component.html
