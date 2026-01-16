@@ -24,7 +24,7 @@
                 readonly
                 [value]="comment.content"
               ></textarea>
-              <button  type="button" class="btn btn-primary ms-2" (click)="updateComment(comment)" title="Edit Comment">
+              <button  type="button" class="btn btn-warning ms-2" (click)="updateComment(comment)" title="Edit Comment">
                 <i class="bi bi-pencil-square"></i>
               </button>
               <button  type="button" class="btn btn-danger ms-2" (click)="deleteComment(comment)" title="Delete Comment">
@@ -34,6 +34,8 @@
             <small class="form-text text-muted">Task: {{ comment.taskTitle }}</small>
             <br>
             <small class="form-text text-muted">Created By: {{ comment.createdBy }}</small>
+            <br>
+            <small class="form-text text-muted">Updated By: {{ comment.updatedBy }}</small>
           </div>
         </form>
       </div>

@@ -3,6 +3,7 @@ export interface IComment {
   content: string;
   taskTitle: string;
   createdBy: string;
+  updatedBy: string;
 }
 
 export interface ITasks {
