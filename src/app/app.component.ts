@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./navbar/navbar.component";
 import { FooterComponent } from "./footer/footer.component";
 import { AuthService } from './services/auth-service.service';
+import { ThemeService } from './services/theme.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,7 +13,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Todo_App';
   authService = inject(AuthService);
+  themeService = inject(ThemeService);
+
+  ngOnInit() {
+    // Theme is set in ThemeService constructor
+  }
 }

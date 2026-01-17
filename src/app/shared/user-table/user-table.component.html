@@ -1,4 +1,4 @@
-<div class="container">
+<div class="">
   <div class="d-flex gap-2 h-auto">
     <input type="text"
        class="form-control w-25 mb-3"
@@ -34,8 +34,8 @@
               <i class="bi bi-trash"></i>
             </button>
           </td>
-          <td>
-            <button *ngIf="show" class="btn btn-outline-primary" (click)="viewTasks(user.id)">
+          <td *ngIf="show">
+            <button class="btn btn-outline-primary" (click)="viewTasks(user.id)">
               View Tasks
             </button>
           </td>

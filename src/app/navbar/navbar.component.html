@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
-     style="background: linear-gradient(90deg, #000000 0%, #000e10eb 74%)">
+     [style.background]="themeService.currentTheme === 'light' ? 'linear-gradient(90deg, #000000 0%, #000e10eb 74%)' : 'linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 74%)'">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" routerLink="/">
       <i class="bi bi-check2-square text-primary me-2"></i> Task Management App
@@ -20,6 +20,11 @@
              [routerLinkActiveOptions]="{ exact: item.exact }">
             {{ item.label }}
           </a>
+        </li>
+        <li class="nav-item mx-2">
+          <button (click)="toggleTheme()" class="btn btn-outline-light btn-sm rounded-pill px-3" title="Toggle Theme">
+            <i class="bi" [class]="themeService.currentTheme === 'light' ? 'bi-moon' : 'bi-sun'"></i>
+          </button>
         </li>
         <li class="nav-item mx-2">
           <button class="btn btn-light btn-sm rounded-pill px-3">

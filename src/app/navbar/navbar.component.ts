@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { AuthService } from '../services/auth-service.service';
+import { ThemeService } from '../services/theme.service';
 import { navLinks } from '../constants';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { fadeIn } from '../shared/animations';
@@ -16,6 +17,7 @@ export class NavbarComponent {
   links = navLinks;
   role!: string | null;
   userName!: string | null;
+  themeService = inject(ThemeService);
   constructor(private authService: AuthService, private router: Router){}
   ngOnInit(){
     this.role = this.authService.getUserData("role");
@@ -27,5 +29,8 @@ export class NavbarComponent {
   logout(){
     this.authService.logout();
     this.router.navigate(['/auth'])
+  }
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 }

@@ -1,12 +1,59 @@
 /* @import './styles.css'; */
 
+/* Light theme variables */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --navbar-bg: linear-gradient(90deg, #000000 0%, #000e10eb 74%);
+  --navbar-text: #ffffff;
+  --modal-bg: #ffffff;
+  --modal-shadow: rgba(0,0,0,0.3);
+  --overlay-bg: rgba(0, 0, 0, 0.4);
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --primary-color: #4dabf7;
+  --secondary-color: #adb5bd;
+  --navbar-bg: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 74%);
+  --navbar-text: #ffffff;
+  --modal-bg: #1e1e1e;
+  --modal-shadow: rgba(0,0,0,0.5);
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+}
+
+/* Apply theme colors globally */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-wrapper {
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease;
+}
+
+/* Theme-aware close button */
+.btn-close {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .btn-close {
+  filter: invert(1);
+}
+
 .overlays {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
@@ -15,12 +62,13 @@
 }
 
 .modal-box {
-  background: white;
+  background: var(--modal-bg);
+  color: var(--text-color);
   width: 90%;
   max-width: 600px;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 20px var(--modal-shadow);
   animation: zoomIn 0.25s ease;
 }
 

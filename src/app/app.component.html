@@ -1,4 +1,4 @@
-<div class="app-wrapper d-flex flex-column min-vh-100 ">
+<div class="app-wrapper d-flex flex-column min-vh-100" [attr.data-theme]="themeService.currentTheme">
   <app-navbar *ngIf="authService.isLoggedIn()" ></app-navbar>
   <main class="flex-grow-1 pt-5 ">
     <router-outlet></router-outlet>
