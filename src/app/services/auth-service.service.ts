@@ -2,6 +2,7 @@ import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
+import { BASE_URL } from '../constants';
 
 interface JwtPayload{
   role?: string;
@@ -12,24 +13,23 @@ interface JwtPayload{
 })
 export class AuthService {
   private readonly STORAGE_KEY = 'token';
-  private readonly BASE_URL = "http://localhost:5089/api";
   constructor(private http: HttpClient) { }
   handleSignIn(Email: string, Password: string): Observable<any>{
     const payload = {Email, Password};
-    return this.http.post(`${this.BASE_URL + '/Auth/login'}`, payload);
+    return this.http.post(`${BASE_URL + '/Auth/login'}`, payload);
 
   }
   handleSignUp(Username: string, Email: string, Password: string, Role: string): Observable<any>{
     const payload = {Username, Email, Password, Role};
-    return this.http.post(`${this.BASE_URL + '/Auth/register'}`, payload);
+    return this.http.post(`${BASE_URL + '/Auth/register'}`, payload);
   }
   sendResetCode(Email: string): Observable<any>{
     const payload = {Email};
-    return this.http.post(`${this.BASE_URL + '/Auth/send-code'}`, payload);
+    return this.http.post(`${BASE_URL + '/Auth/send-code'}`, payload);
   }
   resetPasswordWithCode(Email: string, NewPassword: string, Code: string): Observable<any>{
     const payload = {Email, NewPassword, Code};
-    return this.http.post(`${this.BASE_URL + '/Auth/reset-password'}`, payload);
+    return this.http.post(`${BASE_URL + '/Auth/reset-password'}`, payload);
   }
   logout(){
     localStorage.removeItem(this.STORAGE_KEY);

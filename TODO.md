@@ -1,3 +1,5 @@
-- [x] Modify the updateComment method in view-comment.component.ts to prompt for new content and call service.updateComment
-- [x] Update the button title in view-comment.component.html to "Edit Comment"
-- [x] Change the button class from btn-danger to btn-primary in view-comment.component.html
+- [x] Add BASE_URL constant to src/app/constants.ts
+- [x] Update src/app/services/auth-service.service.ts to import and use BASE_URL
+- [x] Update src/app/services/user.service.ts to import and use BASE_URL
+- [x] Update src/app/services/task.service.ts to import and use BASE_URL
+- [x] Update src/app/services/comment.service.ts to import and use BASE_URL

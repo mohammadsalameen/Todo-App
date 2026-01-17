@@ -1,3 +1,5 @@
+export const BASE_URL = 'http://localhost:5089/api';
+
 export interface NavLink{
   label: string;
   route: string;

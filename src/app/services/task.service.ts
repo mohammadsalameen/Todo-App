@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { ITasks, IUser, ITaskCounts } from '../shared/models/task.model';
+import { BASE_URL } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private BASE_URL = 'http://localhost:5089/api';
   private STORAGE_KEY = 'todos';
   private todosSubject = new BehaviorSubject<ITasks[]>(this.loadTodos());
   todos$ = this.todosSubject.asObservable();
@@ -29,15 +29,15 @@ export class TaskService {
   }
 
   addTask(task: any): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/Tasks`, task );
+    return this.http.post(`${BASE_URL}/Tasks`, task );
   }
   updateTask(taskId: string, updatedTask: any): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/Tasks/edit-task/${taskId}`, updatedTask);
+    return this.http.post(`${BASE_URL}/Tasks/edit-task/${taskId}`, updatedTask);
   }
 
 
   getTasksForUser(userId: string): Observable<ITasks[]> {
-    return this.http.get<any[]>(`${this.BASE_URL}/Tasks/${userId}`).pipe(
+    return this.http.get<any[]>(`${BASE_URL}/Tasks/${userId}`).pipe(
       map(tasks => tasks.map(t => ({
         id: t.id,
         title: t.title,
@@ -53,7 +53,7 @@ export class TaskService {
 
   getTaskById(id: string): Observable<ITasks | null> {
     return this.http
-      .get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`, {
+      .get<any[]>(`${BASE_URL}/Tasks/my-tasks`, {
         params: { taskId: id }
       })
       .pipe(
@@ -80,7 +80,7 @@ export class TaskService {
 
 
   // getMyTasks(): Observable<ITasks[]> {
-  //   return this.http.get<any[]>(`${this.BASE_URL}/Tasks/my-tasks`).pipe(
+  //   return this.http.get<any[]>(`${BASE_URL}/Tasks/my-tasks`).pipe(
   //     map(tasks => tasks.map(t => ({
   //       id: t.id,
   //       title: t.title,
@@ -94,16 +94,16 @@ export class TaskService {
 
 
   changeStatus(taskId: string, completed: boolean): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/Tasks/change-status/${taskId}`, { isCompleted: completed });
+    return this.http.post(`${BASE_URL}/Tasks/change-status/${taskId}`, { isCompleted: completed });
   }
 
   deleteTaskById(taskId: string): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/Tasks/delete-task/${taskId}`, taskId);
+    return this.http.post(`${BASE_URL}/Tasks/delete-task/${taskId}`, taskId);
   }
 
   getTasksPaged(userId: string, pageNumber: number, pageSize: number, search?: string, status?: string): Observable<{items: ITasks[], totalCount: number}> {
     const params = `userId=${userId}&pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}${status && status !== 'all' ? `&status=${encodeURIComponent(status)}` : ''}`;
-    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/paged?${params}`).pipe(
+    return this.http.get<{items: any[], totalCount: number}>(`${BASE_URL}/Tasks/paged?${params}`).pipe(
       map(res => ({
         items: res.items.map(t => ({
           id: t.id,
@@ -122,7 +122,7 @@ export class TaskService {
 
   getMyTasksPaged(pageNumber: number, pageSize: number, search?: string, status?: string): Observable<{items: ITasks[], totalCount: number}> {
     const params = `pageNumber=${pageNumber}&pageSize=${pageSize}${search ? `&search=${encodeURIComponent(search)}` : ''}${status && status !== 'all' ? `&status=${encodeURIComponent(status)}` : ''}`;
-    return this.http.get<{items: any[], totalCount: number}>(`${this.BASE_URL}/Tasks/paged?${params}`).pipe(
+    return this.http.get<{items: any[], totalCount: number}>(`${BASE_URL}/Tasks/paged?${params}`).pipe(
       map(res => ({
         items: res.items.map(t => ({
           id: t.id,
@@ -138,7 +138,7 @@ export class TaskService {
   }
 
   getTaskCounts(): Observable<ITaskCounts> {
-    return this.http.get<ITaskCounts>(`${this.BASE_URL}/Tasks/task-count`);
+    return this.http.get<ITaskCounts>(`${BASE_URL}/Tasks/task-count`);
   }
 
 }
