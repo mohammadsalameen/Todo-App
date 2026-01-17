@@ -13,8 +13,7 @@
   </div>
 
   <ng-select
-    class="styled-select w-100 w-md-25"
-    style="min-width: 150px"
+    class=" w-100 h-25 "
     [items]="filterOptions"
     bindLabel="label"
     bindValue="value"
@@ -106,7 +105,6 @@
         <label class="mb-0">Show</label>
 
         <ng-select
-          class="entries-select"
           [items]="itemsPerPageOptions"
           bindLabel="label"
           bindValue="value"
@@ -114,7 +112,6 @@
           [(ngModel)]="selectedOption"
           (change)="onItemsPerPageChange()"
           [dropdownPosition]="'top'"
-          appendTo="body"
         >
         </ng-select>
         <label class="mb-0">entries</label>

@@ -26,7 +26,7 @@
           <td *ngIf="show == false" >{{ user.role }}</td>
           <td *ngIf="show == false">
             <button class="btn btn-warning btn-sm" (click)="editUser(user)">
-              <i class="bi bi-pencil"></i>
+              <i class="bi bi-pencil-square"></i>
             </button>
           </td>
           <td *ngIf="show == false">
@@ -55,7 +55,7 @@
         [(ngModel)]="selectedOption"
         (change)="onItemsPerPageChange()"
         [dropdownPosition]="'top'"
-        
+
         >
 
       </ng-select>

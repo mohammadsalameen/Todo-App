@@ -4,6 +4,7 @@ import { CommentService } from '../../services/comment.service';
 import { AuthService } from '../../services/auth-service.service';
 import { ThirdPartyToastyServiceService } from '../../services/third-partytoast.service';
 import { IComment } from '../models/task.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-comment',
@@ -60,7 +61,18 @@ export class ViewCommentComponent implements OnInit {
     }
   }
   async updateComment(comment: IComment) {
-    const newContent = window.prompt('Edit Comment', comment.content);
+    const { value: newContent } = await Swal.fire({
+      title: 'Edit Comment',
+      input: 'textarea',
+      inputValue: comment.content,
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value || value.trim() === '') {
+          return 'Comment cannot be empty!';
+        }
+        return undefined;
+      }
+    });
 
     if (!newContent || newContent.trim() === comment.content.trim()) return;
 
