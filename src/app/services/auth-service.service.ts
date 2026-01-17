@@ -39,7 +39,7 @@ export class AuthService {
   }
 
 getToken(): string | null{
-  return localStorage.getItem('token');
+  return localStorage.getItem(this.STORAGE_KEY);
 }
 
 getDecodedToken(): JwtPayload | null{
